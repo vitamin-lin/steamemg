@@ -1,4 +1,4 @@
-import path from 'path'
+const path = require("path");
 
 // NOTE 在 sass 中通过别名（@ 或 ~）引用需要指定路径
 const sassImporter = function(url) {

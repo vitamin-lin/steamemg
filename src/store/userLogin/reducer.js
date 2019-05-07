@@ -10,7 +10,6 @@ const INITIAL_STATE ={
 }
 
 export default function userLogin( state = INITIAL_STATE , action ){
-  console.warn(action)
   switch (action.type){
     case CHANGE_APP_ON_LAUNCH :
       console.warn('change');
