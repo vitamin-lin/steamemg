@@ -1,5 +1,6 @@
 import "@tarojs/async-await";
 import Taro, { Component } from "@tarojs/taro";
+import { View, Text, ScrollView } from '@tarojs/components'
 import { Provider } from "@tarojs/redux";
 
 import Index from "./pages/index";

@@ -9,6 +9,9 @@ export default {
     let { url, data } = params
     let contentType = 'application/json'
     contentType = params.contentType || contentType
+    Taro.showLoading({
+      title: '加载中',
+    })
     const option = {
       url: url.indexOf('http') !== -1 ? url : BASE_URL + url,
       data: data,
@@ -16,8 +19,15 @@ export default {
       header: {
         'content-type': contentType
         // Authorization: Taro.getStorageSync("Authorization")
+      },
+      success(){
+        Taro.hideLoading();
       }
     }
+
+    Taro.showLoading({
+      title: '加载中'
+    })
     return Taro.request(option)
   },
   get(url, data = '') {

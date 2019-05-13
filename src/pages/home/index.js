@@ -3,9 +3,7 @@ import { View } from "@tarojs/components";
 import PropTypes from "prop-types";
 import { connect } from "@tarojs/redux";
 import {
-  getNewBooks,
-  getHotBooks,
-  getRecommendBooks,
+  // getRecommendBooks,
 } from "@store/home/action";
 import pageInit from '../../utils/pageInit'
 import { saveUserInfo } from "@store/userInfo/action";
@@ -19,15 +17,11 @@ import "./index.scss";
 
 @connect(
   ({ home, userInfo }) => ({
-    newBooks: home.newBooks,
-    hotBooks: home.hotBooks,
     recommendBooks: home.recommendBooks,
     userInfo: userInfo.userInfo
   }),
   {
-    dispatchGetNewBooks: getNewBooks,
-    dispatchGetHotBooks: getHotBooks,
-    dispatchGetRecommendBooks: getRecommendBooks,
+    // dispatchGetRecommendBooks: getRecommendBooks,
     dispatchSaveUserInfo: saveUserInfo,
   }
 )
@@ -41,9 +35,9 @@ class Home extends Component {
   };
 
   static propTypes = {
-    newBooks: PropTypes.arrayOf(PropTypes.object),
-    hotBooks: PropTypes.arrayOf(PropTypes.object),
-    recommendBooks: PropTypes.arrayOf(PropTypes.object)
+    // newBooks: PropTypes.arrayOf(PropTypes.object),
+    // hotBooks: PropTypes.arrayOf(PropTypes.object),
+    // recommendBooks: PropTypes.arrayOf(PropTypes.object)
   };
 
   constructor() {
@@ -52,9 +46,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatchGetNewBooks();
-    this.props.dispatchGetHotBooks();
-    this.props.dispatchGetRecommendBooks();
+    // this.props.dispatchGetRecommendBooks();
   }
 
   componentWillMount () {
@@ -106,7 +98,6 @@ class Home extends Component {
   render() {
     const { isLogin } = this.state;
     const state = Taro.$store.getState();
-    console.warn(state);
     return (
       isLogin === true ?
       <View>
@@ -117,21 +108,21 @@ class Home extends Component {
           title='新书速递'
           className='panel--first'
         >
-          <HorizonList data={this.props.newBooks} />
+
         </Panel>
         <Panel
           url={`${URL.BOOK_LIST}?type=hot`}
           title='近期热门'
           className='margin-top-lg'
         >
-          <HorizonList data={this.props.hotBooks} />
+
         </Panel>
         <Panel
           url={`${URL.BOOK_LIST}?type=recommend`}
           title='为你推荐'
           className='margin-top-lg'
         >
-          <HorizonList data={this.props.recommendBooks} />
+
         </Panel>
       </View> :
       <View>
@@ -142,3 +133,6 @@ class Home extends Component {
 }
 
 export default Home;
+// <HorizonList data={this.props.recommendBooks} />
+// <HorizonList data={this.props.hotBooks} />
+// <HorizonList data={this.props.newBooks} />

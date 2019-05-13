@@ -9,7 +9,7 @@ export default class Auth {
       return new Promise(function (resolve) {
           const state = Taro.$store.getState();
           //如果有授权信息
-          if( Auth.checkAuth() && !state.app.appOnLaunch ){
+          if( Auth.checkAuth() && !state.userLogin.appOnLaunch ){
               //直接返回
               resolve(true);
           }else{
@@ -21,18 +21,24 @@ export default class Auth {
                       let flag = await getAuthToken();
                       if( flag ) {
                           //更新app状态
+                          Taro.setStorage({key:'userLogin',data: true});
                           Taro.$store.dispatch(changeAppOnLaunch());
                           resolve(true);
                       }else{
                         //提示
                         Taro.showToast({
-                          title : '获取授权信息失败' ,
+                          title : '获取授权信息失败1' ,
                           icon : 'none' ,
                           mask : true
                         })
+                        //更新app状态
+                        Taro.setStorage({key:'userLogin',data: false});
+                        Taro.$store.dispatch(changeAppOnLaunch());
+                        resolve(false);
                       }
                   }else{
                       //更新app状态
+                      Taro.setStorage({key:'userLogin',data: true});
                       Taro.$store.dispatch(changeAppOnLaunch());
                       //token 没有过期，直接返回
                       resolve(true);
@@ -43,15 +49,20 @@ export default class Auth {
                   //判断是否 token 请求成功
                   if( flag ) {
                       //更新app状态
+                      Taro.setStorage({key:'userLogin',data: true});
                       Taro.$store.dispatch(changeAppOnLaunch());
                       resolve(true);
                   }else{
                       //提示
                       Taro.showToast({
-                          title : '获取授权信息失败' ,
+                          title : '获取授权信息失败2' ,
                           icon : 'none' ,
                           mask : true
                       })
+                      //更新app状态
+                      Taro.setStorage({key:'userLogin',data: false});
+                      Taro.$store.dispatch(changeAppOnLaunch());
+                      resolve(false);
                   }
               })
           }
@@ -59,6 +70,7 @@ export default class Auth {
   }
 
   // 检查令牌是否有效 true--> 有效  false--> 无效
+   // exp是令牌过期时间，iat令牌签发时间，nbf令牌生效时间，token是用户状态
   static checkAuth(){
       const state = Taro.$store.getState();
       //从缓存读取授权信息
@@ -69,7 +81,6 @@ export default class Auth {
       if (authorize.exp) {
           expiryTime = authorize.exp;
       }
-      console.warn(expiryTime - nowTime);
       return expiryTime - nowTime > 300;
   }
 
@@ -83,6 +94,9 @@ export default class Auth {
 
 //授权用户 token
 async function getAuthToken(){
+    Taro.showLoading({
+      title: '加载中',
+    })
     const state = Taro.$store.getState();
     //login
     let res = await Taro.login();
@@ -92,7 +106,10 @@ async function getAuthToken(){
       data : {
         code : res.code
       } ,
-      method : 'POST'
+      method : 'POST',
+      success(){
+        Taro.hideLoading();
+      }
     })
     //判断是否成功
     if( response.data.data && response.data.data.authorize ){

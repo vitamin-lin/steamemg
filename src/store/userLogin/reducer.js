@@ -12,13 +12,11 @@ const INITIAL_STATE ={
 export default function userLogin( state = INITIAL_STATE , action ){
   switch (action.type){
     case CHANGE_APP_ON_LAUNCH :
-      console.warn('change');
       return {
         ...state ,
         appOnLaunch : false
       };
     case INSERT_AUTHORIZE :
-      console.warn('insert');
       return {
           ...state ,
         authorize : action.authorize
