@@ -1,18 +1,19 @@
-import Taro, { Component } from "@tarojs/taro";
-import { View } from "@tarojs/components";
-import PropTypes from "prop-types";
-import { connect } from "@tarojs/redux";
-import {
-  // getRecommendBooks,
-} from "@store/home/action";
+// 首页
+import Taro, { Component } from "@tarojs/taro"
+import { View, Text } from "@tarojs/components"
+import PropTypes from "prop-types"
+import { connect } from "@tarojs/redux"
 import pageInit from '../../utils/pageInit'
-import { saveUserInfo } from "@store/userInfo/action";
-import Panel from "../../components/panel";
-import HorizonList from "../../components/horizon-list";
-import FakeSearchBar from "../../components/fake-search-bar";
-import URL from "../../constants/urls";
-import Banner from "./banner";
-
+import { AtAvatar } from 'taro-ui'
+import { saveUserInfo } from "@store/userInfo/action"
+import defaultAvatar from '../../assets/user.png'
+import waveTop from '../../assets/wave-top.png'
+import waveMid from '../../assets/wave-mid.png'
+import waveBot from '../../assets/wave-bot.png'
+import Datas from "../../constants/datas"
+import URL from "../../constants/urls"
+import List from "../list/index"
+import API from '../../service/api'
 import "./index.scss";
 
 @connect(
@@ -27,112 +28,71 @@ import "./index.scss";
 )
 @pageInit()
 class Home extends Component {
+  constructor (props){
+    super(props);
+    this.state = {
+      userLogin: true,
+      userInfo: [],
+      initText: '授权登录'
+    }
+  }
   config = {
-    navigationBarTitleText: "首页"
-  };
-  state = {
-    isLogin: true
+    navigationBarTitleText: "ARCHETYPE"
   };
 
-  static propTypes = {
-    // newBooks: PropTypes.arrayOf(PropTypes.object),
-    // hotBooks: PropTypes.arrayOf(PropTypes.object),
-    // recommendBooks: PropTypes.arrayOf(PropTypes.object)
-  };
-
-  constructor() {
-    super(...arguments);
-    this.onClickSearchBar = this.onClickSearchBar.bind(this);
+ 
+  componentDidMount () {
   }
 
-  componentDidMount() {
-    // this.props.dispatchGetRecommendBooks();
-  }
-
-  componentWillMount () {
-    // // 通过缓存获取是否登陆授权过，如果登录过直接进入首页，反之授权登录
-    // Taro.getStorage({key:'userInfo'}).then(rst => {
-    //   //从缓存中获取用户信息
-    //   this.setState({
-    //     isLogin: true
-    //   })
-    // }).catch(erro => {
-    //   Taro.hideTabBar({
-    //     animation: false //是否需要过渡动画
-    //   })
-    // })
-  }
-
-  onClickSearchBar() {
-    Taro.navigateTo({ url: URL.SEARCH });
-  }
   // 鉴权按钮
-  getUserInfo = () => {
-
-    // if(userInfo.detail){   //同意
-    //   console.warn('我要存储到redux了', this.props);
-    //   // this.props.setUserInfo(userInfo.detail.userInfo) //将用户信息存入redux
-    //   this.props.dispatchSaveUserInfo(userInfo.detail);
-    //   this.setState({
-    //     isLogin: true
-    //   })
-    //   Taro.setStorage({key:'userInfo',data:userInfo.detail.userInfo}).then(rst => {  //将用户信息存入缓存中
-    //     console.warn('存储成功')
-    //     Taro.navigateBack()
-    //   }).catch(erro => {
-    //     console.warn(erro, '为什么失败了')
-    //   })
-    // }
-    // else{ //拒绝,保持当前页面，直到同意
-    //   wx.removeStorage({
-    //     key: 'userInfo',
-    //     success: function(res) {
-    //       console.log(res.data)
-    //     }
-    //   })
-    //   console.warn('我拒绝了')
-    // }
+  getUserInfo = (e) => {
+    const { rawData } = e.detail;
+    let userInfo = Taro.getStorageSync('userInfo');
+    let endData = [];
+    if(userInfo && userInfo !== '') {
+      endData = JSON.parse(userInfo);
+    }
+    if(userInfo) {
+      API.get('score').then(res => {
+        Taro.navigateTo({
+          url: '/pages/list/index'
+        })
+      });
+    } else {
+      Taro.setStorage({key:'userInfo',data:rawData}).then(rst => { 
+        //将用户信息存入缓存中
+        this.setState({
+          userInfo: rawData,
+          initText: '开始答题'
+        })
+      }).catch(erro => {
+        console.warn(erro, '为什么失败了')
+      })
+    }
   }
-
 
   render() {
-    const { isLogin } = this.state;
-    const state = Taro.$store.getState();
+    let userInfos = Taro.getStorageSync('userInfo');
+    let endData = [];
+    if(userInfos && userInfos !== '') {
+      endData = JSON.parse(userInfos);
+    }
+    
     return (
-      isLogin === true ?
       <View>
-        <Banner/>
-        <FakeSearchBar onClick={this.onClickSearchBar} />
-        <Panel
-          url={`${URL.BOOK_LIST}?type=new`}
-          title='新书速递'
-          className='panel--first'
-        >
-
-        </Panel>
-        <Panel
-          url={`${URL.BOOK_LIST}?type=hot`}
-          title='近期热门'
-          className='margin-top-lg'
-        >
-
-        </Panel>
-        <Panel
-          url={`${URL.BOOK_LIST}?type=recommend`}
-          title='为你推荐'
-          className='margin-top-lg'
-        >
-
-        </Panel>
-      </View> :
-      <View>
-        <Button open-type='getUserInfo' onGetUserInfo={this.getUserInfo}> 微信授权 </Button>
+        <View className='btom'></View>
+        <View className='Tits'></View>
+        <View className='Tit'>ARCHETYPE TEST</View>
+        <View className='avatars'>
+          <Image
+            src={endData.length !== 0 ? endData.avatarUrl : ''}
+          />
+          <Text className='nick'>{endData.nickName ? endData.nickName : '昵称'}</Text>
+        </View>
+        <Button className='begin' open-type='getUserInfo' onGetUserInfo={this.getUserInfo}> {endData.length !== 0 ? '开始答题' : this.state.initText} </Button>
       </View>
     );
   }
 }
 
 export default Home;
-// <HorizonList data={this.props.recommendBooks} />
-// <HorizonList data={this.props.hotBooks} />
-// <HorizonList data={this.props.newBooks} />

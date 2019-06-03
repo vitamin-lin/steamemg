@@ -6,7 +6,7 @@ export const changeAppOnLaunch = () => ({
 })
 
 //写入请求token
-export const insertToken = (authorize) => ({
+export const insertToken = (token) => ({
     type : INSERT_AUTHORIZE ,
-    authorize
+    token
 })

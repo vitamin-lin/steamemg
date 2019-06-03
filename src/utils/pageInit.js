@@ -1,7 +1,7 @@
 //pageInit.js
 
 import Taro from '@tarojs/taro'
-import auth from '../utils/auth'
+import auth from '../utils/auths'
 
 function pageInit() {
   return function Component(Component) {
@@ -25,33 +25,37 @@ function pageInit() {
             super.componentDidMount && super.componentDidMount();
           }else{
             //授权失败
+
             Taro.showToast({
                 title : '授权失败' ,
                 icon : 'none' ,
                 mask : true
             })
+            // Taro.navigateTo({
+            //   url: "../userInfo/index"
+            // })
           }
       }
 
       //重写分享
       onShareAppMessage(){
-          let shareOptions = super.onShareAppMessage();
-          //如果当前页面配置分享使用配置的
-          if( shareOptions ) return shareOptions;
-          //默认分享
-          return {
-              title : '默认分享内容'
-          }
+        let shareOptions = super.onShareAppMessage();
+        //如果当前页面配置分享使用配置的
+        if( shareOptions ) return shareOptions;
+        //默认分享
+        return {
+            title : '默认分享内容'
+        }
       }
 
       //重新下拉刷新
       onPullDownRefresh(){
-          if(super.onPullDownRefresh){
-              super.onPullDownRefresh();
-              setTimeout(() => {
-                  Taro.stopPullDownRefresh();
-              }, 1500)
-          }
+        if(super.onPullDownRefresh){
+            super.onPullDownRefresh();
+            setTimeout(() => {
+                Taro.stopPullDownRefresh();
+            }, 1500)
+        }
       }
     }
   };

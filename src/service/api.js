@@ -17,8 +17,8 @@ export default {
       data: data,
       method: method,
       header: {
-        'content-type': contentType
-        // Authorization: Taro.getStorageSync("Authorization")
+        'content-type': contentType,
+        'x-token': Taro.getStorageSync("token")
       },
       success(){
         Taro.hideLoading();

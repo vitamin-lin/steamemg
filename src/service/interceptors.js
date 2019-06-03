@@ -21,6 +21,7 @@ const customInterceptor = function(chain) {
       return showError(res.errMsg, showToast)
     })
     .then(res => {
+      // 注：公用状态码，之后要统一处理
       // 只要请求成功，不管返回什么状态码，都走这个回调
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
         return showError('请求资源不存在', showToast)

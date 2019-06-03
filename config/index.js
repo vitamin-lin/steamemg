@@ -17,8 +17,8 @@ const sassImporter = function(url) {
 }
 
 const config = {
-  projectName: 'campus-book-market',
-  date: '2019-3-14',
+  projectName: 'kmPro',
+  date: '2019-5-16',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,

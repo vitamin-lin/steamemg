@@ -27,7 +27,7 @@ export default class Auth {
                       }else{
                         //提示
                         Taro.showToast({
-                          title : '获取授权信息失败1' ,
+                          title : '获取授权信息失败' ,
                           icon : 'none' ,
                           mask : true
                         })
@@ -55,7 +55,7 @@ export default class Auth {
                   }else{
                       //提示
                       Taro.showToast({
-                          title : '获取授权信息失败2' ,
+                          title : '获取授权信息失败' ,
                           icon : 'none' ,
                           mask : true
                       })

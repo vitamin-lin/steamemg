@@ -1,4 +1,4 @@
-import { CHANGE_APP_ON_LAUNCH, INSERT_AUTHORIZE } from "./action-type";
+import { CHANGE_APP_ON_LAUNCH, INSERT_token } from "./action-type";
 
 const INITIAL_STATE ={
   //请求接口域名地址
@@ -6,7 +6,7 @@ const INITIAL_STATE ={
   //应用首次加载
   appOnLaunch : true ,
   //请求token
-  authorize : ''
+  token : ''
 }
 
 export default function userLogin( state = INITIAL_STATE , action ){
@@ -16,10 +16,10 @@ export default function userLogin( state = INITIAL_STATE , action ){
         ...state ,
         appOnLaunch : false
       };
-    case INSERT_AUTHORIZE :
+    case INSERT_token :
       return {
           ...state ,
-        authorize : action.authorize
+        token : action.token
       };
     default :
       return state;

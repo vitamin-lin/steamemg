@@ -1,3 +1,18 @@
 @import "~taro-ui/dist/style/variables/default.scss";
 $book-image-width: (750px - $spacing-h-lg * 4) / 3; // 218
 $book-image-height: 300px; // 300
+
+$primary-color: #ab2b2b;
+$disabled-color: #dddddd;
+
+$black: #000000;
+$white: #ffffff;
+
+$text-color: #333333;
+$text-color-light: #666666;
+$text-color-lighter: #999999;
+
+$border-color: #dddddd;
+$border-radius: 4px;
+
+$image-bg: #f4f4f4;

@@ -13,7 +13,6 @@ export default class CityPicker extends Component {
 
     this.state = {
       selector: [],
-      selectedArea: '北京北京市东城区',
       columnRecord:'0',
       defaultArea:["0","0","0"]
     }
@@ -55,10 +54,12 @@ export default class CityPicker extends Component {
     let sec=e.detail.value[1];
     let third=e.detail.value[2];
     // let info=city[first].sub[sec].sub[third];
-    selectedArea=city[first].name+city[first].sub[sec].name+city[first].sub[sec].sub[third].name;
-    this.setState({
-      selectedArea:selectedArea
-    })
+    selectedArea = {
+      province: city[first].name,
+      city: city[first].sub[sec].name,
+      area: city[first].sub[sec].sub[third].name
+    }
+
     this.props.onChangeCity(selectedArea);
   }
 

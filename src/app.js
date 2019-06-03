@@ -22,59 +22,35 @@ class App extends Component {
   config = {
     pages: [
       "pages/home/index",
-      "pages/book-list/index",
-      "pages/search/index",
-      "pages/book-detail/index",
-      "pages/index/index",
-      "pages/user/index",
-      "pages/cart/index",
-      "pages/userInfo/index"
+      "pages/list/index",
     ],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#fff",
+      navigationBarBackgroundColor: "#2fb7f5",
       navigationBarTitleText: "WeChat",
-      navigationBarTextStyle: "black",
+      navigationBarTextStyle: "white",
       backgroundColor: "#FAFBFC"
     },
-    tabBar: {
-      list: [
-        {
-          pagePath: "pages/index/index",
-          text: "团购资讯",
-          iconPath: "./assets/cate.png",
-          selectedIconPath: "./assets/cate-active.png"
-        },
-        {
-          pagePath: "pages/home/index",
-          text: "首页",
-          iconPath: "./assets/home.png",
-          selectedIconPath: "./assets/home-active.png"
-        },
-        {
-          pagePath: "pages/cart/index",
-          text: "购物车",
-          iconPath: "./assets/cart.png",
-          selectedIconPath: "./assets/cart-active.png"
-        },
-        {
-          pagePath: "pages/user/index",
-          text: "我的",
-          iconPath: "./assets/user.png",
-          selectedIconPath: "./assets/user-active.png"
-        }
-      ],
-      color: "#a6a6a6",
-      selectedColor: "#000",
-      backgroundColor: "#ffffff",
-      borderStyle: "black"
-    }
+    // tabBar: {
+    //   list: [],
+    //   color: "#a6a6a6",
+    //   selectedColor: "#000",
+    //   backgroundColor: "#ffffff",
+    //   borderStyle: "black"
+    // }
     // debug: true
   };
 
   componentDidMount() {
     //将redux状态挂载到 Taro 对象上，Taro.$store直接获取操作
     Taro.$store = store;
+    // Taro.request({
+    //   url : 'http://archetype.kmtongji.com/test' ,
+    //   method : 'get',
+    //   success(){
+    //       Taro.hideLoading();
+    //   }
+    // })
   }
 
   componentDidShow() {}
