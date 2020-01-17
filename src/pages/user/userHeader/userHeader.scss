@@ -1,0 +1,64 @@
+// @import "@styles/theme.scss";
+
+// $height: 230px;
+$avatarSize: 140px;
+
+.wrap{
+  // width: 720px;
+  position: relative;
+  height: 192px;
+  // overflow: hidden;
+  // background:orange;
+  // margin: 0 auto;
+  top: 48px;
+  border-radius: 10px;
+  .headPics {
+    width: 105px;
+    height: 105px;
+    border-radius: 100%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 26px;
+    margin-bottom: 22px;
+    overflow: hidden;
+    position: relative;
+    top: 48px;
+  }
+  .headPic {
+    width: 105px;
+    height: 105px;
+    border-radius: 100%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 26px;
+    margin-bottom: 22px;
+    overflow: hidden;
+    background: #ccc;
+  }
+  .nick {
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+  }
+  .staus{
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    // background: orange;
+    // height: 30px;
+    // line-height: 50px;
+    .phone {
+      color: #a0a0a0;
+      font-size: 22px;
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+  .user{
+    // background: orange;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+

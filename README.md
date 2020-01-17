@@ -2,6 +2,18 @@
 
 Taro + Taro UI + Redux + Webpack + ES6 + Mock
 
+## 注意
+
+1. 版本问题 taro-cli v 1.2.17
+
+`npm install -g @tarojs/cli@1.2.17`
+
+使用 v 1.2.26 编译报 `@taro/redux` 错误，v. 1.3 以上版本添加了对`react hook`的支持
+
+2. 后端 API 域名的切换
+
+添加 script:  `npm run dev:weapp-prod`  watch 模式下运行正式生产环境的域名 `https://mpmall.huggiesapp.cn/`
+
 ## 目录
 
 - [技术栈](#技术栈)
@@ -63,7 +75,7 @@ $ gulp mock
 
 ### 开发工具
 
-开发工具：VS Code  
+开发工具：VS Code
 代码规范：[Prettier](https://prettier.io/) 插件 + ES Lint 插件
 
 VS Code 对 JSX 与 TypeScript 有天然的支持，使用 VS Code 开发 Taro，不需要配置任何插件就能实现 Taro 组件的自动 import 与 props 提示，非常方便。
@@ -168,6 +180,7 @@ Taro 会将有大写字母的`Px`或`PX`忽略，但是 VS Code 在使用 Pretti
   /* prettier-ignore */
   $input-padding: 25PX;
   ```
+
 ## 引入 Redux
 
 ### Redux 文件设置
@@ -241,7 +254,7 @@ const mapStateToProps = (state) => {
 ```js
 const mapStateToProps = ({ count }) => ({
   count
-});
+})
 ```
 
 有时候我们需要根据组件自身的`props`作一些条件判断，这时候就需要用到第二个参数。
@@ -460,8 +473,8 @@ function interceptor(req, next) {
 function interceptor(chain) {
   // 在下一个中间件执行之前做一些操作...
   // 比如添加一个参数
-  var requestParmas = chain.requestParmas;
-  requestParmas.token = "token";
+  var requestParmas = chain.requestParmas
+  requestParmas.token = 'token'
 
   // 执行下一个中间件...
   return chain.proceed(requestParmas).then(res => {
@@ -470,8 +483,8 @@ function interceptor(chain) {
     if (res.status == 401) {
       // ...
     }
-    return res;
-  });
+    return res
+  })
 }
 ```
 

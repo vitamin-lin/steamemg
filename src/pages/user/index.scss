@@ -1,0 +1,136 @@
+// @import "@styles/theme.scss";
+
+.user {
+  position: relative;
+  // background: orange;
+  color: #000;
+  padding-bottom: 60px;
+  .user_box {
+    width: 694px;
+    height: 1245px;
+    min-height: 1200px;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow:0px 2px 20px #e3e3e3;
+    background: #fff;
+    // overflow: hidden;
+    .noLogin {
+      width: 634px;
+      height: 300px;
+      // background: orange;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      margin: 0 auto;
+      z-index: 10;
+    }
+  }
+  .panel_top {
+    width: 634px;
+    margin-top: 10px;
+    margin: 0 auto;
+    .my-panel-header{
+      border-bottom: 2px solid #e5e5e5;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+    .my-panel-body{
+      display: none;
+    }
+  }
+
+  .address {
+    // border-bottom: 2px solid #e5e5e5;
+    .at-list__item {
+      border-bottom: 2px solid #e5e5e5;
+    }
+    .at-list__item--thumb .item-thumb {
+      width: 38px;
+      height: 38px;
+    }
+    .at-list__item .item-extra__icon-arrow {
+      color:#000;
+      font-size:28rpx;
+    }
+    .at-list__item .item-content__info-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  .panel_first {
+    border-top: 0;
+    margin-top: 56px;
+    border-bottom: 2px solid #e5e5e5;
+    font-weight: 600;
+    font-size: 18px;
+    .my-panel-body{
+      display: block;
+    }
+  }
+  .verCode {
+    width: 585px;
+    height: 518px;
+    margin: 0 auto;
+    margin-top: 31px;
+    font-size: 24px;
+    font-weight: 600;
+    // background: orange;
+    .codeHeader {
+      width: 571px;
+      Text {
+        height: 38px;
+        line-height: 38px;
+        display: block;
+        float: left;
+      }
+      .erweima{
+        width: 38px;
+        height: 38px;
+        margin-right: 27px;
+        float: left;
+      }
+      .codePic {
+        width: 410px;
+        height: 410px;
+        margin: 0 auto;
+        // background: orange;
+        display: block;
+        top: 40px;
+        position: relative;
+      }
+    }
+  }
+}
+
+
+.panels{
+  width: 634px;
+  height: 70px;
+  // background: orange;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 270px;
+  margin: 0 auto;
+  z-index: 12;
+}
+
+.getUser {
+  width: 100%;
+  // height: 265px;
+  background: orange;
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  top: 240px;
+  margin: 0 auto;
+  opacity: 0;
+  Button {
+    height: 265px;
+    line-height: 265px;
+  }
+}

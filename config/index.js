@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path')
 
 // NOTE 在 sass 中通过别名（@ 或 ~）引用需要指定路径
 const sassImporter = function(url) {
@@ -17,7 +17,7 @@ const sassImporter = function(url) {
 }
 
 const config = {
-  projectName: 'kmPro',
+  projectName: 'huggies-Mall',
   date: '2019-5-16',
   designWidth: 750,
   deviceRatio: {
@@ -64,6 +64,14 @@ const config = {
     options: {}
   },
   weapp: {
+    compile: {
+      compressTemplate: false,
+      exclude: [
+        'src/utils/km.js',
+        'src/utils/kmConf.js',
+        'src/utils/gdtevent_wx.min.js'
+      ]
+    },
     module: {
       postcss: {
         autoprefixer: {
@@ -120,6 +128,8 @@ const config = {
 }
 
 module.exports = function(merge) {
+  console.log('process.env.NODE_ENV config : ', process.env.NODE_ENV)
+
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }

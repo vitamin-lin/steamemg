@@ -2,15 +2,125 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "huggiesMall",
 	"description": "huggiesMall",
-	"appid": "wx2f343d7e7173087b",
+	"appid": "wxaebfbc297e492f1f",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false
+		"minified": false,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"condition": {}
+	"libVersion": "2.8.2",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 10,
+			"list": [
+				{
+					"id": 0,
+					"name": "success",
+					"pathName": "pages/success/index",
+					"query": "goodId=501",
+					"scene": 1001
+				},
+				{
+					"id": 1,
+					"name": "detail",
+					"pathName": "pages/detail/index",
+					"query": "gid=8&gdt_vid=wx0ewinbalytptma00&weixinadinfo=20966864.wx0ewinbalytptma00.0.1",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "shareDetail",
+					"pathName": "pages/shareDetail/index",
+					"query": "from=detail&type=joinTeam&gid=8&gcode=67ddf28b39e950715e7c3f2cf1ab1560&kmsrc=sumaolin&refer_share_user=09004379befc0c1563013846714",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "gvd",
+					"pathName": "pages/home/index",
+					"query": "?sku=1077777&platform=1&gdt_vid=wx0ewinbalytptma00&weixinadinfo=20966864.wx0ewinbalytptma00.0.1",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "corder",
+					"pathName": "pages/confirmOrder/index",
+					"query": "from=detail&gid=26&__key_=15711108719742",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "starsDetail",
+					"pathName": "pages/starsDetail/index",
+					"query": "kmsrc=sumaolin&refer_share_user=09004379befc0c1563013846714&id=1&total=2477&gid=8&gid_pic=https://mpmall.huggiesapp.cn/storage/wxmall/another/gid_8.jpg&__key_=15631853080072",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "index",
+					"pathName": "pages/home/index",
+					"query": "platform=sumaolin&refer_share_user=lilihua&coupon=1",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "pages/all/index",
+					"pathName": "pages/all/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/bulk/index",
+					"pathName": "pages/bulk/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/index",
+					"pathName": "pages/home/index",
+					"query": "coupon=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order/index",
+					"pathName": "pages/order/index",
+					"query": "id=1&from=confirmOrder&__key_=15731125457326",
+					"scene": null
+				}
+			]
+		}
+	}
 }

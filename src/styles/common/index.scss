@@ -1,5 +1,5 @@
-@import "../variables.scss";
-@import "./icon.scss";
+@import '../variables.scss';
+@import './icon.scss';
 
 /* Margin */
 .margin-top-sm {
@@ -89,4 +89,44 @@
 .font-xxl {
   // 用于大号的数字
   font-size: $font-size-xxl;
+}
+
+.kmDialog {
+  .at-modal__container {
+    width: 694px;
+  }
+  .at-modal__header {
+    width: 694px;
+    height: 114px;
+    line-height: 78px;
+    box-sizing: border-box;
+    .icon-wrap {
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      right: 25px;
+      top: 25px;
+      overflow: hidden;
+      .icon-close {
+        width: 65px;
+        height: 65px;
+      }
+    }
+  }
+  .at-modal__content {
+    width: 694px;
+    min-height: 695px;
+    box-sizing: border-box;
+  }
+  .at-modal__footer {
+    .at-modal__action {
+      font-size: 24px;
+      color: #959595;
+      text-align: center;
+      width: 100%;
+      line-height: 84px;
+      justify-content: center;
+    }
+    height: 84px;
+  }
 }

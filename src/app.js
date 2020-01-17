@@ -1,14 +1,19 @@
-import "@tarojs/async-await";
-import Taro, { Component } from "@tarojs/taro";
-import { View, Text, ScrollView } from '@tarojs/components'
-import { Provider } from "@tarojs/redux";
+/* eslint-disable */
+import '@tarojs/async-await'
+import Taro, { Component } from '@tarojs/taro'
+import { Provider } from '@tarojs/redux'
+// import { View, Text, ScrollView } from '@tarojs/components'
+import API from './service/api'
+/* eslint-enable */
 
-import Index from "./pages/index";
+import Index from './pages/index'
+import configStore from './store'
 
-import configStore from "./store";
-
-import "./app.scss";
-import "./assets/fonts/iconfont.css";
+import { setGlobalData } from './utils/global'
+import './app.scss'
+import './assets/fonts/iconfont.css'
+import './utils/kmConf'
+import './utils/km'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -16,50 +21,134 @@ import "./assets/fonts/iconfont.css";
 //   require('nerv-devtools')
 // }
 
-const store = configStore();
+const store = configStore()
 
 class App extends Component {
+  state = {
+    /* eslint-disable */
+    isPhoneX: 0
+    /* eslint-enable */
+  }
   config = {
     pages: [
-      "pages/home/index",
-      "pages/list/index",
+      // 'pages/home/index',
+      // 'pages/confirmOrder/index',
+      // 'pages/shareDetail/index',
+      // 'pages/coupons/index',
+      // 'pages/detail/index',
+      'pages/bulk/index',
+      // 'pages/stars/index',
+      // 'pages/starsDetail/index',
+      // 'pages/newStarsDetail/index',
+      // 'pages/banner/index',
+      'pages/user/index',
+      // 'pages/cart/index',
+      // 'pages/userInfo/index',
+      // 'pages/order/index',
+      // 'pages/success/index',
+      // 'pages/all/index',
+      // 'pages/tempDetail/index',
+      // 'pages/webView/index'
     ],
     window: {
-      backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#2fb7f5",
-      navigationBarTitleText: "WeChat",
-      navigationBarTextStyle: "white",
-      backgroundColor: "#FAFBFC"
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black',
+      backgroundColor: '#f1f1f1'
     },
-    // tabBar: {
-    //   list: [],
-    //   color: "#a6a6a6",
-    //   selectedColor: "#000",
-    //   backgroundColor: "#ffffff",
-    //   borderStyle: "black"
-    // }
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/bulk/index',
+          text: '组队资讯',
+          iconPath: './assets/cate.png',
+          selectedIconPath: './assets/cate-active.png'
+        },
+        // {
+        //   pagePath: 'pages/all/index',
+        //   text: '全部商品',
+        //   iconPath: './assets/all.png',
+        //   selectedIconPath: './assets/all-active.png'
+        // },
+        // {
+        //   pagePath: 'pages/home/index',
+        //   text: '首页',
+        //   iconPath: './assets/home.png',
+        //   selectedIconPath: './assets/home-active.png'
+        // },
+        // {
+        //   pagePath: 'pages/cart/index',
+        //   text: '购物车',
+        //   iconPath: './assets/cart.png',
+        //   selectedIconPath: './assets/cart-active.png'
+        // },
+        {
+          pagePath: 'pages/user/index',
+          text: '我的',
+          iconPath: './assets/user.png',
+          selectedIconPath: './assets/user-active.png'
+        }
+      ],
+      color: '#a7a7a7',
+      selectedColor: '#242424',
+      backgroundColor: '#ffffff',
+      borderStyle: 'white'
+    },
+
+    networkTimeout: {
+      request: 1000000,
+      connectSocket: 100000,
+      uploadFile: 100000,
+      downloadFile: 100000
+    }
+
     // debug: true
-  };
+  }
+
+  componentWillMount() {}
 
   componentDidMount() {
     //将redux状态挂载到 Taro 对象上，Taro.$store直接获取操作
-    Taro.$store = store;
-    // Taro.request({
-    //   url : 'http://archetype.kmtongji.com/test' ,
-    //   method : 'get',
-    //   success(){
-    //       Taro.hideLoading();
-    //   }
-    // })
+    this.checkMobilePhone()
+    Taro.$store = store
   }
 
-  componentDidShow() {}
+  componentDidShow() {
+  }
 
   componentDidHide() {}
 
   componentCatchError() {}
 
   componentDidCatchError() {}
+
+  checkMobilePhone() {
+    // var self = this
+    Taro.getSystemInfo({
+      success: function(e) {
+        var a = e.model
+        // Taro.showToast({
+        //   title : a ,
+        //   icon : 'none' ,
+        //   mask : true
+        // })
+        if (
+          -1 != a.search('iPhone X') ||
+          -1 != a.search('iPhone XS') ||
+          -1 != a.search('iPhone XS Max') ||
+          -1 != a.search('iPhone XR')
+        ) {
+          //找到
+          setGlobalData('isIphoneX', 1)
+          // console.warn('我是X系列')
+        } else {
+          setGlobalData('isIphoneX', 0)
+          // console.warn('我不是X')
+        }
+      }
+    })
+  }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
@@ -68,8 +157,8 @@ class App extends Component {
       <Provider store={store}>
         <Index />
       </Provider>
-    );
+    )
   }
 }
 
-Taro.render(<App />, document.getElementById("app"));
+Taro.render(<App />, document.getElementById('app'))

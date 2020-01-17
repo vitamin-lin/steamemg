@@ -2,6 +2,7 @@
 
 import Taro from '@tarojs/taro'
 import { insertToken , changeAppOnLaunch } from '../store/userLogin/action'
+import API from '../service/api'
 //获取数据
 export default class Auth {
   //app授权
@@ -33,15 +34,15 @@ async function checkToken(resolve, flag){
     //更新app状态
     // Taro.setStorage({key:'userLogin',data: true});
     // Taro.$store.dispatch(changeAppOnLaunch());
-    // resolve(true);
+    resolve(true);
   }else{
     //提示
-    Taro.showToast({
-        title : '获取授权信息失败' ,
-        icon : 'none' ,
-        mask : true
-    })
-    // resolve(false);
+    // Taro.showToast({
+    //     title : '获取授权信息失败' ,
+    //     icon : 'none' ,
+    //     mask : true
+    // })
+    resolve(false);
   }
 }
 
@@ -51,40 +52,16 @@ async function getAuthToken(){
     Taro.showLoading({
       title: '加载中',
     })
-    const state = Taro.$store.getState();
-    //login
-    let res = await Taro.login();
-    //获取token
-    let response = await Taro.request({
-      url : 'https://archetype.kmtongji.com/login' ,
-      data : {
-        code : res.code
-      } ,
-      method : 'POST',
-      success(rst){
-        Taro.hideLoading();
-        if(rst.data.code === 0) {
-          // Taro.navigateTo({
-          //   url: "../home/index"
-          // })
-        }
-      },
-      fail(erro) {
-        // Taro.navigateTo({
-        //   url: '/pages/list/index'
-        // })
+
+    API.get('api/orders', {
+      status: '全部',
+      page: 1
+    }).then(res => {
+      Taro.hideLoading();
+      if(res.data.code === '20000') {
+        return true;
+      } else if((res.data.code === '50010' || res.data.code === '50012' || res.data.code === '50014')){
+        return false;
       }
     })
-    //判断是否成功
-    if( response.data && response.data.token ){
-      //写入token
-      let token = response.data.token;
-      //写入状态管理
-      Taro.$store.dispatch(insertToken(token));
-      //写入缓存
-      Taro.setStorageSync('token',token)
-      return true;
-    }else{
-      return false;
-    }
 }
