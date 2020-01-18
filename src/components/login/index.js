@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import API from '../../service/api'
-import saveUserInfo from '../../store/userInfo/action'
+// import saveUserInfo from '../../store/userInfo/action'
 import './index.scss'
 
 class login extends Component {
@@ -16,7 +16,7 @@ class login extends Component {
   }
 
   componentDidShow() {
-    this.member()
+    // this.member()
   }
 
   // 判断是否登陆授权
@@ -66,10 +66,8 @@ class login extends Component {
     if (response.detail.userInfo) {
       this.sendUserInfo(response)
       /* eslint-enable */
-      app.km.track('authorize', null)
     } else {
       //拒绝,保持当前页面，直到同意
-      app.km.track('cancel', null)
       // Taro.navigateTo({
       //   url: '/pages/order/index?id=0'
       // })

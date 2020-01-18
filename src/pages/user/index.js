@@ -6,6 +6,7 @@ import Policy from './policy'
 import Panel from '../../components/panel'
 import biaoqian from '../../assets/images/biaoqian.png'
 import quan from '../../assets/images/quan.png'
+import icons from '../../assets/images/heart.png'
 import './index.scss'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
@@ -114,36 +115,22 @@ class User extends Component {
     }
   }
 
-  onTabItemTap(item) {
-    console.log(item)
-    const arrTrack = ['groupnews', 'allgd', 'index', 'shoppingcart', 'personal']
-    const app = getApp()
-    app.km.track(arrTrack[item.index], null)
-  }
-
   render() {
     const { id } = this.state
     const state = Taro.$store.getState()
     return (
       <View className='user'>
         <View className='user_box'>
-          <UserHeader reuxState={state} />
+          <UserHeader/>
           {/** 引入登陆授权组件 **/}
           <View className='getUser'>
             <Logins />
           </View>
-          <Panel
-            title='订单中心'
-            changeId={id}
-            className='panel_top panel_first'
-            url='/pages/order/index'
-          >
-            <Policy onChangeId={this.onChangeId} />
-          </Panel>
           <View className='panels' onClick={this.links} />
-          <AtList className='panel_top address' hasBorder={false}>
+          <View className='main'>
+            <AtList className='panel_top address' hasBorder={false}>
             <AtListItem
-              title='收货地址'
+              title='我的记录'
               arrow='right'
               hasBorder={false}
               thumb={biaoqian}
@@ -155,7 +142,7 @@ class User extends Component {
               }}
             />
             <AtListItem
-              title='我的优惠券'
+              title='我的成就'
               arrow='right'
               hasBorder={false}
               thumb={quan}
@@ -167,20 +154,19 @@ class User extends Component {
                 customStyle: 'iconAddress'
               }}
             />
+            <AtListItem
+              title='客服'
+              arrow='right'
+              hasBorder={false}
+              thumb={icons}
+              className='icons'
+              iconInfo={{
+                size: 25,
+                color: '#FF4949',
+                customStyle: 'iconAddress'
+              }}
+            />
           </AtList>
-          <View className='verCode'>
-            <View className='codeHeader'>
-              <Image
-                className='erweima'
-                src='https://mpmall.huggiesapp.cn/storage/wxmall/another/erweima.png'
-              />
-              <Text> 关注公众号 扫码免费领试用</Text>
-              <Image
-                className='codePic'
-                src='https://mpmall.huggiesapp.cn/storage/wxmall/another/codePicnew.png'
-                mode='aspectFit'
-              />
-            </View>
           </View>
         </View>
       </View>

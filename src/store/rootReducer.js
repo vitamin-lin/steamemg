@@ -8,11 +8,5 @@ import shareGroup from './shareDetail/reducer'
 import ruleDialog from './ruleDialog/reducer'
 
 export default combineReducers({
-  userInfo,
-  userLogin,
-  idData,
   GDetail,
-  cOrder,
-  shareGroup,
-  ruleDialog
 })

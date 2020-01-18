@@ -12,8 +12,8 @@ import configStore from './store'
 import { setGlobalData } from './utils/global'
 import './app.scss'
 import './assets/fonts/iconfont.css'
-import './utils/kmConf'
-import './utils/km'
+// import './utils/kmConf'
+// import './utils/km'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -31,22 +31,22 @@ class App extends Component {
   }
   config = {
     pages: [
-      // 'pages/home/index',
+      'pages/home/index',
       // 'pages/confirmOrder/index',
       // 'pages/shareDetail/index',
       // 'pages/coupons/index',
       // 'pages/detail/index',
-      'pages/bulk/index',
+      'pages/knowledge/index',
+      'pages/user/index',
       // 'pages/stars/index',
       // 'pages/starsDetail/index',
       // 'pages/newStarsDetail/index',
       // 'pages/banner/index',
-      'pages/user/index',
+
       // 'pages/cart/index',
       // 'pages/userInfo/index',
       // 'pages/order/index',
       // 'pages/success/index',
-      // 'pages/all/index',
       // 'pages/tempDetail/index',
       // 'pages/webView/index'
     ],
@@ -60,29 +60,11 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          pagePath: 'pages/bulk/index',
-          text: '组队资讯',
+          pagePath: 'pages/knowledge/index',
+          text: '知识树',
           iconPath: './assets/cate.png',
           selectedIconPath: './assets/cate-active.png'
         },
-        // {
-        //   pagePath: 'pages/all/index',
-        //   text: '全部商品',
-        //   iconPath: './assets/all.png',
-        //   selectedIconPath: './assets/all-active.png'
-        // },
-        // {
-        //   pagePath: 'pages/home/index',
-        //   text: '首页',
-        //   iconPath: './assets/home.png',
-        //   selectedIconPath: './assets/home-active.png'
-        // },
-        // {
-        //   pagePath: 'pages/cart/index',
-        //   text: '购物车',
-        //   iconPath: './assets/cart.png',
-        //   selectedIconPath: './assets/cart-active.png'
-        // },
         {
           pagePath: 'pages/user/index',
           text: '我的',
