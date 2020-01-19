@@ -36,7 +36,7 @@ class App extends Component {
       // 'pages/shareDetail/index',
       // 'pages/coupons/index',
       // 'pages/detail/index',
-      'pages/knowledge/index',
+      // 'pages/knowledge/index',
       'pages/user/index',
       // 'pages/stars/index',
       // 'pages/starsDetail/index',
@@ -60,7 +60,7 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          pagePath: 'pages/knowledge/index',
+          pagePath: 'pages/user/index',
           text: '知识树',
           iconPath: './assets/cate.png',
           selectedIconPath: './assets/cate-active.png'

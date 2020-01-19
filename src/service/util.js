@@ -36,7 +36,6 @@ export function CheckLogin() {
             const { openid, unionid, token } = response.data
             const app = getApp()
             /* eslint-enable */
-            app.km.indentify(openid, unionid)
             Taro.setStorageSync('token', token)
             // Taro.setStorageSync('expInfo', {
             //   startTime: new Date().getTime(),

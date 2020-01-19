@@ -12,9 +12,18 @@
   background: #fff;
   margin-bottom: 40px;
   border-radius: 15px;
+  position: relative;
   .tit {
     line-height: 300px;
     text-align: center;
     color: #000;
+  }
+  Button {
+    width: 650px;
+    height: 300px;
+    display: block;
+    position: absolute;
+    top: 0px;
+    opacity: 0;
   }
 }

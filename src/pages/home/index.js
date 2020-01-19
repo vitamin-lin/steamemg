@@ -4,11 +4,14 @@ import { AtTabBar, AtIcon } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
+import pageInit from '../../utils/pageInit'
 import User from '../user/index'
 import Knowledge from '../knowledge/index'
-// @withShare()
-// @pageInit()
-class Coupons extends Component {
+
+@pageInit()
+@withShare()
+
+class HOME extends Component {
   config = {
     navigationBarTitleText: 'MARS MAKER'
     // disableScroll: true
@@ -18,12 +21,16 @@ class Coupons extends Component {
     super(...arguments)
     this.state = {
       current: 0,
-      loads: true
+      loads: true,
+      canShare: true
     }
   }
 
   componentDidMount() {
-
+    // API.get('api/member').then(res => {
+    //   if (res.code == 20000) {
+    //   }
+    // })
   }
 
   componentDidShow() {
@@ -75,12 +82,6 @@ class Coupons extends Component {
     return (
       <View className='wrap'>
         {
-          loads &&
-          <View className='loading_fc'>
-            loading....
-          </View>
-        }
-        {
           current == 1 ? <User/> : <Knowledge/>
         }
         <AtTabBar
@@ -100,4 +101,11 @@ class Coupons extends Component {
   }
 }
 
-export default Coupons
+export default HOME
+
+// {
+//   loads &&
+//   <View className='loading_fc'>
+//     loading....
+//   </View>
+// }

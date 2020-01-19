@@ -84,20 +84,7 @@ class User extends Component {
     })
   }
 
-  getCoupons() {
-    const app = getApp()
-    app.km.track('coupons', null)
-    Taro.navigateTo({
-      url: '/pages/coupons/index?type=1'
-    })
-  }
 
-  onChangeId(e) {
-    // console.warn(e)
-    this.setState({
-      id: e
-    })
-  }
 
   componentDidShow() {
     let userLogin = Taro.getStorageSync('userLogin')

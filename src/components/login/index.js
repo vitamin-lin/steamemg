@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import API from '../../service/api'
-// import saveUserInfo from '../../store/userInfo/action'
 import './index.scss'
 
 class login extends Component {
@@ -44,11 +43,6 @@ class login extends Component {
     }).then(res => {
       const { detail } = response
       const { unionid, openid } = res.data
-      /* eslint-disable */
-      const app = getApp()
-      /* eslint-enable */
-      app.km.indentify(openid, unionid)
-      saveUserInfo(detail)
       Taro.setStorage({ key: 'userInfo', data: detail.userInfo })
       Taro.navigateTo({
         url: '/pages/order/index?id=0'
@@ -58,19 +52,17 @@ class login extends Component {
 
 
  // 授权btn
-  getUserInfo(response) {
+ getPhoneNumber(response) {
     /* eslint-disable */
     const app = getApp()
     /* eslint-enable */
+    let that = this
     //同意
-    if (response.detail.userInfo) {
+    if (response.detail.errMsg == "getPhoneNumber:ok") {
       this.sendUserInfo(response)
       /* eslint-enable */
     } else {
       //拒绝,保持当前页面，直到同意
-      // Taro.navigateTo({
-      //   url: '/pages/order/index?id=0'
-      // })
     }
   }
 
@@ -81,11 +73,10 @@ class login extends Component {
     return (
       <View>
         {
-          !logins &&
           <View>
             <Button
-              openType='getUserInfo'
-              onGetUserInfo={this.getUserInfo}
+              openType='getPhoneNumber'
+              onGetPhoneNumber={this.getPhoneNumber}
               type='text'
               formType='submit'
             >

@@ -4,6 +4,7 @@ import { View, Image, Text } from '@tarojs/components'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
+import Logins from '../../components/login/index'
 
 // @withShare()
 // @pageInit()
@@ -50,7 +51,11 @@ class Coupons extends Component {
 
   linkWrap(link) {
     console.warn(link)
+  }
 
+  // 授权成功之后
+  onChangeStaus() {
+    console.warn(link)
   }
 
   render() {
@@ -62,6 +67,8 @@ class Coupons extends Component {
             list.map((item,index) => (
               <View className='listWrap' key={index} onClick={this.linkWrap.bind(this, index)}>
                 <View className='tit'>{item.text} >> </View>
+                {/** 引入登陆授权组件 **/}
+                <Logins onChangeStaus={this.onChangeStaus.bind(this, index)} />
               </View>
             ))
           }
