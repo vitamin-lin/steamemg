@@ -31,24 +31,19 @@ class App extends Component {
   }
   config = {
     pages: [
-      'pages/home/index',
-      // 'pages/confirmOrder/index',
-      // 'pages/shareDetail/index',
-      // 'pages/coupons/index',
-      // 'pages/detail/index',
-      // 'pages/knowledge/index',
-      'pages/user/index',
-      // 'pages/stars/index',
-      // 'pages/starsDetail/index',
-      // 'pages/newStarsDetail/index',
-      // 'pages/banner/index',
-
-      // 'pages/cart/index',
-      // 'pages/userInfo/index',
-      // 'pages/order/index',
-      // 'pages/success/index',
-      // 'pages/tempDetail/index',
-      // 'pages/webView/index'
+      'pages/home/index',  // 首页
+      'pages/questionList/index', // 题库
+      'pages/taskList/index', //任务列表
+      'pages/courseList/index', // 课程列表
+      'pages/user/index', // 个人中心
+      'pages/listwraps/index', // 题库列表
+      'pages/tabLink/index', // 基础或者高级题库跳转tabs
+      'pages/detail/index', // video详情
+      'pages/myRecord/index', // 我的记录
+      'pages/myAchievement/index', // 我的成就
+      'pages/myCollection/index', // 我的收藏
+      'pages/service/index', //客服 
+      // 'pages/knowledge/index', //  知识库
     ],
     window: {
       backgroundTextStyle: 'light',

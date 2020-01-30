@@ -35,45 +35,40 @@ class User extends Component {
   }
 
   links() {
-    const app = getApp()
-    app.km.track('allorder', null)
-    Taro.setStorage({ key: 'id', data: 0 })
+  }
+
+  // 我的收藏
+  goTomyCollection() {
     Taro.navigateTo({
-      url: '/pages/order/index?id=0'
+      url:'/pages/myCollection/index'
     })
   }
 
-  getAddress() {
-    const app = getApp()
-    app.km.track('address', null)
-    const _this = this
-    Taro.chooseAddress({
-      success(res) {
-        console.log(res.userName)
-        console.log(res.postalCode)
-        console.log(res.provinceName)
-        console.log(res.cityName)
-        console.log(res.countyName)
-        console.log(res.detailInfo)
-        console.log(res.nationalCode)
-        console.log(res.telNumber)
-      },
-      complete(res) {
-        console.log(res.errMsg)
-        if (res.errMsg === 'chooseAddress:cancel') {
-          // _this.showToastMsg('用户未选择地址信息')
-        } else if (
-          res.errMsg == 'chooseAddress:fail authorize no response' ||
-          res.errMsg == 'chooseAddress:fail auth deny'
-        ) {
-          Taro.showToast({
-            title:
-              '请点击小程序右上角“...” 》关于好奇官方精品商城》“...” 》设置》授权通讯地址',
-            icon: 'none',
-            duration: 3500
-          })
-        }
-      }
+  // 我的成就
+  goTomyachievement() {
+    Taro.navigateTo({
+      url:'/pages/myAchievement/index'
+    })
+  }
+
+  // 我的客服
+  goToService() {
+    Taro.navigateTo({
+      url:'/pages/service/index'
+    })
+  }
+
+  // 我的记录
+  goTomyRecord() {
+    Taro.navigateTo({
+      url:'/pages/myRecord/index'
+    })
+  }
+
+  // 客服
+  goToService() {
+    Taro.navigateTo({
+      url:'/pages/service/index'
     })
   }
 
@@ -87,19 +82,7 @@ class User extends Component {
 
 
   componentDidShow() {
-    let userLogin = Taro.getStorageSync('userLogin')
-    let userInfo = Taro.getStorageSync('userInfo')
-    if (userLogin) {
-      this.setState({
-        userInfo: userInfo,
-        userLogin: userLogin
-      })
-    } else {
-      this.setState({
-        userInfo: '',
-        userLogin: false
-      })
-    }
+
   }
 
   render() {
@@ -110,9 +93,14 @@ class User extends Component {
         <View className='user_box'>
           <UserHeader/>
           {/** 引入登陆授权组件 **/}
-          <View className='getUser'>
-            <Logins />
-          </View>
+          {
+            /**
+            <View className='getUser'>
+              <Logins />
+            </View>
+            **/
+          }
+
           <View className='panels' onClick={this.links} />
           <View className='main'>
             <AtList className='panel_top address' hasBorder={false}>
@@ -121,7 +109,7 @@ class User extends Component {
               arrow='right'
               hasBorder={false}
               thumb={biaoqian}
-              onClick={this.getAddress}
+              onClick={this.goTomyRecord}
               iconInfo={{
                 size: 25,
                 color: '#FF4949',
@@ -132,8 +120,20 @@ class User extends Component {
               title='我的成就'
               arrow='right'
               hasBorder={false}
+              thumb={biaoqian}
+              onClick={this.goTomyachievement}
+              iconInfo={{
+                size: 25,
+                color: '#FF4949',
+                customStyle: 'iconAddress'
+              }}
+            />
+            <AtListItem
+              title='我的收藏'
+              arrow='right'
+              hasBorder={false}
               thumb={quan}
-              onClick={this.getCoupons}
+              onClick={this.goTomyCollection}
               className='quan'
               iconInfo={{
                 size: 25,
@@ -146,6 +146,7 @@ class User extends Component {
               arrow='right'
               hasBorder={false}
               thumb={icons}
+              onClick={this.goToService}
               className='icons'
               iconInfo={{
                 size: 25,

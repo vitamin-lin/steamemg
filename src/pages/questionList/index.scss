@@ -1,0 +1,21 @@
+.wrapBox {
+  min-height: 90vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center; 
+}
+.boxa {
+  width: 650px;
+  height: 250px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 15px;
+  text-align: center;
+  // line-height: 250px;
+  .tits {
+    padding-top: 75px;
+  }
+}

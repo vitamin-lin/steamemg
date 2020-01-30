@@ -10,21 +10,14 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class Coupons extends Component {
   config = {
-    navigationBarTitleText: '知识树'
+    navigationBarTitleText: '课程列表'
     // disableScroll: true
   }
 
   constructor() {
     super(...arguments)
     this.state = {
-      logins: false,
-      list: [{
-        text: '任务列表'
-      },{
-        text: '课程列表'
-      },{
-        text: '题库'
-      }]
+      list: [{},{},{},{},{},{},{},{},{}]
     }
   }
 
@@ -50,47 +43,25 @@ class Coupons extends Component {
     // })
   }
 
-  linkWrap(link) {
-    console.warn(link)
-    if(link == 0) {
-      Taro.navigateTo({
-        url:'/pages/courseList/index'
-      })
-    } else if(link == 1) {
-      Taro.navigateTo({
-        url:'/pages/taskList/index'
-      })
-    } else {
-      Taro.navigateTo({
-        url:'/pages/questionList/index'
-      })
-    }
-  }
-
-  // 授权成功之后
-  onChangeStaus() {
-    console.warn(link)
+  detailTo() {
+    Taro.navigateTo({
+      url:'/pages/detail/index'
+    })
   }
 
   render() {
     const { list } = this.state
     return (
       <View className='wrap'>
-        <View>
-          {
-            list.map((item,index) => (
-              <View className='listWrap' key={index} onClick={this.linkWrap.bind(this, index)}>
-                <View className='tit'>{item.text} >> </View>
-                {/** 引入登陆授权组件 **/}
-                {
-                  logins &&
-                  <Logins onChangeStaus={this.onChangeStaus.bind(this, index)} />
-                }
-
-              </View>
-            ))
-          }
-        </View>
+        {
+          list.map((e, index) => (
+            <View className='main' onClick={this.detailTo.bind(this, e)}>
+              {index}
+              <View>试验任务</View>
+              <View>实验详情</View>
+            </View>
+          ))
+        }
       </View>
     )
   }
