@@ -50,15 +50,19 @@ class Coupons extends Component {
     // })
   }
 
+  onTabItemTap(item) {
+    Taro.setStorageSync('items', item)
+  }
+
   linkWrap(link) {
     console.warn(link)
     if(link == 0) {
       Taro.navigateTo({
-        url:'/pages/courseList/index'
+        url:'/pages/taskList/index'
       })
     } else if(link == 1) {
       Taro.navigateTo({
-        url:'/pages/taskList/index'
+        url:'/pages/courseLists/index'
       })
     } else {
       Taro.navigateTo({
@@ -86,7 +90,7 @@ class Coupons extends Component {
                   logins &&
                   <Logins onChangeStaus={this.onChangeStaus.bind(this, index)} />
                 }
-
+                <View class='btns'></View>
               </View>
             ))
           }

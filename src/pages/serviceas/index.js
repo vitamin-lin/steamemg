@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
-// import { AtAccordion, AtList, AtListItem } from 'taro-ui'
+import { Button } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
@@ -8,16 +8,18 @@ import Logins from '../../components/login/index'
 
 // @withShare()
 // @pageInit()
-class Coupons extends Component {
+class service extends Component {
   config = {
-    navigationBarTitleText: '课程列表'
+    navigationBarTitleText: '客服'
     // disableScroll: true
   }
 
   constructor() {
     super(...arguments)
     this.state = {
-      list: [{},{},{},{},{},{},{},{},{}]
+      list: [],
+      current: 0, //  tabs下标
+      tags:[{},{},{}] // tags标签多选
     }
   }
 
@@ -43,28 +45,34 @@ class Coupons extends Component {
     // })
   }
 
-  detailTo() {
-    Taro.navigateTo({
-      url:'/pages/detail/index'
+  handleClick (value) {
+    this.setState({
+      current: value
     })
   }
 
+  onTagClick (e) {
+    console.warn(e)
+  }
+
+  linkTo (e, index) {
+    Taro.navigateTo({
+      url:'/pages/listwraps/index'
+    })
+  }
+  copyText () {
+
+  }
+
   render() {
-    const { list } = this.state
+    const { list, tabsBars, current, tags } = this.state
     return (
       <View className='wrap'>
-        {
-          list.map((e, index) => (
-            <View className='main' onClick={this.detailTo.bind(this, e)}>
-              {index}
-              <View>试验任务</View>
-              <View>实验详情</View>
-            </View>
-          ))
-        }
+        <View>XXX实验service</View>
+        <Button onClick={this.copyText}></Button>
       </View>
     )
   }
 }
 
-export default Coupons
+export default service

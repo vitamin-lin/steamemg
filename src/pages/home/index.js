@@ -7,6 +7,7 @@ import withShare from '../../utils/withSare'
 import pageInit from '../../utils/pageInit'
 import User from '../user/index'
 import Knowledge from '../knowledge/index'
+import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 
 @pageInit()
 @withShare()
@@ -21,8 +22,7 @@ class HOME extends Component {
     super(...arguments)
     this.state = {
       current: 0,
-      loads: true,
-      canShare: true
+      staus: true,
     }
   }
 
@@ -31,6 +31,13 @@ class HOME extends Component {
     //   if (res.code == 20000) {
     //   }
     // })
+
+    // myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+    var myDate = new Date();//获取系统当前时间
+    let days = getCurrentMonthFirst(); // 2020-01-03
+
+    console.warn(dateLater(days, 0),'1234')
+    
   }
 
   componentDidShow() {
@@ -75,27 +82,44 @@ class HOME extends Component {
       }
     })
   }
-  
+
+  leftTabs(staus) {
+    this.setState({
+      staus: true
+    })
+  }
+
+  rightTabs(staus) {
+    this.setState({
+      staus: false
+    })
+  }
 
   render() {
-    const { current, loads } = this.state
+    const { current, staus } = this.state
     return (
       <View className='wrap'>
         {
           current == 1 ? <User/> : <Knowledge/>
         }
-        <AtTabBar
-          fixed
-          tabList={[
-            { title: '知识库', iconType: 'bullet-list'},
-            { title: '个人中心', iconType: 'user' }
-          ]}
-          onClick={this.handleClick.bind(this)}
-          current={this.state.current}
-        />
-        <View className='canmer' onClick={this.takePhoto}>
-          <AtIcon value='camera' size='35' color='#000'></AtIcon>
+        <View className='botms'>
+          <View className='left' onClick={this.leftTabs.bind(this, staus)}>
+            <View className='main'>
+              <Image src={staus ? '../../assets/newIcon/know.png' : '../../assets/newIcon/knows.png'} />
+              <View>知识库</View>
+            </View>
+          </View>
+          <View className='center'>
+            <Image src='../../assets/newIcon/ervm.png' />
+          </View>
+          <View className='right' onClick={this.rightTabs.bind(this, staus)}>
+            <View className='main'>
+              <Image src={staus ? '../../assets/newIcon/userActive.png' : '../../assets/newIcon/user.png'} />
+              <View>个人中心</View>
+            </View>
+          </View>
         </View>
+
       </View>
     )
   }
@@ -103,9 +127,15 @@ class HOME extends Component {
 
 export default HOME
 
-// {
-//   loads &&
-//   <View className='loading_fc'>
-//     loading....
-//   </View>
-// }
+// <AtTabBar
+// fixed
+// tabList={[
+//   { title: '知识库', iconType: 'bullet-list'},
+//   { title: '个人中心', iconType: 'user' }
+// ]}
+// onClick={this.handleClick.bind(this)}
+// current={this.state.current}
+// />
+// <View className='canmer' onClick={this.takePhoto}>
+// <AtIcon value='camera' size='35' color='#000'></AtIcon>
+// </View>

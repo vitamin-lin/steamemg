@@ -84,15 +84,7 @@ class HOME extends Component {
         {
           current == 1 ? <User/> : <Knowledge/>
         }
-        <AtTabBar
-          fixed
-          tabList={[
-            { title: '知识库', iconType: 'bullet-list'},
-            { title: '个人中心', iconType: 'user' }
-          ]}
-          onClick={this.handleClick.bind(this)}
-          current={this.state.current}
-        />
+        
         <View className='canmer' onClick={this.takePhoto}>
           <AtIcon value='camera' size='35' color='#000'></AtIcon>
         </View>

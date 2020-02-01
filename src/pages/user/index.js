@@ -2,14 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import UserHeader from './userHeader/userHeader'
-import Policy from './policy'
-import Panel from '../../components/panel'
-import biaoqian from '../../assets/images/biaoqian.png'
-import quan from '../../assets/images/quan.png'
-import icons from '../../assets/images/heart.png'
-import './index.scss'
 import withShare from '../../utils/withSare'
-import Logins from '../../components/login/index'
+import './index.scss'
 
 @withShare()
 class User extends Component {
@@ -51,12 +45,6 @@ class User extends Component {
     })
   }
 
-  // 我的客服
-  goToService() {
-    Taro.navigateTo({
-      url:'/pages/service/index'
-    })
-  }
 
   // 我的记录
   goTomyRecord() {
@@ -68,7 +56,7 @@ class User extends Component {
   // 客服
   goToService() {
     Taro.navigateTo({
-      url:'/pages/service/index'
+      url:'/pages/serviceas/index'
     })
   }
 
@@ -79,15 +67,29 @@ class User extends Component {
     })
   }
 
+  onTabItemTap(item) {
+    Taro.setStorageSync('items', item)
+  }
 
+  componentDidMount() {
+    // API.get('api/member').then(res => {
+    //   if (res.code == 20000) {
+    //   }
+    // })
+    
+  }
 
   componentDidShow() {
-
+    // myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+    var myDate = new Date();//获取系统当前时间
+    console.warn(myDate.getDay())
   }
 
   render() {
     const { id } = this.state
     const state = Taro.$store.getState()
+
+
     return (
       <View className='user'>
         <View className='user_box'>
@@ -108,7 +110,6 @@ class User extends Component {
               title='我的记录'
               arrow='right'
               hasBorder={false}
-              thumb={biaoqian}
               onClick={this.goTomyRecord}
               iconInfo={{
                 size: 25,
@@ -120,7 +121,6 @@ class User extends Component {
               title='我的成就'
               arrow='right'
               hasBorder={false}
-              thumb={biaoqian}
               onClick={this.goTomyachievement}
               iconInfo={{
                 size: 25,
@@ -132,7 +132,6 @@ class User extends Component {
               title='我的收藏'
               arrow='right'
               hasBorder={false}
-              thumb={quan}
               onClick={this.goTomyCollection}
               className='quan'
               iconInfo={{
@@ -145,7 +144,6 @@ class User extends Component {
               title='客服'
               arrow='right'
               hasBorder={false}
-              thumb={icons}
               onClick={this.goToService}
               className='icons'
               iconInfo={{

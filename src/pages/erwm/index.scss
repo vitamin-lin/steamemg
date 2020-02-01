@@ -1,0 +1,26 @@
+.wrap {
+  .at {
+    background: olive;
+  }
+  .canmer {
+    width: 80px;
+    height: 80px;
+    // background: orange;
+    position: fixed;
+    bottom: 10px;
+    z-index: 100000;
+    margin: 0 auto;
+    left: 0;right: 0;
+    text-align: center;
+    // line-height: 70px;
+  }
+}
+.loading_fc {
+  width: 100%;
+  height: 100vh;
+  background: rgb(134, 126, 127);
+  position: fixed;
+  z-index: 2000000;
+  line-height: 100vh;
+  text-align: center;
+}

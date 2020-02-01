@@ -1,10 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtTag } from 'taro-ui'
+// import { AtTabs } from 'taro-ui'
+import llistPic from '../../components/llistPic/index'
 import './index.scss'
 import API from '../../service/api'
-import withShare from '../../utils/withSare'
-import Logins from '../../components/login/index'
+
 
 // @withShare()
 // @pageInit()
@@ -65,7 +65,7 @@ class detail extends Component {
     const { list, tabsBars, current, tags } = this.state
     return (
       <View className='wrap'>
-        XXX实验
+        <llistPic />
       </View>
     )
   }

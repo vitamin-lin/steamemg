@@ -24,3 +24,58 @@
   line-height: 100vh;
   text-align: center;
 }
+.botms {
+  width: 750px;
+  height: 98px;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  border-top: 1px solid #f2f2f2;
+  display: flex;
+  
+  .left,.center, .right {
+    flex: 1;
+    height: 98px;
+    display: flex;
+    font-size: 20px;
+    color: #000;
+    font-weight: 700;
+  }
+  .left {
+    // background: red;
+    .main {
+      // margin: 0 auto;
+      margin-left: 129px;
+      margin-top: 10px;
+      text-align: center;
+      Image {
+        width: 50px;
+        height: 52px;
+      }
+    }
+  }
+  .center {
+    // line-height: 89px;
+    // background: orange;
+    align-items: center;
+    Image {
+      width: 60px;
+      height: 58px;
+      margin: 0 auto;
+    }
+  }
+  .right {
+    // background: pink;
+    .main {
+      // margin: 0 auto;
+      margin-left: 45px;
+      margin-top: 10px;
+      text-align: center;
+      Image {
+        width: 50px;
+        height: 52px;
+      }
+    }
+  }
+}

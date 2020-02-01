@@ -11,7 +11,9 @@ import configStore from './store'
 
 import { setGlobalData } from './utils/global'
 import './app.scss'
-import './assets/fonts/iconfont.css'
+
+// import './assets/fonts/iconfont.css'
+
 // import './utils/kmConf'
 // import './utils/km'
 
@@ -32,9 +34,11 @@ class App extends Component {
   config = {
     pages: [
       'pages/home/index',  // 首页
+      'pages/knowledge/index', //  知识库
+      'pages/erwm/index', //扫码
       'pages/questionList/index', // 题库
       'pages/taskList/index', //任务列表
-      'pages/courseList/index', // 课程列表
+      'pages/courseLists/index', // 课程列表
       'pages/user/index', // 个人中心
       'pages/listwraps/index', // 题库列表
       'pages/tabLink/index', // 基础或者高级题库跳转tabs
@@ -42,8 +46,6 @@ class App extends Component {
       'pages/myRecord/index', // 我的记录
       'pages/myAchievement/index', // 我的成就
       'pages/myCollection/index', // 我的收藏
-      'pages/service/index', //客服 
-      // 'pages/knowledge/index', //  知识库
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -55,16 +57,22 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          pagePath: 'pages/user/index',
+          pagePath: 'pages/knowledge/index',
           text: '知识树',
-          iconPath: './assets/cate.png',
-          selectedIconPath: './assets/cate-active.png'
+          iconPath: './assets/newIcon/knows.png',
+          selectedIconPath: './assets/newIcon/know.png'
+        },
+        {
+          pagePath: 'pages/erwm/index',
+          text: '我的',
+          iconPath: './assets/newIcon/ervm.png',
+          selectedIconPath: './assets/newIcon/ervm.png'
         },
         {
           pagePath: 'pages/user/index',
-          text: '我的',
-          iconPath: './assets/user.png',
-          selectedIconPath: './assets/user-active.png'
+          text: '个人中心',
+          iconPath: './assets/newIcon/userActive.png',
+          selectedIconPath: './assets/newIcon/user.png'
         }
       ],
       color: '#a7a7a7',
@@ -99,6 +107,7 @@ class App extends Component {
   componentCatchError() {}
 
   componentDidCatchError() {}
+
 
   checkMobilePhone() {
     // var self = this
