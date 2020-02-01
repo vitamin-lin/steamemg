@@ -19,11 +19,14 @@ class Coupons extends Component {
     this.state = {
       logins: false,
       list: [{
-        text: '任务列表'
+        text: '任务列表',
+        url:'../../assets/newIcon/lista.png'
       },{
-        text: '课程列表'
+        text: '课程列表',
+        url:'../../assets/newIcon/listb.png'
       },{
-        text: '题库'
+        text: '题库',
+        url:'../../assets/newIcon/listc.png'
       }]
     }
   }
@@ -80,17 +83,19 @@ class Coupons extends Component {
     const { list } = this.state
     return (
       <View className='wrap'>
+        <Image
+          src='../../assets/newIcon/rightTxt.png'
+          className='rightTxt'
+        />
         <View>
           {
             list.map((item,index) => (
-              <View className='listWrap' key={index} onClick={this.linkWrap.bind(this, index)}>
-                <View className='tit'>{item.text} >> </View>
-                {/** 引入登陆授权组件 **/}
-                {
-                  logins &&
-                  <Logins onChangeStaus={this.onChangeStaus.bind(this, index)} />
-                }
-                <View class='btns'></View>
+              <View
+                className='listWrap'
+                key={index}
+                onClick={this.linkWrap.bind(this, index)}
+              >
+                <Image src={item.url} />
               </View>
             ))
           }

@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
-import { AtTabBar, AtIcon } from 'taro-ui'
+import { AtNavBar } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
@@ -14,15 +14,15 @@ import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 
 class HOME extends Component {
   config = {
-    navigationBarTitleText: 'MARS MAKER'
+    navigationBarTitleText: 'MARS MAKER',
     // disableScroll: true
+    navigationStyle: "custom" 
   }
 
   constructor() {
     super(...arguments)
     this.state = {
-      current: 0,
-      staus: true,
+      stau: true,
     }
   }
 
@@ -41,37 +41,25 @@ class HOME extends Component {
   }
 
   componentDidShow() {
-    let _this = this
-    let loads = Taro.getStorageSync('loads')
-    // 如果有值
-    if(loads == '') {
-      setTimeout(function(){
-        _this.setState({
-          loads: false
-        })
-      }, 3000)
-      Taro.setStorage({ key: 'loads', data: 1 })
-    } else {
-      _this.setState({
-        loads: false
-      })
-    }
   }
 
+  componentDidMount () {
+    this.setNavSize()
+  }
 
-  handleClick(e) {
-    console.warn(e)
-    if(e == 0) {
-      wx.setNavigationBarTitle({
-        title: '知识库' 
-      })
+  setNavSize () {
+    let sysinfo = Taro.getSystemInfoSync()
+    let statusHeight = sysinfo.statusBarHeight
+    let isiOS = sysinfo.system.indexOf('iOS') > -1
+    let navHeight
+    if (!isiOS) {
+      navHeight = 48;
     } else {
-      wx.setNavigationBarTitle({
-        title: '个人中心' 
-      }) 
+      navHeight = 44;
     }
     this.setState({
-      current: e
+      status: statusHeight,
+      navHeight: navHeight
     })
   }
 
@@ -85,36 +73,45 @@ class HOME extends Component {
 
   leftTabs(staus) {
     this.setState({
-      staus: true
+      stau: true
     })
   }
 
   rightTabs(staus) {
     this.setState({
-      staus: false
+      stau: false
     })
   }
 
   render() {
-    const { current, staus } = this.state
+    const { current, stau, staus } = this.state
+    const style = {
+      paddingTop: Taro.$navBarMarginTop + 'px'
+     }
     return (
       <View className='wrap'>
+        <View className="nav-box">
+          <View className='nav' style={style}></View>
+          <View className='nav-title'>
+            <Image src='../../assets/newIcon/tit.png' />
+          </View>
+        </View>
         {
-          current == 1 ? <User/> : <Knowledge/>
+          !stau ? <User/> : <Knowledge/>
         }
         <View className='botms'>
           <View className='left' onClick={this.leftTabs.bind(this, staus)}>
             <View className='main'>
-              <Image src={staus ? '../../assets/newIcon/know.png' : '../../assets/newIcon/knows.png'} />
+              <Image src={stau ? '../../assets/newIcon/know.png' : '../../assets/newIcon/knows.png'} />
               <View>知识库</View>
             </View>
           </View>
-          <View className='center'>
+          <View className='center' onClick={this.takePhoto}>
             <Image src='../../assets/newIcon/ervm.png' />
           </View>
           <View className='right' onClick={this.rightTabs.bind(this, staus)}>
             <View className='main'>
-              <Image src={staus ? '../../assets/newIcon/userActive.png' : '../../assets/newIcon/user.png'} />
+              <Image src={stau ? '../../assets/newIcon/userActive.png' : '../../assets/newIcon/user.png'} />
               <View>个人中心</View>
             </View>
           </View>
@@ -126,16 +123,3 @@ class HOME extends Component {
 }
 
 export default HOME
-
-// <AtTabBar
-// fixed
-// tabList={[
-//   { title: '知识库', iconType: 'bullet-list'},
-//   { title: '个人中心', iconType: 'user' }
-// ]}
-// onClick={this.handleClick.bind(this)}
-// current={this.state.current}
-// />
-// <View className='canmer' onClick={this.takePhoto}>
-// <AtIcon value='camera' size='35' color='#000'></AtIcon>
-// </View>

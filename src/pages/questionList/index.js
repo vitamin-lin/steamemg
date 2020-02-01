@@ -19,10 +19,12 @@ class Coupons extends Component {
     this.state = {
       list: [{
         tit:'基础',
-        detail:'适合年龄3-8岁'
+        detail:'适合年龄3-8岁',
+        url:'../../assets/newIcon/awer.png'
       },{
         tit:'高阶',
-        detail:'适合年龄8-12岁'
+        detail:'适合年龄8-12岁',
+        url:'../../assets/newIcon/awerb.png'
       }]
     }
   }
@@ -68,8 +70,7 @@ class Coupons extends Component {
         {
           list.map((e, index) => (
             <View className='boxa' onClick={this.linkTo.bind(this, index)}>
-              <View className='tits'>{e.tit}</View>
-              <View>{e.detail}</View>
+              <Image src={e.url} />
             </View>
           ))
         }

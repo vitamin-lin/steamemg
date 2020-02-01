@@ -24,6 +24,7 @@
   line-height: 100vh;
   text-align: center;
 }
+
 .botms {
   width: 750px;
   height: 98px;
@@ -77,5 +78,22 @@
         height: 52px;
       }
     }
+  }
+}
+
+
+.nav {
+  background: #fff;
+}
+
+.nav-title{
+  height: 88px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f2f2f2;
+  Image {
+    width: 290px;
+    height: 56px;
+    margin: 0 auto;
   }
 }

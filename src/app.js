@@ -97,6 +97,9 @@ class App extends Component {
     //将redux状态挂载到 Taro 对象上，Taro.$store直接获取操作
     this.checkMobilePhone()
     Taro.$store = store
+    Taro.getSystemInfo({}).then(res  => {
+      Taro.$navBarMarginTop =  res.statusBarHeight || 0
+    })
   }
 
   componentDidShow() {

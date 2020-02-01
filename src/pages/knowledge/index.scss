@@ -1,29 +1,29 @@
 .wrap {
-  min-height: 90vh;
+  // min-height: 90vh;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
   // justify-content: center; 
+  padding-top: 68px;
+  position: relative;
 }
 .listWrap {
-  width: 650px;
-  height: 300px;
+  width: 645px;
+  height: 294px;
   background: #fff;
-  margin-bottom: 40px;
-  border-radius: 15px;
+  margin-bottom: 55px;
+  // border-radius: 15px;
   position: relative;
-  .tit {
-    line-height: 300px;
-    text-align: center;
-    color: #000;
+  Image {
+    width: 645px;
+    height: 294px;
   }
-  Button {
-    width: 650px;
-    height: 300px;
-    display: block;
-    position: absolute;
-    top: 0px;
-    opacity: 0;
-  }
+}
+.rightTxt {
+  width: 47px;
+  height: 561px;
+  position: absolute;
+  right: 0;
+  top: 88px;
 }
