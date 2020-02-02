@@ -7,12 +7,49 @@
   // justify-content: center; 
 }
 .links {
-  width: 700px;
-  height: 130px;
-  background: #fff;
+  width: 690px;
+  height: 100px;
+  // background: #fff;
   margin: 0 auto;
   border-radius: 15px;
   margin-top: 35px;
-  text-align: center;
-  line-height: 130px;
+  // text-align: center;
+  // line-height: 130px;
+  position: relative;
+  font-size: 36px;
+  white-space: nowrap;      /*超出的空白区域不换行*/
+  overflow: hidden;         /*超出隐藏*/
+  text-overflow: ellipsis;
+  Image {
+    width: 690px;
+    height: 100px;
+  }
+  .name {
+    position: absolute;
+    top: 32px;left:54px;
+    color: #fff;
+    width: 460px;
+    // background: orange;
+  }
+}
+.tabsBox {
+  .at-tabs__item--active {
+    color: #ff4800;
+    .at-tabs__item-underline {
+      background: #ff4800;
+      border-bottom: 10px solid #ff4800;
+      border-radius: 15px;
+      transform: scaleX(.95);
+    }
+  }
+
+  .at-tabs__item {
+    // background: orange;
+    padding: 24px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .at-tabs__underline {
+    background: #fff;
+  }
 }

@@ -24,7 +24,11 @@ class Coupons extends Component {
         { title: '化学', listBox:[{}] },
         { title: '工程', listBox:[{},{}] },
         { title: '生物', listBox:[{}] },
-        { title: '标签页6' , listBox:[{},{}]}
+        // { title: '标签页6' , listBox:[{},{}]},
+        // { title: '标签页7' , listBox:[{},{}]},
+        // { title: '标签页8' , listBox:[{},{}]},
+        // { title: '标签页9' , listBox:[{},{}]},
+        // { title: '标签页10' , listBox:[{},{}]},
       ], // tabs标题
       current: 0, //  tabs下标
       tags:[{},{},{}] // tags标签多选
@@ -78,13 +82,20 @@ class Coupons extends Component {
             scroll
             animated={false}
             tabList={tabsBars}
+            className='tabsBox'
             onClick={this.handleClick.bind(this)}>
             {
               tabsBars.map((e, index) => (
-                <AtTabsPane current={current} index={index}>     
+                <AtTabsPane current={current} index={index} className='tabs'>     
                    {
                      e.listBox.map((v, k) => (
-                        <View className='links' onClick={this.linkTo.bind(this, v)}> 试题{`${k}`}</View>
+                        <View className='links' onClick={this.linkTo.bind(this, v)}> 
+                          <View className='name'>试题{`${k}`}</View>
+                          {
+                            k%2 === 0 ? <Image src='../../assets/newIcon/linka.png' /> :
+                            <Image src='../../assets/newIcon/linkb.png' />
+                          }
+                        </View>
                      ))
                    }
                 </AtTabsPane>

@@ -19,19 +19,24 @@ class Coupons extends Component {
     this.state = {
       list: [],
       tabsBars:[
-        { title: '标签页1', tags:[{},{}] },
-        { title: '标签页2', tags:[{},{}] },
-        { title: '标签页3', tags:[{}] },
-        { title: '标签页4', tags:[{},{}] },
-        { title: '标签页5', tags:[{}] },
-        { title: '标签页6' , tags:[{},{}]}
+        { title: '科学', tags:[{type:''}] },
+        { title: '物理', tags:[{type:''},{type:''}] },
+        { title: '化学', tags:[{type:''}] },
+        { title: '标签页4', tags:[{type:''},{type:''}] },
+        { title: '标签页5', tags:[{type:''}] },
+        { title: '标签页6' , tags:[{type:''},{type:''}]}
       ], // tabs标题
       current: 0, //  tabs下标
-      tags:[{},{},{}] // tags标签多选
+      tags:[] // tags标签多选
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { list, tabsBars, current, tags } = this.state
+    this.setState({
+      tags:tabsBars[current]
+    })
+  }
 
   componentDidShow() {
     // API.get('api/group_list').then(res => {
@@ -60,26 +65,23 @@ class Coupons extends Component {
   }
 
   onTagClick (e) {
-    console.warn(e)
+    const { list, tabsBars, current, tags } = this.state
+    let lists = tabsBars;
+    let tabBox = lists[current].tags; // 点击的第几个
+    let tagsLa = tabBox[e].type;
+    if(tagsLa == '') {
+      tabBox[e].type = 'primary';
+    } else {
+      tabBox[e].type = ''
+    }
+    console.warn(lists)
+    this.setState({
+      tabsBars: lists
+    })
   }
 
   render() {
     const { list, tabsBars, current, tags } = this.state
-    // 标签组件
-    const tagsList = tags.map((e, index) => {
-      return (
-        <AtTag 
-          name='tag-1' 
-          type='primary' 
-          circle 
-          active={true}
-          onClick={this.onTagClick.bind(this, index)}
-          index={index}
-        >
-          tag-1
-        </AtTag>
-      )
-    })
     return (
       <View className='wrap'>
           <AtTabs
@@ -91,8 +93,25 @@ class Coupons extends Component {
             {
               tabsBars.map((e, index) => (
                 <AtTabsPane current={current} index={index}>   
-                  <View>
-                    { tagsList }
+                  <View className='tags'>
+                    { 
+                      e.tags.map((k, index) => {
+                        return (
+                          <AtTag 
+                            name='tag-1' 
+                            size='normal'
+                            type={k.type} 
+                            circle 
+                            active={true}
+                            onClick={this.onTagClick.bind(this, index)}
+                            index={index}
+                            className='icons'
+                          >
+                            tag-1
+                          </AtTag>
+                        )
+                      })
+                    }
                   </View>      
                   <View style='font-size:18px;text-align:center;height:100px;'>
                     <llistPic />

@@ -5,4 +5,46 @@
   // display: flex;
   // align-items: center;
   // justify-content: center; 
+  .at-tabs__item--active {
+    color: #ff4800;
+    .at-tabs__item-underline {
+      background: #ff4800;
+      border-bottom: 10px solid #ff4800;
+      border-radius: 15px;
+      transform: scaleX(.95);
+    }
+  }
+
+  .at-tabs__item {
+    // background: orange;
+    padding: 24px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  // .at-tabs__underline {
+  //   background: #fff;
+  // }
+}
+.tags {
+  top: 120px;
+  width: 680px;
+  margin: 0 auto;
+  padding-top: 30px;
+  // position: relative;
+  // background: orange;
+  .icons {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .at-tag {
+    border-color: #ff4800;
+    color: #ff4800;
+  }
+  .at-tag--active.at-tag--primary {
+    color: #FFF;
+    border-color: #ff4800;
+    // background-color: #ff4800;
+    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+  }
+    
 }

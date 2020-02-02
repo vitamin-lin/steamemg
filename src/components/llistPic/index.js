@@ -3,13 +3,8 @@ import{ View, Image, Text } from '@tarojs/components'
 import { flex } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
-import withShare from '../../utils/withSare'
-import pageInit from '../../utils/pageInit'
 import User from '../user/index'
 import Knowledge from '../knowledge/index'
-
-@pageInit()
-@withShare()
 
 class listPic extends Component {
   config = {

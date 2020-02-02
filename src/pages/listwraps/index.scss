@@ -3,9 +3,42 @@
   font-size: 33px;
   color: #393939;
   .tit {
-    margin-bottom: 20px;
+    width: 690px;
+    min-height: 120px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding-top: 34px;
+    padding-bottom: 34px;
+    margin-bottom: 68px;
     font-size: 32px;
+    border-radius: 25px;
+    position: relative;
     // background: orange;
+    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    .mains {
+      width: 550px;
+      min-height: 200px;
+      // background: red;
+      position: relative;
+      left: 112px;
+      word-wrap:break-word;
+      // padding-top: 54px;
+      .voice {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        left: -70px;
+        top: 0;
+      }
+    }
+    .icons {
+      width: 82px;
+      height: 222px;
+      position: absolute;
+      right: 53px;
+      top: -24px;
+      // z-index: 10;
+    }
   }
   .botm {
     margin-top: 25px;
@@ -37,4 +70,78 @@
   // .percent {
   //   // background: orange;
   // }
+}
+
+.listsWrap {
+  .sea {
+    width: 682px;
+    min-height: 201px;
+    border: 4px solid #ff4800;
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+  }
+  .seaActive {
+    width: 682px;
+    min-height: 151px;
+    border: 4px solid #ff4800;
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    .box {
+      width: 453px;
+      min-height: 157px;
+      // background: orange;
+      position: relative;
+      left: 112px;
+      word-wrap:break-word;
+      border-left: 2px solid #ff4800;
+      padding-left: 78px;
+      .voice {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 40%;
+        left: -70px;
+      }
+    }
+  }
+}
+
+.botomIcon {
+  width: auto;
+  margin: 0 auto;
+  height: 62px;
+  padding-bottom: 50px;
+  padding-top: 30px;
+  // background: orange;
+  .box {
+    width: 615px;
+    margin: 0 auto;
+    // background: pink;
+    display: flex;
+    .icons {
+      flex: 1;
+      height: 112px;
+      // background: orange;
+      .num {
+        width: 62px;
+        height: 62px;
+        background: #999;
+        border-radius: 100%;
+        line-height: 62px;
+        text-align: center;
+        margin: 0 auto;
+        // float: left;
+        // display: inline-block;
+        // margin: 0 20px;
+        color: #fff;
+      }
+    }
+  }
+
 }

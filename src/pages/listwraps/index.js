@@ -22,7 +22,10 @@ class Link extends Component {
     resultData: [],
     resultName: [],
     isOpened: false,
-    percent: 0
+    percent: 0,
+    list:[{},{},{},{}],// 问题列表
+    Icons:[{},{},{},{},{}],
+    current: 0
   };
 
 
@@ -196,7 +199,7 @@ class Link extends Component {
 
 
   render() {
-    const { question, answer } = Datas;
+    const { question, answer, list } = Datas;
     return (
       <View className='wrap'>
         <AtModal isOpened={this.state.isOpened}>
@@ -212,43 +215,51 @@ class Link extends Component {
           <Button onClick={this.control}>再玩一次</Button>
           </AtModalAction>
         </AtModal>
-
-        <View className='percent'>
-          <AtProgress
-          isHidePercent={true}
-          percent={this.state.percent}
-          strokeWidth={4}
-          status='progress' />
-        </View>
         
         <View className='tit'>
-          <Text>{question[`${this.state.defaults}`]}</Text>
-        </View>
-        <AtCheckbox
-          options={answer}
-          selectedList={this.state.checkedList}
-          onChange={this.handleChange.bind(this)}
-          className='wrapTxt'
-        />
-        <View className='botm'>
-          {
-            this.state.defaults > 0 &&
-            <View>
-              <View className='prev' onClick={this.prevQuestion}>
-                上一题
-              </View>
-              <View className='nums'>{`${this.state.defaults + 1}/72`}</View>
-            </View>
-          }
-          <View className='next' onClick={this.nextQuestion}>
-            下一题
+          <Image className='icons' src='../../assets/newIcon/boxIcon.png' />
+          <View className='mains'>
+            <Image
+              className='voice'
+              src='../../assets/newIcon/voiceb.png'
+            />
+            <View>asdasdadsaasdasdadsaasdasdadsaasdasdadsaasdasdadsaasdasdad这样</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
+            <View>asdasdadsa</View>
           </View>
+        </View>
+
+        <View className='listsWrap'>
           {
-            this.state.defaults === 71 &&
-            <View className='submit' onClick={this.submit}>
-              提交
-            </View>
+            list.map((e, index) => (
+              <View className='seaActive'>
+                <View className='box'>
+                  <View>asdasdadsa</View>
+                  <Image
+                    className='voice'
+                    src='../../assets/newIcon/voicea.png'
+                  />
+                </View>
+              </View>
+            ))
           }
+        </View>
+        <View className='botomIcon'>
+          <View className='box'>
+            {
+              Icons.map((e, index) => (
+                <View className='icons'>
+                  <View className='num'>{index + 1}</View>
+                </View>
+              ))
+            }
+          </View>
         </View>
       </View>
     );
@@ -257,3 +268,29 @@ class Link extends Component {
 
 export default Link;
 
+// <AtCheckbox
+// options={answer}
+// selectedList={this.state.checkedList}
+// onChange={this.handleChange.bind(this)}
+// className='wrapTxt'
+// />
+// <View className='botm'>
+// {
+//   this.state.defaults > 0 &&
+//   <View>
+//     <View className='prev' onClick={this.prevQuestion}>
+//       上一题
+//     </View>
+//     <View className='nums'>{`${this.state.defaults + 1}/72`}</View>
+//   </View>
+// }
+// <View className='next' onClick={this.nextQuestion}>
+//   下一题
+// </View>
+// {
+//   this.state.defaults === 71 &&
+//   <View className='submit' onClick={this.submit}>
+//     提交
+//   </View>
+// }
+// </View>
