@@ -8,7 +8,7 @@ import Logins from '../../components/login/index'
 
 // @withShare()
 // @pageInit()
-class detail extends Component {
+class record extends Component {
   config = {
     navigationBarTitleText: '我的记录'
     // disableScroll: true
@@ -57,7 +57,7 @@ class detail extends Component {
 
   linkTo (e, index) {
     Taro.navigateTo({
-      url:'/pages/listwraps/index'
+      url:'/pages/detail/index'
     })
   }
 
@@ -65,10 +65,36 @@ class detail extends Component {
     const { list, tabsBars, current, tags } = this.state
     return (
       <View className='wrap'>
-        XXX实验
+        <View className='days'>
+          <View className='days'>今天</View>
+          <View className='mains' onClick={this.linkTo}>
+            <View 
+              className='pics'
+              // style={`background:url('https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png') no-repeat;background-size: 100% auto;`}
+            ></View>
+            <View className='tits'>
+              <View className='txts'>
+                相对论是关于时空和引力的理论，主
+                要由爱因斯坦创立要由爱因斯坦创立
+              </View>
+            </View>
+          </View>
+        </View>
+        <View className='lastDays'>
+          <View className='days'>更早</View>
+          <View className='mains' onClick={this.linkTo}>
+            <View className='pics'></View>
+            <View className='tits'>
+              <View className='txts'>
+                相对论是关于时空和引力的理论，主
+                要由爱因斯坦创立要由爱因斯坦创立
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }
 }
 
-export default detail
+export default record
