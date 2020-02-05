@@ -46,6 +46,7 @@ class App extends Component {
       'pages/myRecord/index', // 我的记录
       'pages/myAchievement/index', // 我的成就
       'pages/myCollection/index', // 我的收藏
+      'pages/contact/index', // 联系我们
     ],
     window: {
       backgroundTextStyle: 'light',

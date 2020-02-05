@@ -7,7 +7,6 @@ import withShare from '../../utils/withSare'
 import pageInit from '../../utils/pageInit'
 import User from '../user/index'
 import Knowledge from '../knowledge/index'
-import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 
 // @pageInit()
 @withShare()
@@ -22,7 +21,7 @@ class HOME extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      stau: true,
+      stau: false,
     }
   }
 
@@ -30,14 +29,7 @@ class HOME extends Component {
     // API.get('api/member').then(res => {
     //   if (res.code == 20000) {
     //   }
-    // })
-
-    // myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
-    var myDate = new Date();//获取系统当前时间
-    let days = getCurrentMonthFirst(); // 2020-01-03
-
-    console.warn(dateLater(days, 0),'1234')
-    
+    // })    
   }
 
   componentDidShow() {
