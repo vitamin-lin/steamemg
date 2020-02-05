@@ -9,7 +9,7 @@ import User from '../user/index'
 import Knowledge from '../knowledge/index'
 import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 
-@pageInit()
+// @pageInit()
 @withShare()
 
 class HOME extends Component {
@@ -93,7 +93,7 @@ class HOME extends Component {
         <View className="nav-box">
           <View className='nav' style={style}></View>
           <View className='nav-title'>
-            <Image src='../../assets/newIcon/tit.png' />
+            <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/tit.png' />
           </View>
         </View>
         {
@@ -102,16 +102,16 @@ class HOME extends Component {
         <View className='botms'>
           <View className='left' onClick={this.leftTabs.bind(this, staus)}>
             <View className='main'>
-              <Image src={stau ? '../../assets/newIcon/know.png' : '../../assets/newIcon/knows.png'} />
+              <Image src={stau ? 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/know.png' : 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/knows.png'} />
               <View>知识库</View>
             </View>
           </View>
           <View className='center' onClick={this.takePhoto}>
-            <Image src='../../assets/newIcon/ervm.png' />
+            <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/ervm.png' />
           </View>
           <View className='right' onClick={this.rightTabs.bind(this, staus)}>
             <View className='main'>
-              <Image src={stau ? '../../assets/newIcon/userActive.png' : '../../assets/newIcon/user.png'} />
+              <Image src={stau ? 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/userActive.png' : 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/user.png'} />
               <View>个人中心</View>
             </View>
           </View>

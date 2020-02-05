@@ -92,8 +92,8 @@ class Coupons extends Component {
                         <View className='links' onClick={this.linkTo.bind(this, v)}> 
                           <View className='name'>试题{`${k}`}</View>
                           {
-                            k%2 === 0 ? <Image src='../../assets/newIcon/linka.png' /> :
-                            <Image src='../../assets/newIcon/linkb.png' />
+                            k%2 === 0 ? <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linka.png' /> :
+                            <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linkb.png' />
                           }
                         </View>
                      ))

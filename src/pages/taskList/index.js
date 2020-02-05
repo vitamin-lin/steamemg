@@ -56,9 +56,7 @@ class Coupons extends Component {
         {
           list.map((e, index) => (
             <View className='main' onClick={this.detailTo.bind(this, e)}>
-              {index}
-              <View>试验任务</View>
-              <View>实验详情</View>
+              <View className='tits'>试验任务XXXX</View>
             </View>
           ))
         }

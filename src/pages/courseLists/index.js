@@ -107,7 +107,7 @@ class Coupons extends Component {
                             index={index}
                             className='icons'
                           >
-                            tag-1
+                            XX科学实验
                           </AtTag>
                         )
                       })

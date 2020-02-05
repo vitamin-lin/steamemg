@@ -20,13 +20,13 @@ class Coupons extends Component {
       logins: false,
       list: [{
         text: '任务列表',
-        url:'../../assets/newIcon/lista.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/lista.png'
       },{
         text: '课程列表',
-        url:'../../assets/newIcon/listb.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/listb.png'
       },{
         text: '题库',
-        url:'../../assets/newIcon/listc.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/listc.png'
       }]
     }
   }
@@ -84,7 +84,7 @@ class Coupons extends Component {
     return (
       <View className='wrap'>
         <Image
-          src='../../assets/newIcon/rightTxt.png'
+          src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/rightTxt.png'
           className='rightTxt'
         />
         <View>

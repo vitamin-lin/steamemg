@@ -7,13 +7,29 @@
   // justify-content: center;
   padding-top: 25px;
   .main {
-    width: 700px;
-    height: 350px;
-    background: #fff;
+    width: 690px;
+    height: 290px;
+    background: #ccc;
     border-radius: 15px;
     margin: 0 auto;
     margin-bottom: 25px;
     text-align: center;
+    box-shadow:5px 10px 15px #ddd;
+    position: relative;
+    .tits {
+      width: 600px;
+      font-size: 35px;
+      color: #fff;
+      // background: orange;
+      position: absolute;
+      left: 0;right: 0;
+      margin: 0 auto;
+      bottom: 25px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   } 
 }
 .listWrap {

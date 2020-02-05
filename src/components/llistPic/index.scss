@@ -1,18 +1,73 @@
 .listBox {
-  margin: 25px;
+  // margin-top: 25px;
+  padding-top: 20px;
+  width: 692px;
   // display: flex;
-  // justify-content: space-between;  
+  // background: orange;
+  min-height: 700px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; 
   .Boxs {
-    width: 50%;
-    float: left;
-    margin-bottom: 25px;
-    text-align: center;
-    Image {
-      width: 80%;
-      height: 150px;
-      display: block;
-      margin: 0 auto;
-      background: #ccc;
+    width: 334px;
+    min-height: 500px;
+    padding-bottom: 25px;
+    // text-align: center;
+    // background: pink;
+    // margin: 5px;
+  }
+  .wrapBoxs {
+    width: 324px;
+    height: 341px;
+    // background: orangered;
+    border-radius: 25px;
+    box-shadow:5px 10px 15px #ddd;
+    margin: 0 auto;
+    margin-bottom: 35px;
+    position: relative;
+    .box_pic {
+      width: 324px;
+      height: 205px;
+      border-top-left-radius:25px;
+      border-top-right-radius:25px;
+      background: orange;
+      Image {
+        width: 324px;
+        height: 205px;
+        display: block;
+      }
     }
   }
+}
+
+.txta {
+  width: 269px;
+  height: auto;
+  text-align: left;
+  font-size: 24px;
+  display: block;
+  // background: orange;
+  line-height: 30px;
+  position: absolute;
+  left: 0;right: 0;
+  margin: 0 auto;
+  top: 220px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.txtb {
+  width: 269px;
+  display: block;
+  height: 30px;
+  background: #fff;
+  line-height: 30px;
+  position: absolute;
+  left: 0;right: 0;
+  margin: 0 auto;
+  text-align: left;
+  bottom: 22px;
+  color: #ccc;
+  font-size: 22px;
 }

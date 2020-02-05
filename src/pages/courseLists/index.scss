@@ -37,14 +37,20 @@
     margin-right: 15px;
   }
   .at-tag {
-    border-color: #ff4800;
-    color: #ff4800;
+    border-color: #9c9a9d;
+    color: #9c9a9d;
+    height: 40px;
+    line-height: 40px;
+    font-size: 23px;
+    border: 0;
+    border:1px solid #ccc;
   }
   .at-tag--active.at-tag--primary {
     color: #FFF;
     border-color: #ff4800;
-    // background-color: #ff4800;
-    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    background-color: #ff4800;
+    border:1px solid #ff4800;
+    // background: linear-gradient(to bottom, #8b7a51 0%, #ff4800 100%);
   }
     
 }

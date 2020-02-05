@@ -15,7 +15,7 @@ class listPic extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      list: [{}, {}, {}]
+      list: [{}, {}, {}, {}]
 
     }
   }
@@ -58,18 +58,49 @@ class listPic extends Component {
 
   render() {
     const { list } = this.state
+    // const leftList = 
+
+
+    const rightList = list.map((e, index) => (
+      <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
+        <View className='boxPic'>
+          <Image src='' />
+        </View>
+        <View>实验任务</View>
+        <View>实验介绍</View>
+      </View>
+    ))
 
     return (
       <View className='listBox'>
-        {
-          list.map((e, index) => (
-            <View className='Boxs' onClick={this.goToDetail.bind(this, e)}>
-              <Image src='' />
-              <View>实验任务</View>
-              <View>实验介绍</View>
-            </View>
-          ))
-        }
+        <View className='Boxs'>
+          {
+            list.map((e, index) => (
+              <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
+                <View
+                  style={`background:#ccc;background-size: 100% auto;`}
+                  className='box_pic'
+                ></View>
+                <View className='txta'>试验任务这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的</View>
+                <View className='txtb'>asdas</View>
+              </View>
+            ))
+          }
+        </View>
+        <View className='Boxs'>
+          {
+            list.map((e, index) => (
+              <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
+                <View
+                  style={`background:#ccc;background-size: 100% auto;`}
+                  className='box_pic'
+                ></View>
+                <View className='txta'>这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的</View>
+                <View className='txtb'>asdas</View>
+              </View>
+            ))
+          }
+        </View>
       </View>
     )
   }

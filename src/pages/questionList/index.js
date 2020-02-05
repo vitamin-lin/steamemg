@@ -20,11 +20,11 @@ class Coupons extends Component {
       list: [{
         tit:'基础',
         detail:'适合年龄3-8岁',
-        url:'../../assets/newIcon/awer.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png'
       },{
         tit:'高阶',
         detail:'适合年龄8-12岁',
-        url:'../../assets/newIcon/awerb.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awerb.png'
       }]
     }
   }
