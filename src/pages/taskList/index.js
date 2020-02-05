@@ -10,7 +10,7 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class Coupons extends Component {
   config = {
-    navigationBarTitleText: '课程列表'
+    navigationBarTitleText: '任务列表'
     // disableScroll: true
   }
 

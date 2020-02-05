@@ -10,13 +10,14 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class detail extends Component {
   config = {
-    navigationBarTitleText: '实验'
+    navigationBarTitleText: 'XXXX实验'
     // disableScroll: true
   }
 
   constructor() {
     super(...arguments)
     this.state = {
+      colect:true,
       list: [],
       current: 0, //  tabs下标
       tags:[{},{},{}] // tags标签多选
@@ -61,8 +62,15 @@ class detail extends Component {
     })
   }
 
+  colect() {
+    const { colect } = this.state
+    this.setState({
+      colect: colect ? false : true
+    })
+  }
+
   render() {
-    const { list, tabsBars, current, tags } = this.state
+    const { colect } = this.state
     return (
       <View className='wrap'>
         <Video
@@ -75,8 +83,26 @@ class detail extends Component {
           loop={false}
           muted={false}
         />
-        <View>
-          试验任务
+        <View className='tits'>
+          <View className='titleTxt'>
+            试验任务相对论（英语：Theory of relativity）是关于时空和引力的理论
+          </View>
+          <View className='incona' onClick={this.colect}>
+            {/** cloected.png **/}
+            <Image src={colect ? 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloect.png' : 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloected.png'} />
+            <View>收藏</View>      
+          </View>
+          <View className='inconb'>
+            <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/shares.png' />
+            <View>分享</View>
+          </View>
+        </View>
+        <View className='detail'>实验详情：</View>
+        <View className='main'>
+        相对论（英语：Theory of relativity）是关于时空和引力的理论，主
+        要由爱因斯坦创立，依其研究对象的不同可分为狭义相对论和广义相
+        对论。相对论和量子力学的提出给物理学带来了革命性的变化，它们
+        共同奠定了现代物理学的基础。
         </View>
       </View>
     )
