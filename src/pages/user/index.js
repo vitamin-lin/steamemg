@@ -16,13 +16,13 @@ class User extends Component {
     id: 0,
     list:[{
       tits:'我的记录',
-      link:'/pages/myCollection/index'
+      link:'/pages/myRecord/index'
     },{
       tits:'我的成就',
       link:'/pages/myAchievement/index'
     },{
       tits:'我的收藏',
-      link:'/pages/myRecord/index'
+      link:'/pages/myCollection/index'
     },{
       tits:'联系我们',
       link:'/pages/contact/index'

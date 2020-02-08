@@ -15,7 +15,9 @@ class contact extends Component {
 
   constructor() {
     super(...arguments)
-    this.state = {}
+    this.state = {
+      nums:'14552885'
+    }
   }
 
   componentDidMount() {}
@@ -23,13 +25,31 @@ class contact extends Component {
   componentDidShow() {
   }
 
+  copys() {
+    const { nums } = this.state
+    wx.setClipboardData({
+      data: nums,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功'
+            })
+          }
+        })
+      }
+    })
+  }
+
 
   render() {
+    const { nums } = this.state
     return (
       <View className='wrap'>
-        <View className='nums'>14552885</View>
+        <View className='nums'>{nums}</View>
         <Image className='bgs' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/we.jpg' />
         <Image className='ewms' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/ewms.png' />
+        <View className='copyNums' onClick={this.copys}></View>
       </View>
     )
   }

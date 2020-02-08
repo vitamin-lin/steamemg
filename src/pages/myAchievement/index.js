@@ -8,9 +8,9 @@ import Logins from '../../components/login/index'
 
 // @withShare()
 // @pageInit()
-class detail extends Component {
+class Coupons extends Component {
   config = {
-    navigationBarTitleText: '我的成就'
+    navigationBarTitleText: '基础'
     // disableScroll: true
   }
 
@@ -18,12 +18,28 @@ class detail extends Component {
     super(...arguments)
     this.state = {
       list: [],
+      tabsBars:[
+        { title: '我的徽章', listBox:[{},{},{},{},{},{},{},{},{},{}]},
+        { title: '我的级别', listBox:[{},{}] },
+      ], // tabs标题
       current: 0, //  tabs下标
-      tags:[{},{},{}] // tags标签多选
+      tags:[{},{},{}], // tags标签多选
+      result:[]
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let {tabsBars} = this.state
+    let data = tabsBars[0].listBox;
+    var result = [];
+    for(var i=0,len=data.length;i<len;i+=3){
+      result.push(data.slice(i,i+3));
+    }
+    console.warn(result)
+    this.setState({
+      result: result
+    })
+  }
 
   componentDidShow() {
     // API.get('api/group_list').then(res => {
@@ -62,13 +78,59 @@ class detail extends Component {
   }
 
   render() {
-    const { list, tabsBars, current, tags } = this.state
+    const { tabsBars, current, result } = this.state
     return (
       <View className='wrap'>
-        XXX实验
+          <AtTabs
+            current={this.state.current}
+            scroll
+            animated={false}
+            tabList={tabsBars}
+            className='tabsBox'
+            onClick={this.handleClick.bind(this)}>
+            {
+              tabsBars.map((e, index) => (
+                index == 0 ?
+                <AtTabsPane current={current} index={index} className='tabs'>     
+                  {
+                    result.map(k => (
+                      <View className='badge'>
+                        {
+                          k.map((v, g) => (
+                            <View className='badgeTxt'>
+                              <View className='imgsrc'></View>
+                              <View className='tits'>科学小助手</View>
+                            </View>
+                          ))
+                        }
+                      </View>
+                    ))
+                  }
+                </AtTabsPane>
+                : 
+                <AtTabsPane current={current} index={index} className='tabs'>
+                  {
+                    e.listBox.map((v, k) => (
+                      <View className='las'>
+                        <Image class='icons' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/lv.png' />
+                        <View className='nums'>{k+1}</View>
+                        <View className='loads'>
+                          <View className='lines'></View>
+                        </View>
+                        <View className='txts'>{`已顺利升级到LV${k+1}`}</View>
+                        <View className='numbers'>1 / 5</View>
+                      </View>
+                    ))
+                  }
+                </AtTabsPane>
+              ))
+            }
+          </AtTabs>
       </View>
     )
   }
 }
 
-export default detail
+export default Coupons
+
+// 再答3道题升级到LV3

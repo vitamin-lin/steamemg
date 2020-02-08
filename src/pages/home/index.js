@@ -21,7 +21,7 @@ class HOME extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      stau: false,
+      stau: true,
     }
   }
 

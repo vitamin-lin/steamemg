@@ -58,19 +58,13 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          pagePath: 'pages/knowledge/index',
-          text: '知识树',
-          iconPath: './assets/newIcon/knows.png',
-          selectedIconPath: './assets/newIcon/know.png'
-        },
-        {
           pagePath: 'pages/erwm/index',
           text: '我的',
           iconPath: './assets/newIcon/ervm.png',
           selectedIconPath: './assets/newIcon/ervm.png'
         },
         {
-          pagePath: 'pages/user/index',
+          pagePath: 'pages/erwm/index',
           text: '个人中心',
           iconPath: './assets/newIcon/userActive.png',
           selectedIconPath: './assets/newIcon/user.png'
@@ -81,7 +75,12 @@ class App extends Component {
       backgroundColor: '#ffffff',
       borderStyle: 'white'
     },
-
+    plugins: {
+      WechatSI: {
+        version: "0.3.3",
+        provider: "wx069ba97219f66d99"
+      }
+    },
     networkTimeout: {
       request: 1000000,
       connectSocket: 100000,
