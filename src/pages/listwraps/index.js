@@ -34,22 +34,15 @@ class Link extends Component {
   } 
 
   componentDidMount() {
-    // this.audioCtx = wx.createAudioContext('myAudio')
-    // //开始监听
-    // innerAudioContext.onPlay(() => {
-    //   console.log('开始播放');
-    // })
+    var res = Taro.getSystemInfoSync()
+    this.setState({
+      platform:res.platform
+    })
+  }
 
-    // //结束监听
-    // innerAudioContext.onEnded(() => {
-    //   console.log('自动播放完毕');
-    // })
-
-    // //错误回调
-    // innerAudioContext.onError((err) => {
-    //   console.log(err); 
-    //   return
-    // })
+  // 页面退出
+  componentWillUnmount() {
+    innerAudioContext.stop()
   }
 
 
@@ -111,17 +104,28 @@ class Link extends Component {
 
   // 播放语音
   yuyinPlay(res) {
-    // innerAudioContext.src = res.filename
-    // innerAudioContext.play()
-    // console.warn(audioCtx)
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = res.filename 
-    innerAudioContext.play()
-
-    wx.showToast({
-      title: '点击完毕'
-    })
-
+    let platform = this.state.platform
+    if(platform !== 'android') {
+      console.warn('我执行了')
+      innerAudioContext.autoplay = true
+      innerAudioContext.src = res.filename 
+      innerAudioContext.play()
+    } else {
+      wx.downloadFile({
+        url: res.filename, //仅为示例，并非真实的资源
+        success (res) {
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200) {
+            innerAudioContext.autoplay = true
+            innerAudioContext.src = res.tempFilePath 
+            innerAudioContext.play()
+          }
+        }
+      })
+    }
+    // wx.showToast({
+    //   title: '点击完毕'
+    // })
   }
 
 
