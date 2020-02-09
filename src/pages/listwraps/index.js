@@ -17,15 +17,16 @@ class Link extends Component {
     addGlobalClass: true
   }
   config = {
-    navigationBarTitleText: "基础"
+    navigationBarTitleText: "试题"
   };
 
   state = {
     datas:Datas.question,
     Icons:[{},{},{},{},{}],
-    current: 0,
+    current: 0, // 当前试题的下标
     audioSrc:'',
     autoplay: false,
+    nowData:[], // 当前页面的试题
   };
 
 
@@ -36,7 +37,9 @@ class Link extends Component {
   componentDidMount() {
     var res = Taro.getSystemInfoSync()
     this.setState({
-      platform:res.platform
+      platform:res.platform,
+      nowData:Datas.question[0],
+      current:0
     })
   }
 
@@ -70,11 +73,33 @@ class Link extends Component {
     })
   }
 
-  // 切换题目是第几题
+  // 选题目是第几题
   tapItem(e, index) {
-    // this.setState({
-    //   current: index
-    // })
+    let newDatas = Datas;
+    let { nowData, datas, current } = this.state
+    let lists = newDatas.question[0].list // 当前题目
+    // 选对
+    if(lists[index].result) {
+      lists[index].className = 'seaActive'
+    } else {
+      lists[index].className = 'seaFalse'
+    }
+    // 处理选对和选错其他选项的结果
+    lists.map((e, k) => {
+      if(index !== k) {
+        if(e.result) {
+          e.className = 'seaActive'
+        }
+      }
+    })
+    // 使其不可点击，且出现浮层，接着跳转到下一题
+
+
+    newDatas.question[0].list = lists;
+    console.warn(newDatas.question)
+    this.setState({
+      datas: newDatas.question
+    })
   }
 
   // 数据返回所有处理，一种是当前页面的数据变更，一种是最终数据的变更
@@ -131,7 +156,7 @@ class Link extends Component {
 
 
   render() {
-    const { current, list, datas, audioSrc, autoplay } = this.state;
+    const { current, datas } = this.state;
     let txts = datas[0].tit ? datas[0].tit : '';
     return (
       <View className='wrap'>   
@@ -149,8 +174,8 @@ class Link extends Component {
 
         <View className='listsWrap'>
           {
-            datas[0].list.map((e, index) => (
-              <View className={e.className} key={index}>
+            datas[current].list.map((e, index) => (
+              <View className={e.className} key={index} onClick={this.tapItem.bind(this, e, index)}>
                 <View className='box'>
                   <View>{e.mian}</View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.mian)}>
@@ -167,7 +192,7 @@ class Link extends Component {
           <View className='box'>
             {
               datas.map((e, index) => (
-                <View className='icons' key={index} onClick={this.tapItem.bind(this, e, index)}>
+                <View className='icons' key={index}>
                   <View className={current == index ? 'numActive' : 'num'}>{index + 1}</View>
                 </View>
               ))

@@ -38,23 +38,10 @@ class Coupons extends Component {
   componentDidMount() {}
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
-
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
+    const { type } = this.$router.params;
+    Taro.setNavigationBarTitle({
+      title: type == 0 ? '基础' : '高级'
+    });
   }
 
   handleClick (value) {
@@ -95,6 +82,7 @@ class Coupons extends Component {
                             k%2 === 0 ? <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linka.png' /> :
                             <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linkb.png' />
                           }
+                          <View className={k%2 === 0 ? 'overs' : 'oversa' }>已完成</View>
                         </View>
                      ))
                    }

@@ -35,7 +35,7 @@ class Coupons extends Component {
     for(var i=0,len=data.length;i<len;i+=3){
       result.push(data.slice(i,i+3));
     }
-    console.warn(result)
+    console.warn(result, '最终结果')
     this.setState({
       result: result
     })
@@ -98,7 +98,9 @@ class Coupons extends Component {
                         {
                           k.map((v, g) => (
                             <View className='badgeTxt'>
-                              <View className='imgsrc'></View>
+                              <View className='imgsrc'>
+                                <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${g+1}.png`} />
+                              </View>
                               <View className='tits'>科学小助手</View>
                             </View>
                           ))

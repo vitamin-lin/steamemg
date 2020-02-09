@@ -46,15 +46,19 @@
     // background: pink;
     text-align: center;
     .imgsrc {
-      width: 140px;
-      height: 140px;
-      background: #ccc;
-      border-radius: 100%;
+      width: 180px;
+      height: 180px;
+      // background: #ccc;
+      // border-radius: 100%;
       margin: 0 auto;
-      margin-top: 60px;
+      margin-top: 50px;
+      Image {
+        width: 180px;
+        height: 180px;
+      }
     }
     .tits {
-      margin-top: 35px;  
+      margin-top: 15px;  
       font-size: 25px;
       // font-weight: 800;
     }

@@ -114,7 +114,7 @@
       }
     }
   }
-  // 选中状态
+  // 选对状态
   .seaActive {
     width: 682px;
     min-height: 51px;
@@ -124,7 +124,7 @@
     margin-bottom: 40px;
     padding-top: 28px;
     padding-bottom: 28px;
-    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
     .box {
       width: 453px;
       min-height: 57px;
@@ -133,6 +133,46 @@
       left: 112px;
       word-wrap:break-word;
       border-left: 2px solid #ff4800;
+      padding-left: 78px;
+      .voice {
+        position: absolute;
+        left: -70px;
+        width: 40px;
+        height: 100%;
+        // background: pink;
+        top: 0;
+        Image {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          margin:auto;
+          left:0;
+          top:0;
+          right:0;
+          bottom:0;
+        }
+      }
+    }
+  }
+  // 选错状态
+  .seaFalse {
+    width: 682px;
+    min-height: 51px;
+    border: 4px solid #9e7de8;
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    .box {
+      width: 453px;
+      min-height: 57px;
+      // background: orange;
+      position: relative;
+      left: 112px;
+      word-wrap:break-word;
+      border-left: 2px solid #9e7de8;
       padding-left: 78px;
       .voice {
         position: absolute;
