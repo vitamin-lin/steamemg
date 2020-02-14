@@ -5,8 +5,9 @@ import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
+import withShare from '../../utils/withSare'
 
-// @withShare()
+@withShare()
 // @pageInit()
 class Coupons extends Component {
   config = {

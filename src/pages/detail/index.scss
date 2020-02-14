@@ -47,6 +47,14 @@
         width: 41px;
         height: 41px;
       }
+      .sure {
+        width: 81px;
+        height: 91px;
+        // background: orange;
+        position: absolute;
+        top: -20px;right: -20px;
+        opacity: 0;
+      }
     }
   }
   .detail {

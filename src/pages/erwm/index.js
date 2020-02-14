@@ -10,7 +10,7 @@ import Knowledge from '../knowledge/index'
 import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 
 // @pageInit()
-// @withShare()
+@withShare()
 
 class erWm extends Component {
   config = {

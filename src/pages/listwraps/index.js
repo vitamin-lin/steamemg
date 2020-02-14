@@ -1,17 +1,21 @@
 // 首页
-import Taro, { Component } from "@tarojs/taro"
+import Taro, { Component, navigateTo } from "@tarojs/taro"
 import { View, Audio, Button } from "@tarojs/components"
 import PropTypes from "prop-types"
 import { connect } from "@tarojs/redux"
 import Datas from "../../constants/datas"
+import { AtCurtain } from 'taro-ui'
 // import {  AtModalAction } from 'taro-ui'
 import API from '../../service/api'
 import "./index.scss"
+import withShare from '../../utils/withSare'
 
 var plugin = requirePlugin("WechatSI")
 let manager = plugin.getRecordRecognitionManager()
 const innerAudioContext = wx.createInnerAudioContext();
 
+
+@withShare()
 class Link extends Component {
   static options = {
     addGlobalClass: true
@@ -26,7 +30,13 @@ class Link extends Component {
     current: 0, // 当前试题的下标
     audioSrc:'',
     autoplay: false,
+    isOpened: true,
     nowData:[], // 当前页面的试题
+    staus: false, // 判断是否可以点击
+    fc: false, // 浮层是否显示
+    submit: false, // 答题按钮是否存在
+    dia: false, // 控制浮层图片1
+    dib: false // 控制浮层图片2
   };
 
 
@@ -69,43 +79,99 @@ class Link extends Component {
 
   control = e => {
     Taro.navigateTo({
-      url: '/pages/home/index'
+      url: '/pages/results/index'
+    })
+  }
+
+  // 提交答案
+  submitAwser() {
+    let { datas, current, staus } = this.state
+    let newDatas = Datas;
+    let lists = newDatas.question[current].list // 当前题目
+    let _this = this
+    // 处理其他选项的结果 1 选中的是错误的 2 选中的是正确的
+    lists.map((v, k) => {
+      if((v.className === 'seaActive' || v.className === 'seaActive seaFalse') && !v.result){
+        // 如果是选中的而且是错的
+          v.className='seaActive seaFalse'
+          this.setState({
+            fc: true,
+            dia: true
+          })
+          setTimeout(function() {
+            _this.close()
+          }, 800)
+      } else if((v.className !== 'sea' || v.className === 'seaActive') && v.result) {
+        // 正确答案
+        // v.className='seaActive'
+        this.setState({
+          fc: true,
+          dib: true
+        })
+        setTimeout(function() {
+          if(current == 4) {
+            _this.setState({
+              fc: false,
+              dib: false
+            })
+            Taro.navigateTo({
+              url:'/pages/results/index'
+            })
+          } else {
+            innerAudioContext.stop()
+            _this.setState({
+              current: current + 1,
+              fc: false,
+              dib: false,
+              submit: false
+            })
+          }
+        }, 800)
+      } else {}
+    })
+    this.setState({
+      datas: newDatas.question,
+    })
+  }
+
+  // 关闭疑浮层
+  close() {
+    let _this = this
+    _this.setState({
+      fc: false,
+      dia: false
     })
   }
 
   // 选题目是第几题
   tapItem(e, index) {
+    let { datas, current, staus } = this.state
     let newDatas = Datas;
-    let { nowData, datas, current } = this.state
-    let lists = newDatas.question[0].list // 当前题目
+    // 判断是否可以点击
+    // if(staus) return false;
+    let lists = newDatas.question[current].list // 当前题目
     // 选对
-    if(lists[index].result) {
-      lists[index].className = 'seaActive'
-    } else {
-      lists[index].className = 'seaFalse'
-    }
-    // 处理选对和选错其他选项的结果
-    lists.map((e, k) => {
-      if(index !== k) {
-        if(e.result) {
-          e.className = 'seaActive'
-        }
+    // if(lists[index].result) {
+      // lists[index].className = 'seaActive'
+    // } 
+    // else {
+    //   lists[index].className = 'seaFalse'
+    // }
+    // 处理其他选项的结果
+    lists.map((v, k) => {
+      // console.warn(k,index,'你说呢')
+      if(k !== index) {
+        v.className = 'sea'
+      } else {
+        v.className = 'seaActive'
       }
     })
     // 使其不可点击，且出现浮层，接着跳转到下一题
-
-
-    newDatas.question[0].list = lists;
-    console.warn(newDatas.question)
+    // console.warn(newDatas.question, 'www')
     this.setState({
-      datas: newDatas.question
+      datas: newDatas.question,
+      submit: true
     })
-  }
-
-  // 数据返回所有处理，一种是当前页面的数据变更，一种是最终数据的变更
-  checkMain() {
-
-
   }
 
   getVoice(txts) {
@@ -129,6 +195,7 @@ class Link extends Component {
 
   // 播放语音
   yuyinPlay(res) {
+    let _this = this
     let platform = this.state.platform
     if(platform !== 'android') {
       console.warn('我执行了')
@@ -139,27 +206,37 @@ class Link extends Component {
       wx.downloadFile({
         url: res.filename, //仅为示例，并非真实的资源
         success (res) {
+          _this.setState({
+            paths: res,
+          })
           // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
           if (res.statusCode === 200) {
             innerAudioContext.autoplay = true
             innerAudioContext.src = res.tempFilePath 
             innerAudioContext.play()
           }
+        },
+        fail (failres) {
         }
       })
     }
-    // wx.showToast({
-    //   title: '点击完毕'
-    // })
+    wx.showToast({
+      title: '点击完毕'
+    })
   }
 
 
 
   render() {
-    const { current, datas } = this.state;
-    let txts = datas[0].tit ? datas[0].tit : '';
+    const { current, datas, fc, submit } = this.state;
+    let txts = datas[current].tit ? datas[current].tit : '';
     return (
-      <View className='wrap'>   
+      <View className='wrap'> 
+        <View className={fc ? 'fc' : 'dn'}>
+          <View className='mia'></View>
+          <Image className={dia ? 'seas' : 'dn'} src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/dia.png' />
+          <Image className={dib ? 'seb' : 'dn'} src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/dib.png' />
+        </View>  
         <View className='tit'>
           <Image className='icons' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/boxIcon.png' />
           <View className='mains'>
@@ -168,16 +245,16 @@ class Link extends Component {
               src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voiceb.png'
               onClick={this.getVoice.bind(this, txts)}
             />
-            <View>{datas[0].tit ? datas[0].tit : ''}</View>
+            <View>{current + 1}.{datas[current].tit ? datas[current].tit : ''}</View>
           </View>
         </View>
 
         <View className='listsWrap'>
           {
             datas[current].list.map((e, index) => (
-              <View className={e.className} key={index} onClick={this.tapItem.bind(this, e, index)}>
+              <View className={e.className} key={index}>
                 <View className='box'>
-                  <View>{e.mian}</View>
+                  <View onClick={this.tapItem.bind(this, e, index)}>{e.mian}</View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.mian)}>
                     <Image
                       src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voicea.png'
@@ -199,7 +276,9 @@ class Link extends Component {
             }
           </View>
         </View>
-        <View className='submits'>提交答案</View>
+        <View className={submit ? 'botomSub' : 'dn'}>
+          <View className='submits' onClick={this.submitAwser}>提交答案</View>
+        </View>
       </View>
     );
   }

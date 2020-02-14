@@ -5,7 +5,7 @@ import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
 
-// @withShare()
+@withShare()
 // @pageInit()
 class contact extends Component {
   config = {

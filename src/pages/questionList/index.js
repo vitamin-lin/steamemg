@@ -6,7 +6,7 @@ import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
 
-// @withShare()
+@withShare()
 // @pageInit()
 class Coupons extends Component {
   config = {

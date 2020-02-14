@@ -78,12 +78,13 @@
   .sea {
     width: 682px;
     min-height: 51px;
-    border: 4px solid #4bf4fc;
+    border: 4px solid #fff;
     border-radius: 25px;
     margin: 0 auto;
     margin-bottom: 40px;
     padding-top: 28px;
     padding-bottom: 28px;
+    box-shadow:0px 2px 20px #ffeae2;
     //background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
     .box {
       width: 453px;
@@ -92,7 +93,7 @@
       position: relative;
       left: 112px;
       word-wrap:break-word;
-      border-left: 2px solid #4bf4fc;
+      border-left: 2px solid #f2f2f2;
       padding-left: 78px;
       .voice {
         position: absolute;
@@ -124,6 +125,7 @@
     margin-bottom: 40px;
     padding-top: 28px;
     padding-bottom: 28px;
+    box-shadow:0px 2px 20px #ffeae2;
     // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
     .box {
       width: 453px;
@@ -136,8 +138,8 @@
       padding-left: 78px;
       .voice {
         position: absolute;
-        left: -70px;
-        width: 40px;
+        left: -103px;
+        width: 100px;
         height: 100%;
         // background: pink;
         top: 0;
@@ -164,6 +166,7 @@
     margin-bottom: 40px;
     padding-top: 28px;
     padding-bottom: 28px;
+    box-shadow:0px 2px 20px #ffeae2;
     // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
     .box {
       width: 453px;
@@ -176,8 +179,8 @@
       padding-left: 78px;
       .voice {
         position: absolute;
-        left: -70px;
-        width: 40px;
+        left: -103px;
+        width: 100px;
         height: 100%;
         // background: pink;
         top: 0;
@@ -200,7 +203,7 @@
   width: auto;
   margin: 0 auto;
   height: 62px;
-  padding-bottom: 50px;
+  padding-bottom: 200px;
   padding-top: 30px;
   // background: orange;
   .box {
@@ -215,15 +218,16 @@
       .num {
         width: 62px;
         height: 62px;
-        background: #4bf4fc;
+        // background: #4bf4fc;
+        border: 1px solid #ff4800;
         border-radius: 100%;
         line-height: 62px;
         text-align: center;
         margin: 0 auto;
+        color: #ff4800;
         // float: left;
         // display: inline-block;
         // margin: 0 20px;
-        color: #fff;
       }
       .numActive {
         width: 62px;
@@ -249,5 +253,52 @@
   border-radius: 25px;
   margin: 0 auto;
   // margin-top: 57px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
+}
+.fc {
+  .mia {
+    width: 750px;
+    height: 100vh;
+    background: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    opacity: .3;
+  }
+
+  .seas {
+    width: 500px;
+    height: 581px;
+    // background: orange;
+    margin: 0 auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 327px;
+    z-index: 11;
+    // display: none;
+  }
+  .seb {
+    width: 582px;
+    height: 461px;
+    // background: orange;
+    margin: 0 auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 327px;
+    z-index: 11;
+    // display: none;
+  }
+}
+.dn {display: none;}
+.botomSub {
+  width: 750px;
+  height: 160px;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-top: 10px;
 }

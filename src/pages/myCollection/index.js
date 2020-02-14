@@ -4,9 +4,9 @@ import { View, Image, Text } from '@tarojs/components'
 import llistPic from '../../components/llistPic/index'
 import './index.scss'
 import API from '../../service/api'
+import withShare from '../../utils/withSare'
 
-
-// @withShare()
+@withShare()
 // @pageInit()
 class detail extends Component {
   config = {

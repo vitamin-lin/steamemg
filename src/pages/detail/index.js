@@ -1,12 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text, Video } from '@tarojs/components'
+import { View, Image, Text, Video, Button } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtTag } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
 
-// @withShare()
+@withShare()
 // @pageInit()
 class detail extends Component {
   config = {
@@ -95,6 +95,7 @@ class detail extends Component {
           <View className='inconb'>
             <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/shares.png' />
             <View>分享</View>
+            <Button data-id="shareBtn" open-type="share" className='sure'></Button>
           </View>
         </View>
         <View className='detail'>实验详情：</View>
