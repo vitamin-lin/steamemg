@@ -31,7 +31,7 @@ export function CheckLogin() {
       success: res => {
         var code = res.code
         if (code) {
-          API.post('api/login1', { code: code }).then(response => {
+          API.post('api/private/samll/userinfo', { code: code }).then(response => {
             /* eslint-disable */
             const { openid, unionid, token } = response.data
             const app = getApp()

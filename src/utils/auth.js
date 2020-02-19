@@ -92,11 +92,11 @@ async function getAuthToken(){
 
     //获取token
     let response = await Taro.request({
-        url : `${config}api/login1` ,
+        url : `${config}v1/samll/taskinfo/data` ,
         data : {
-            code : res.code 
+            userId : res.code
         } ,
-        method : 'POST'
+        method : 'GET'
     })
     //判断是否成功
     if( response.code === 20000 ){

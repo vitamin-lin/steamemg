@@ -34,17 +34,17 @@ class App extends Component {
   config = {
     pages: [
       'pages/home/index',  // 首页
-      'pages/knowledge/index', //  知识库
+      // 'pages/knowledge/index', //  知识库
       'pages/erwm/index', //扫码
       'pages/questionList/index', // 题库
+      'pages/myAchievements/index', // 我的成就
       'pages/taskList/index', //任务列表
       'pages/courseLists/index', // 课程列表
-      'pages/user/index', // 个人中心
+      // 'pages/user/index', // 个人中心
       'pages/listwraps/index', // 题库列表
       'pages/tabLink/index', // 基础或者高级题库跳转tabs
       'pages/detail/index', // video详情
       'pages/myRecord/index', // 我的记录
-      'pages/myAchievement/index', // 我的成就
       'pages/myCollection/index', // 我的收藏
       'pages/contact/index', // 联系我们
       'pages/results/index', // 题目答案
@@ -104,6 +104,15 @@ class App extends Component {
   }
 
   componentDidShow() {
+    // console.warn('11')
+    // API.get('api/v1/samll/iteminfo/data', {
+    //   cid: 1,
+    //   leveId: 1
+    // }).then(res => {
+    //   if (res.code == 20000) {
+    //     console.warn('11')
+    //   }
+    // })  
   }
 
   componentDidHide() {}

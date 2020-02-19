@@ -15,20 +15,13 @@ class listPic extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      list: [{}, {}, {}, {}]
-
     }
   }
 
   componentDidMount() {
-    // API.get('api/member').then(res => {
-    //   if (res.code == 20000) {
-    //   }
-    // })
   }
 
   componentDidShow() {
-
   }
 
 
@@ -48,55 +41,51 @@ class listPic extends Component {
     })
   }
 
-  goToDetail() {
+  goToDetail(e) {
     Taro.navigateTo({
-      url:'/pages/detail/index'
+      url:`/pages/detail/index?cid=${e.cid}`
     })
   }
 
   
 
   render() {
-    const { list } = this.state
-    // const leftList = 
-
-
-    const rightList = list.map((e, index) => (
-      <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
-        <View className='boxPic'>
-          <Image src='' />
-        </View>
-        <View>实验任务</View>
-        <View>实验介绍</View>
-      </View>
-    ))
-
+    const { list } = this.props
+    let arr = []
+    let brr = []
+    for (let k in list) {
+      if( k%2 == 1 ){
+        brr.push(list[k])  
+      }else{
+       arr.push(list[k])
+      }
+    }
     return (
       <View className='listBox'>
         <View className='Boxs'>
           {
-            list.map((e, index) => (
+            arr.map((e, index) => (
               <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
                 <View
-                  style={`background:#ccc;background-size: 100% auto;`}
+                  style={`background:url(${e.imgUrls});background-size: 100% auto;`}
                   className='box_pic'
                 ></View>
-                <View className='txta'>试验任务这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的</View>
-                <View className='txtb'>asdas</View>
+                <View className='txta'>{e.title}</View>
+                <View className='txtb'>{e.summary}</View>
               </View>
             ))
           }
         </View>
         <View className='Boxs'>
           {
-            list.map((e, index) => (
+            brr.map((e, index) => (
               <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
                 <View
-                  style={`background:#ccc;background-size: 100% auto;`}
+                  style={`background:url(${e.imgUrls});background-size: 100% auto;`}
                   className='box_pic'
                 ></View>
-                <View className='txta'>这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的这样的</View>
-                <View className='txtb'>asdas</View>
+                <View className='txta'>{e.title}</View>
+                <View className='txtb'>{e.summary}</View>
               </View>
             ))
           }

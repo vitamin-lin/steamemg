@@ -19,7 +19,7 @@ class User extends Component {
       link:'/pages/myRecord/index'
     },{
       tits:'我的成就',
-      link:'/pages/myAchievement/index'
+      link:'/pages/myAchievements/index'
     },{
       tits:'我的收藏',
       link:'/pages/myCollection/index'
@@ -54,7 +54,7 @@ class User extends Component {
   // 我的成就
   goTomyachievement() {
     Taro.navigateTo({
-      url:'/pages/myAchievement/index'
+      url:'/pages/myAchievements/index'
     })
   }
 
@@ -91,6 +91,7 @@ class User extends Component {
   }
 
   componentDidMount() {
+    console.warn('111')
     // API.get('api/member').then(res => {
     //   if (res.code == 20000) {
     //   }
@@ -101,7 +102,7 @@ class User extends Component {
   componentDidShow() {
     // myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
     var myDate = new Date();//获取系统当前时间
-    console.warn(myDate.getDay())
+    // console.warn(myDate.getDay())
   }
 
   render() {
@@ -111,7 +112,7 @@ class User extends Component {
     var myDate = new Date();//获取系统当前时间
     let days = getCurrentMonthFirst(); // 2020-01-03
     let week = dateLater(days, 0).week;
-    console.warn(dateLater(days, 0),days,'1234')
+    // console.warn(dateLater(days, 0),days,'1234')
 
     return (
       <View className='user'>

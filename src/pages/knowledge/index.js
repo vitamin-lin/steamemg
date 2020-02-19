@@ -31,26 +31,27 @@ class Coupons extends Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.warn('1asasa1')
+    API.get('api/v1/samll/iteminfo/data', {
+      cid: 1,
+      leveId: 1
+    }).then(res => {
+      if (res.code == 20000) {
+        console.warn('11')
+      }
+    })  
+  }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
-
-    //     _this.setData({
-    //       result: result,
-
-    //     })
+    // API.get('api/v1/samll/iteminfo/data', {
+    //   cid: 1,
+    //   leveId: 1
+    // }).then(res => {
+    //   if (res.code == 20000) {
+    //     console.warn('11')
     //   }
-    // })
+    // })  
   }
 
   onTabItemTap(item) {

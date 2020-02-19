@@ -5,11 +5,11 @@ import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
-import withShare from '../../utils/withSare'
 
 @withShare()
 // @pageInit()
-class Coupons extends Component {
+
+class myAchievements extends Component {
   config = {
     navigationBarTitleText: '基础'
     // disableScroll: true
@@ -134,6 +134,6 @@ class Coupons extends Component {
   }
 }
 
-export default Coupons
+export default myAchievements
 
 // 再答3道题升级到LV3

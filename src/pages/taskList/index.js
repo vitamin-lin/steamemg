@@ -8,7 +8,7 @@ import Logins from '../../components/login/index'
 
 @withShare()
 // @pageInit()
-class Coupons extends Component {
+class taskList extends Component {
   config = {
     navigationBarTitleText: '任务列表'
     // disableScroll: true
@@ -17,30 +17,21 @@ class Coupons extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      list: [{},{},{},{},{},{},{},{},{}]
+      list: []
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    API.get('api/v1/samll/taskinfo/data',{
+      pid: 1
+    }).then(res => {
+      this.setState({
+        list: res
+      })
+    })
+  }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
-
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
   }
 
   detailTo() {
@@ -55,8 +46,9 @@ class Coupons extends Component {
       <View className='wrap'>
         {
           list.map((e, index) => (
-            <View className='main' onClick={this.detailTo.bind(this, e)}>
-              <View className='tits'>试验任务XXXX</View>
+            <View className='main' onClick={this.detailTo.bind(this, e)} key={index}>
+              <Image src={e.imgUrls} />
+              <View className='tits'>{e.title}</View>
             </View>
           ))
         }
@@ -65,4 +57,4 @@ class Coupons extends Component {
   }
 }
 
-export default Coupons
+export default taskList

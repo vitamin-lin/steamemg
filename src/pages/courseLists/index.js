@@ -8,7 +8,7 @@ import llistPic from '../../components/llistPic/index'
 
 @withShare()
 // @pageInit()
-class Coupons extends Component {
+class courseLists extends Component {
   config = {
     navigationBarTitleText: '课程列表'
     // disableScroll: true
@@ -17,14 +17,10 @@ class Coupons extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      list: [],
+      listAll: [],
       tabsBars:[
         { title: '科学', tags:[{type:''}] },
         { title: '物理', tags:[{type:''},{type:''}] },
-        { title: '化学', tags:[{type:''}] },
-        { title: '标签页4', tags:[{type:''},{type:''}] },
-        { title: '标签页5', tags:[{type:''}] },
-        { title: '标签页6' , tags:[{type:''},{type:''}]}
       ], // tabs标题
       current: 0, //  tabs下标
       tags:[] // tags标签多选
@@ -32,40 +28,77 @@ class Coupons extends Component {
   }
 
   componentDidMount() {
-    const { list, tabsBars, current, tags } = this.state
-    this.setState({
-      tags:tabsBars[current]
+    // const { list, tabsBars, current, tags } = this.state
+    // this.setState({
+    //   tags:tabsBars[current]
+    // })
+    let _this = this
+    API.get('api/v1/samll/coursecata/data').then(res => {
+      let arr = []
+      for(let k in res) {
+        let data = res[k].childs;
+        data = data.map(e => {
+          return {
+            type:'',
+            ...e
+          }
+        })
+        arr.push({ 
+          title: res[k].name,
+          tags: data,
+          ...res[k]
+        })
+      }
+      // console.warn(arr)
+      _this.getListData(arr[0].id)
+      this.setState({
+        tabsBars: arr
+      })
+      // console.warn(a)
     })
   }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
 
-    //     _this.setData({
-    //       result: result,
+  }
 
-    //     })
-    //   }
-    // })
+  // 获取列表数据
+  getListData (e) {
+    let arr = []
+    arr.push(e)
+    let { current, tabsBars } = this.state
+    let tages = tabsBars[current].tags// tabs下的标签
+    for(let k in tages) {
+      if(tages[k].type == 'primary') {
+        arr.push(tages[k].id)
+      }
+    }
+    let _this = this
+    API.get('api/v1/samll/courseinfo/data',{
+      cid: arr.length == 1 ? arr[0]: arr.join(',')
+    }).then(res => {
+      _this.setState({
+        listAll: res
+      }, () => {
+        Taro.setStorageSync('listAll', res)
+      })
+
+    })
   }
 
   handleClick (value) {
+    let _this = this
     this.setState({
       current: value
+    },()=> {
+      const { tabsBars } = this.state
+      this.getListData(tabsBars[value].id)
     })
   }
 
   onTagClick (e) {
     const { list, tabsBars, current, tags } = this.state
+    let _this = this
     let lists = tabsBars;
     let tabBox = lists[current].tags; // 点击的第几个
     let tagsLa = tabBox[e].type;
@@ -74,14 +107,16 @@ class Coupons extends Component {
     } else {
       tabBox[e].type = ''
     }
-    console.warn(lists)
     this.setState({
       tabsBars: lists
+    }, k => {
+      _this.getListData(tabsBars[current].id)
     })
   }
 
   render() {
-    const { list, tabsBars, current, tags } = this.state
+    const { listAll, tabsBars, current, tags } = this.state
+    console.warn(listAll, '你说呢')
     return (
       <View className='wrap'>
           <AtTabs
@@ -107,14 +142,14 @@ class Coupons extends Component {
                             index={index}
                             className='icons'
                           >
-                            XX科学实验
+                           {k.name}
                           </AtTag>
                         )
                       })
                     }
                   </View>      
                   <View style='font-size:18px;text-align:center;height:100px;'>
-                    <llistPic />
+                    <llistPic list={listAll} />
                   </View>
                 </AtTabsPane>
               ))
@@ -125,4 +160,4 @@ class Coupons extends Component {
   }
 }
 
-export default Coupons
+export default courseLists

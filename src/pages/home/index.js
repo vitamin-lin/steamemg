@@ -25,20 +25,6 @@ class HOME extends Component {
     }
   }
 
-  componentDidMount() {
-    // API.get('api/member').then(res => {
-    //   if (res.code == 20000) {
-    //   }
-    // })    
-  }
-
-  componentDidShow() {
-  }
-
-  componentDidMount () {
-    this.setNavSize()
-  }
-
   setNavSize () {
     let sysinfo = Taro.getSystemInfoSync()
     let statusHeight = sysinfo.statusBarHeight
@@ -73,6 +59,16 @@ class HOME extends Component {
     this.setState({
       stau: false
     })
+  }
+  componentDidMount() {
+    console.warn('test')
+  }
+
+  componentDidShow() {
+  }
+
+  componentDidMount () {
+    this.setNavSize()
   }
 
   render() {

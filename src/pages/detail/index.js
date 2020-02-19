@@ -18,32 +18,26 @@ class detail extends Component {
     super(...arguments)
     this.state = {
       colect:true,
-      list: [],
+      main:'',
       current: 0, //  tabs下标
       tags:[{},{},{}] // tags标签多选
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let { cid } = this.$router.params
+    API.get('api/v1/samll/courseinfo/detail', {
+      id: cid
+    }).then(res => {
+      this.setState({
+        main: res,
+        colect: res.opAt
+      })
+    })
+  }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
 
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
   }
 
   handleClick (value) {
@@ -70,14 +64,14 @@ class detail extends Component {
   }
 
   render() {
-    const { colect } = this.state
+    const { colect, main } = this.state
     return (
       <View className='wrap'>
         <Video
-          src='http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+          src={main.videoUrls}
           controls={true}
           autoplay={false}
-          poster='http://misc.aotu.io/booxood/mobile-video/cover_900x500.jpg'
+          poster={main.imgUrls}
           initialTime='0'
           id='video'
           loop={false}
@@ -85,7 +79,7 @@ class detail extends Component {
         />
         <View className='tits'>
           <View className='titleTxt'>
-            试验任务相对论（英语：Theory of relativity）是关于时空和引力的理论
+            {main.title}
           </View>
           <View className='incona' onClick={this.colect}>
             {/** cloected.png **/}
@@ -100,10 +94,7 @@ class detail extends Component {
         </View>
         <View className='detail'>实验详情：</View>
         <View className='main'>
-        相对论（英语：Theory of relativity）是关于时空和引力的理论，主
-        要由爱因斯坦创立，依其研究对象的不同可分为狭义相对论和广义相
-        对论。相对论和量子力学的提出给物理学带来了革命性的变化，它们
-        共同奠定了现代物理学的基础。
+        {main.content}
         </View>
       </View>
     )
