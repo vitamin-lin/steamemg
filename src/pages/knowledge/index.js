@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
-// import { AtAccordion, AtList, AtListItem } from 'taro-ui'
+import { View, Image, Text, Button } from '@tarojs/components'
+import { AtButton } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
@@ -17,30 +17,31 @@ class Coupons extends Component {
   constructor() {
     super(...arguments)
     this.state = {
+      staus: true,
       logins: false,
       list: [{
         text: '任务列表',
-        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/lista.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/homea.jpg'
       },{
         text: '课程列表',
-        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/listb.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/homeb.jpg'
       },{
         text: '题库',
-        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/listc.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/homec.jpg'
       }]
     }
   }
 
   componentDidMount() {
-    console.warn('1asasa1')
-    API.get('api/v1/samll/iteminfo/data', {
-      cid: 1,
-      leveId: 1
-    }).then(res => {
-      if (res.code == 20000) {
-        console.warn('11')
-      }
-    })  
+    // console.warn('1asasa1')
+    // API.get('api/v1/samll/iteminfo/data', {
+    //   cid: 1,
+    //   leveId: 1
+    // }).then(res => {
+    //   if (res.code == 20000) {
+    //     console.warn('11')
+    //   }
+    // })  
   }
 
   componentDidShow() {
@@ -80,8 +81,31 @@ class Coupons extends Component {
     console.warn(link)
   }
 
+  handleGetUserInfo(e, index) {
+    console.warn(e)
+    let _this = this
+    if(e.detail.errMsg === "getUserInfo:ok") {
+      console.warn('到了', e.encryptedData, e.iv)
+      API.post('api/mini/login', {
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+        rawData: e.detail.rawData,
+        signature: e.detail.signature,
+        openid: Taro.getStorageSync('token')
+      }).then(res => {
+        if (res.code == 0) {
+          _this.setState({
+            staus: false
+          })
+          console.warn('登录成功')
+          _this.linkWrap(index)
+        }
+      })  
+    }
+ }
+
   render() {
-    const { list } = this.state
+    const { list, staus } = this.state
     return (
       <View className='wrap'>
         <Image
@@ -94,9 +118,25 @@ class Coupons extends Component {
               <View
                 className='listWrap'
                 key={index}
-                onClick={this.linkWrap.bind(this, index)}
               >
-                <Image src={item.url} />
+                {
+                  !staus &&
+                  <View>
+                  {
+                    index !== 1 &&
+                    <Button
+                      key={index}
+                      open-type='getUserInfo'
+                      onGetUserInfo={e => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        this.handleGetUserInfo(e, index)
+                      }}
+                      ></Button>
+                    }
+                  </View>
+                }
+                <Image src={item.url} onClick={this.linkWrap.bind(this, index)}/>
               </View>
             ))
           }
@@ -107,3 +147,4 @@ class Coupons extends Component {
 }
 
 export default Coupons
+

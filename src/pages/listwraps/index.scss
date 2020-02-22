@@ -4,17 +4,17 @@
   color: #393939;
   .tit {
     width: 690px;
-    min-height: 120px;
+    // min-height: 100px;
     margin: 0 auto;
     margin-top: 50px;
     padding-top: 34px;
-    padding-bottom: 34px;
-    margin-bottom: 68px;
+    // padding-bottom: 34px;
+    margin-bottom: 10px;
     font-size: 32px;
     border-radius: 25px;
     position: relative;
     // background: orange;
-    background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
+    // background: linear-gradient(to bottom, #ffdf97 0%, #ff4800 100%);
     .mains {
       width: 550px;
       min-height: 200px;
@@ -23,7 +23,7 @@
       left: 112px;
       word-wrap:break-word;
       // padding-top: 54px;
-      color: #fff;
+      color: #000;
       .voice {
         width: 40px;
         height: 40px;

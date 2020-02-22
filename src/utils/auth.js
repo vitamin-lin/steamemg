@@ -27,11 +27,11 @@ static appCheckAuth(){
                         resolve(true);
                     }else{
                         //提示
-                        Taro.showToast({
-                        title : '获取授权信息失败' ,
-                        icon : 'none' ,
-                        mask : true
-                        })
+                        // Taro.showToast({
+                        // title : '获取授权信息失败' ,
+                        // icon : 'none' ,
+                        // mask : true
+                        // })
                     }
                 }else{
                     //更新app状态
@@ -50,11 +50,11 @@ static appCheckAuth(){
                     resolve(true);
                 }else{
                     //提示
-                    Taro.showToast({
-                        title : '获取授权信息失败' ,
-                        icon : 'none' ,
-                        mask : true
-                    })
+                    // Taro.showToast({
+                    //     title : '获取授权信息失败' ,
+                    //     icon : 'none' ,
+                    //     mask : true
+                    // })
                 }
             })
         }
@@ -92,21 +92,21 @@ async function getAuthToken(){
 
     //获取token
     let response = await Taro.request({
-        url : `${config}v1/samll/taskinfo/data` ,
+        url : `${config}api/mini/login/code2Session` ,
         data : {
-            userId : res.code
+            code : res.code
         } ,
-        method : 'GET'
+        method : 'post'
     })
     //判断是否成功
-    if( response.code === 20000 ){
+    if( response.code === 0 ){
         console.warn(response, '返回')
         //写入token
         let data = response.data;
         saveAuthToken(data);
         return true;
     }else{
-        console.log('获取token失败');
+        // console.log('获取token失败');
         return false;
     }
 }
@@ -117,5 +117,6 @@ function saveAuthToken (data) {
     // //写入状态管理
     // Taro.$store.dispatch(insertToken(data));
     //写入缓存
-    Taro.setStorageSync('token',data.token)
+    Taro.setStorageSync('token',data.session.openid)
+    Taro.setStorageSync('userid',data.user.userid)
 }

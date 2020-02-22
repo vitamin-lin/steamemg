@@ -8,7 +8,7 @@ import pageInit from '../../utils/pageInit'
 import User from '../user/index'
 import Knowledge from '../knowledge/index'
 
-// @pageInit()
+@pageInit()
 @withShare()
 
 class HOME extends Component {

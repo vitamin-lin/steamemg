@@ -9,15 +9,24 @@
   position: relative;
 }
 .listWrap {
-  width: 645px;
-  height: 294px;
-  background: #fff;
-  margin-bottom: 55px;
+  width: 700px;
+  height: 320px;
+  // background: #fff;
+  margin-bottom: 32px;
   // border-radius: 15px;
   position: relative;
+  background: orang;
   Image {
-    width: 645px;
-    height: 294px;
+    width: 700px;
+    height: 320px;
+    display: block;
+  }
+  button {
+    width: 700px;
+    height: 320px;
+    background:orange;
+    position: absolute;
+    // opacity: 0;
   }
 }
 .rightTxt {
@@ -26,4 +35,5 @@
   position: absolute;
   right: 0;
   top: 88px;
+  display: none;
 }

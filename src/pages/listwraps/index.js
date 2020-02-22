@@ -45,6 +45,7 @@ class Link extends Component {
   } 
 
   componentDidMount() {
+    this.initData();
     var res = Taro.getSystemInfoSync()
     this.setState({
       platform:res.platform,
@@ -56,6 +57,16 @@ class Link extends Component {
   // 页面退出
   componentWillUnmount() {
     innerAudioContext.stop()
+  }
+
+  initData() {
+    const { leveId, cid } = this.$router.params;
+    API.get('api/v1/samll/iteminfo/data', {
+      leveId: 1,
+      cid: '1,2'
+    }).then(res => {
+
+    })
   }
 
 
@@ -238,7 +249,6 @@ class Link extends Component {
           <Image className={dib ? 'seb' : 'dn'} src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/dib.png' />
         </View>  
         <View className='tit'>
-          <Image className='icons' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/boxIcon.png' />
           <View className='mains'>
             <Image
               className='voice'
@@ -285,3 +295,4 @@ class Link extends Component {
 }
 
 export default Link;
+// <Image className='icons' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/boxIcon.png' />

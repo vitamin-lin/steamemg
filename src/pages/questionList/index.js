@@ -20,11 +20,11 @@ class Coupons extends Component {
       list: [{
         tit:'基础',
         detail:'适合年龄3-8岁',
-        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/pic_a.png'
       },{
         tit:'高阶',
         detail:'适合年龄8-12岁',
-        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awerb.png'
+        url:'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/pic_b.png'
       }]
     }
   }
@@ -54,11 +54,11 @@ class Coupons extends Component {
   linkTo(index) {
     if(index == 0) {
       Taro.navigateTo({
-        url:'/pages/tabLink/index?type=0'
+        url:'/pages/tabLink/index?leveId=1'
       })
     } else {
       Taro.navigateTo({
-        url:'/pages/tabLink/index?type=1'
+        url:'/pages/tabLink/index?leveId=2'
       })
     }
   }
