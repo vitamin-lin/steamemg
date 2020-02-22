@@ -13,6 +13,7 @@ class User extends Component {
   state = {
     userInfo: '',
     userLogin: false,
+    staus: true,
     id: 0,
     list:[{
       tits:'我的记录',
@@ -105,8 +106,31 @@ class User extends Component {
     // console.warn(myDate.getDay())
   }
 
+  handleGetUserInfo(e, index) {
+    console.warn(e)
+    let _this = this
+    if(e.detail.errMsg === "getUserInfo:ok") {
+      console.warn('到了', e.encryptedData, e.iv)
+      API.post('api/mini/login', {
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+        rawData: e.detail.rawData,
+        signature: e.detail.signature,
+        openid: Taro.getStorageSync('token')
+      }).then(res => {
+        if (res.code == 0) {
+          _this.setState({
+            staus: false
+          })
+          console.warn('登录成功')
+          _this.linkWrap(index)
+        }
+      })  
+    }
+ }
+
   render() {
-    const { id } = this.state
+    const { id, list } = this.state
     const state = Taro.$store.getState()
     // myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
     var myDate = new Date();//获取系统当前时间
@@ -132,6 +156,23 @@ class User extends Component {
             {
               list.map((e, index) => (
                 <View className='items' onClick={this.linkTo.bind(this, e.link)}>
+                  {
+                    !staus &&
+                    <View>
+                    {
+                      index !== 3 &&
+                      <Button
+                        key={index}
+                        open-type='getUserInfo'
+                        onGetUserInfo={e => {
+                          e.stopPropagation()
+                          e.preventDefault()
+                          this.handleGetUserInfo(e, index)
+                        }}
+                        ></Button>
+                      }
+                    </View>
+                  }
                   {e.tits}
                   <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/icons.png' />
                 </View>
