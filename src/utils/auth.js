@@ -107,6 +107,7 @@ async function getAuthToken(){
         return true;
     }else{
         // console.log('获取token失败');
+        Taro.setStorageSync('login', false)
         return false;
     }
 }
@@ -119,4 +120,5 @@ function saveAuthToken (data) {
     //写入缓存
     Taro.setStorageSync('token',data.session.openid)
     Taro.setStorageSync('userid',data.user.userid)
+    Taro.setStorageSync('login',true)
 }

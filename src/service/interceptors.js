@@ -24,13 +24,7 @@ const customInterceptor = function(chain) {
       Taro.hideLoading()
       // 注：公用状态码，之后要统一处理
       // 只要请求成功，不管返回什么状态码，都走这个回调
-      if (res.data.code === 20000) {
-        return res.data
-      } else if (res.data.code === '50011') {
-        // 需要通过 wx.getUserInfo() 发起对用户的授权请求，从而获取用户的 UNiconid
-        // Taro.navigateTo({
-        //   url: '/pages/userInfo/index'
-        // })
+      if (res.data.code === 0) {
         return res.data
       } else if (res.data.code === '50010') {
         // 用户未通过wx.login 登录
@@ -43,7 +37,7 @@ const customInterceptor = function(chain) {
           return retryRes
         }
       } else {
-        showError(res.data.message, showToast)
+        showError(res.data.msg, showToast)
         return res.data
       }
     })

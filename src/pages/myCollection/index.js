@@ -23,26 +23,10 @@ class detail extends Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
-
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
   }
 
   handleClick (value) {
@@ -63,9 +47,11 @@ class detail extends Component {
 
   render() {
     const { list, tabsBars, current, tags } = this.state
+    const { type } = this.$router.params
+    console.warn(type)
     return (
       <View className='wrap'>
-        <llistPic />
+        <llistPic type={type} />
       </View>
     )
   }

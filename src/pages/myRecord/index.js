@@ -23,26 +23,19 @@ class record extends Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    var _this = this;
+    API.get('api/v1/samll/recordinfo/data', {
+      userId: Taro.getStorageSync('userid'),
+      pageNo:1,
+      pageSize: 1
+    }).then(res => {
+      console.warn(res)
+    })
+
+  }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
-
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
   }
 
   handleClick (value) {

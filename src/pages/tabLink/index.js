@@ -25,29 +25,35 @@ class Coupons extends Component {
   }
 
   componentDidMount() {
+    const { leveId } = this.$router.params
     let _this = this
-    API.get('api/v1/samll/itemcata/data').then(res => {
-      let arr = []
-      for(let k in res) {
-        let data = res[k].childs;
-        data = data.map(e => {
-          return {
-            ...e
-          }
-        })
-        arr.push({ 
-          title: res[k].name,
-          tags: data,
-          ...res[k]
-        })
-      }
+    console.warn(leveId)
+    API.get('api/v1/samll/itemcata/data', {
+      leveId: leveId,
+      userId: Taro.getStorageSync('userid')
+    }).then(res => {
+      // console.warn(res)
+      // let arr = []
+      // for(let k in res) {
+      //   let data = res[k].childs;
+      //   data = data.map(e => {
+      //     return {
+      //       ...e
+      //     }
+      //   })
+      //   arr.push({ 
+      //     title: res[k].name,
+      //     tags: data,
+      //     ...res[k]
+      //   })
+      // }
+      // // console.warn(arr)
+      // // _this.getListData(arr[0].id)
+      // this.setState({
+      //   tabsBars: arr
+      // })
+      // // console.warn(a)
       // console.warn(arr)
-      // _this.getListData(arr[0].id)
-      this.setState({
-        tabsBars: arr
-      })
-      // console.warn(a)
-      console.warn(arr)
     })
   }
 

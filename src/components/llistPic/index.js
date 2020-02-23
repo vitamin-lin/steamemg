@@ -3,8 +3,6 @@ import{ View, Image, Text } from '@tarojs/components'
 import { flex } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
-import User from '../user/index'
-import Knowledge from '../knowledge/index'
 
 class listPic extends Component {
   config = {
@@ -15,15 +13,62 @@ class listPic extends Component {
   constructor() {
     super(...arguments)
     this.state = {
+      arr: [],
+      brr: []
     }
   }
 
   componentDidMount() {
+    this.initData()
   }
 
   componentDidShow() {
+    // this.initData()
   }
 
+  initData() {
+    const { list, type } = this.props
+    let data = list
+    let _this = this
+    if(type && type == 1) {
+      API.get('api/v1/samll/collectinfo/data', {
+        userId: Taro.getStorageSync('userid'),
+        pageNo:1,
+        pageSize: 1
+      }).then(res => {
+        if (res.code == 0) {
+          let list = res.list
+          let arr = []
+          let brr = []
+          for (let k in list) {
+            if( k%2 == 1 ){
+              brr.push(list[k])  
+            }else{
+             arr.push(list[k])
+            }
+          }
+          _this.setState({
+            arr: arr, 
+            brr: brr
+          })
+        }
+      })  
+    } else {
+      let arr = []
+      let brr = []
+      for (let k in data) {
+        if( k%2 == 1 ){
+          brr.push(data[k])  
+        }else{
+         arr.push(data[k])
+        }
+      }
+      this.setState({
+        arr: arr, 
+        brr: brr
+      })
+    }
+  }
 
   handleClick(e) {
     console.warn(e)
@@ -50,46 +95,46 @@ class listPic extends Component {
   
 
   render() {
-    const { list } = this.props
-    let arr = []
-    let brr = []
-    for (let k in list) {
-      if( k%2 == 1 ){
-        brr.push(list[k])  
-      }else{
-       arr.push(list[k])
-      }
-    }
+    const { arr, brr } = this.state
     return (
       <View className='listBox'>
-        <View className='Boxs'>
-          {
-            arr.map((e, index) => (
-              <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
-                <View
-                  style={`background:url(${e.imgUrls});background-size: 100% auto;`}
-                  className='box_pic'
-                ></View>
-                <View className='txta'>{e.title}</View>
-                <View className='txtb'>{e.summary}</View>
+        {
+          arr.length !== 0 ?
+          (
+            <View>
+              <View className='Boxs'>
+                {
+                  arr.map((e, index) => (
+                    <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
+                      <View
+                        style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                        className='box_pic'
+                      ></View>
+                      <View className='txta'>{e.title}</View>
+                      <View className='txtb'>{e.summary}</View>
+                    </View>
+                  ))
+                }
               </View>
-            ))
-          }
-        </View>
-        <View className='Boxs'>
-          {
-            brr.map((e, index) => (
-              <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
-                <View
-                  style={`background:url(${e.imgUrls});background-size: 100% auto;`}
-                  className='box_pic'
-                ></View>
-                <View className='txta'>{e.title}</View>
-                <View className='txtb'>{e.summary}</View>
+              <View className='Boxs'>
+                {
+                  brr.map((e, index) => (
+                    <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
+                      <View
+                        style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                        className='box_pic'
+                      ></View>
+                      <View className='txta'>{e.title}</View>
+                      <View className='txtb'>{e.summary}</View>
+                    </View>
+                  ))
+                }
               </View>
-            ))
-          }
-        </View>
+            </View>
+          ) : <View className='none'>---暂无数据---</View>
+
+        }
+
       </View>
     )
   }

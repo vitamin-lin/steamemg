@@ -56,11 +56,20 @@ class detail extends Component {
     })
   }
 
-  colect() {
+  colect(index) {
     const { colect } = this.state
-    this.setState({
-      colect: colect ? false : true
-    })
+    let { cid } = this.$router.params
+    let _this = this
+    API.get('api/v1/samll/collectinfo/collect', {
+      userId: Taro.getStorageSync('userid'),
+      taskId: cid
+    }).then(res => {
+      if (res.code == 0) {
+        _this.setState({
+          colect: colect ? false : true
+        })
+      }
+    })  
   }
 
   render() {

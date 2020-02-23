@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-// import { AtList, AtListItem } from 'taro-ui'
+import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import { getCurrentMonthFirst, dateLater } from '../../utils/times'
 import './index.scss'
@@ -23,7 +23,7 @@ class User extends Component {
       link:'/pages/myAchievements/index'
     },{
       tits:'我的收藏',
-      link:'/pages/myCollection/index'
+      link:'/pages/myCollection/index?type=1'
     },{
       tits:'联系我们',
       link:'/pages/contact/index'
@@ -86,18 +86,18 @@ class User extends Component {
   }
 
   linkTo(e) {
+    console.warn(e)
+    const { list } = this.state
     Taro.navigateTo({
-      url: e
+      url: list[e].link
     })
   }
 
   componentDidMount() {
-    console.warn('111')
-    // API.get('api/member').then(res => {
-    //   if (res.code == 20000) {
-    //   }
-    // })
-    
+    const login =  Taro.getStorageSync('login')
+    this.setState({
+      staus: login
+    })
   }
 
   componentDidShow() {
@@ -107,7 +107,8 @@ class User extends Component {
   }
 
   handleGetUserInfo(e, index) {
-    console.warn(e)
+    console.warn(e,index)
+    // console.warn(e)
     let _this = this
     if(e.detail.errMsg === "getUserInfo:ok") {
       console.warn('到了', e.encryptedData, e.iv)
@@ -123,7 +124,7 @@ class User extends Component {
             staus: false
           })
           console.warn('登录成功')
-          _this.linkWrap(index)
+          _this.linkTo(index)
         }
       })  
     }
@@ -136,6 +137,7 @@ class User extends Component {
     var myDate = new Date();//获取系统当前时间
     let days = getCurrentMonthFirst(); // 2020-01-03
     let week = dateLater(days, 0).week;
+    const login =  Taro.getStorageSync('login')
     // console.warn(dateLater(days, 0),days,'1234')
 
     return (
@@ -155,24 +157,25 @@ class User extends Component {
           <View className='boxs'>
             {
               list.map((e, index) => (
-                <View className='items' onClick={this.linkTo.bind(this, e.link)}>
+                <View className='items' key={index}>
                   {
-                    !staus &&
+                    !login &&
                     <View>
                     {
                       index !== 3 &&
                       <Button
                         key={index}
                         open-type='getUserInfo'
-                        onGetUserInfo={e => {
-                          e.stopPropagation()
-                          e.preventDefault()
-                          this.handleGetUserInfo(e, index)
+                        onGetUserInfo={k => {
+                          k.stopPropagation()
+                          k.preventDefault()
+                          this.handleGetUserInfo(k, index)
                         }}
-                        ></Button>
+                      ></Button>
                       }
                     </View>
                   }
+                  <View className='linksView' onClick={this.linkTo.bind(this, index)}></View>
                   {e.tits}
                   <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/icons.png' />
                 </View>

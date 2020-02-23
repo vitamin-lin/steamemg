@@ -11,7 +11,7 @@ import Logins from '../../components/login/index'
 
 class myAchievements extends Component {
   config = {
-    navigationBarTitleText: '基础'
+    navigationBarTitleText: '我的成就'
     // disableScroll: true
   }
 

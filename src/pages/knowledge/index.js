@@ -33,26 +33,13 @@ class Coupons extends Component {
   }
 
   componentDidMount() {
-    // console.warn('1asasa1')
-    // API.get('api/v1/samll/iteminfo/data', {
-    //   cid: 1,
-    //   leveId: 1
-    // }).then(res => {
-    //   if (res.code == 20000) {
-    //     console.warn('11')
-    //   }
-    // })  
+    const login =  Taro.getStorageSync('login')
+    this.setState({
+      staus: login
+    })
   }
 
   componentDidShow() {
-    // API.get('api/v1/samll/iteminfo/data', {
-    //   cid: 1,
-    //   leveId: 1
-    // }).then(res => {
-    //   if (res.code == 20000) {
-    //     console.warn('11')
-    //   }
-    // })  
   }
 
   onTabItemTap(item) {
@@ -106,6 +93,7 @@ class Coupons extends Component {
 
   render() {
     const { list, staus } = this.state
+    const login =  Taro.getStorageSync('login')
     return (
       <View className='wrap'>
         <Image
@@ -120,7 +108,7 @@ class Coupons extends Component {
                 key={index}
               >
                 {
-                  !staus &&
+                  !login &&
                   <View>
                   {
                     index !== 1 &&
