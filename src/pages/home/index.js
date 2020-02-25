@@ -45,6 +45,7 @@ class HOME extends Component {
     // 允许从相机和相册扫码
     wx.scanCode({
       success: (res) => {
+        console.warn(res)
       }
     })
   }

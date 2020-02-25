@@ -48,6 +48,7 @@ class App extends Component {
       'pages/myCollection/index', // 我的收藏
       'pages/contact/index', // 联系我们
       'pages/results/index', // 题目答案
+      'pages/rules/index', // 题目答案
     ],
     window: {
       backgroundTextStyle: 'light',

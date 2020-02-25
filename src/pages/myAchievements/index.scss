@@ -31,14 +31,54 @@
 
 .badge {
   width: 690px;
-  height: 343px;
+  min-height: 343px;
   margin: 0 auto;
   border-radius: 25px;
   box-shadow:0px 2px 20px #ffeae2;
   margin-top: 30px;
-  background: #fff;
+  // background: #fff;
+  // background: orange;
   // display: flex;
   overflow: hidden;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  .heads {
+    width: 646px;
+    height: 60px;
+    margin: 0 auto;
+    margin-top: 40px;
+    .lefts{
+      width: 50%;
+      height: 44px;
+      line-height: 44px;
+      float: left;
+      Text {
+        color: #ff4800;
+        margin-left: 20px;
+      }
+    } 
+    .rights{
+      width: 50%;
+      height: 44px;
+      // background: orange;
+      line-height: 44px;
+      float: left;
+      position: relative;
+      Text {
+        position: absolute;
+        right: 40px;
+        color: #666;
+      }
+      Image {
+        width: 14px;
+        height: 24px;
+        float: right;
+        position: absolute;
+        right: 19px;
+        top: 12px;
+      }
+    } 
+  }
   .badgeTxt {
     // flex: 1;
     width: 33.3%;
@@ -47,14 +87,14 @@
     text-align: center;
     .imgsrc {
       width: 180px;
-      height: 180px;
+      height: 130px;
       // background: #ccc;
       // border-radius: 100%;
       margin: 0 auto;
       margin-top: 50px;
       Image {
         width: 180px;
-        height: 180px;
+        height: 130px;
       }
     }
     .tits {

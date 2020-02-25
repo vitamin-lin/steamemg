@@ -28,7 +28,7 @@ class Coupons extends Component {
     const { leveId } = this.$router.params
     let _this = this
     console.warn(leveId)
-    API.get('api/v1/samll/itemcata/data', {
+    API.get('api/v1/samll/iteminfo/data', {
       leveId: leveId,
       userId: Taro.getStorageSync('userid')
     }).then(res => {

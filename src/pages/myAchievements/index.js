@@ -20,7 +20,7 @@ class myAchievements extends Component {
     this.state = {
       list: [],
       tabsBars:[
-        { title: '我的徽章', listBox:[{},{},{},{},{},{},{},{},{},{}]},
+        { title: '我的徽章', listBox:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]},
         { title: '我的级别', listBox:[{},{}] },
       ], // tabs标题
       current: 0, //  tabs下标
@@ -32,13 +32,13 @@ class myAchievements extends Component {
   componentDidMount() {
     let {tabsBars} = this.state
     let data = tabsBars[0].listBox;
-    var result = [];
-    for(var i=0,len=data.length;i<len;i+=3){
-      result.push(data.slice(i,i+3));
-    }
-    console.warn(result, '最终结果')
+    // var result = [];
+    // for(var i=0,len=data.length;i<len;i+=3){
+    //   result.push(data.slice(i,i+3));
+    // }
+    // console.warn(result, '最终结果')
     this.setState({
-      result: result
+      result: data
     })
   }
 
@@ -78,8 +78,16 @@ class myAchievements extends Component {
     })
   }
 
+  linkToRules() {
+    Taro.navigateTo({
+      url:'/pages/rules/index'
+    })
+  }
+
+
   render() {
     const { tabsBars, current, result } = this.state
+    console.warn(result)
     return (
       <View className='wrap'>
           <AtTabs
@@ -92,23 +100,27 @@ class myAchievements extends Component {
             {
               tabsBars.map((e, index) => (
                 index == 0 ?
-                <AtTabsPane current={current} index={index} className='tabs'>     
-                  {
-                    result.map(k => (
-                      <View className='badge'>
-                        {
-                          k.map((v, g) => (
-                            <View className='badgeTxt'>
-                              <View className='imgsrc'>
-                                <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${g+1}.png`} />
-                              </View>
-                              <View className='tits'>科学小助手</View>
-                            </View>
-                          ))
-                        }
+                <AtTabsPane current={current} index={index} className='tabs'>    
+                  <View className='badge'>
+                    <View className='heads'>
+                      <View className='lefts'>
+                        获得徽章<Text>15</Text>/15
                       </View>
-                    ))
-                  }
+                      <View className='rights' onClick={this.linkToRules}>
+                        <Text>徽章规则</Text>
+                        <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/newback.png' />
+                      </View>
+                    </View>
+                    {
+                      result.map((k, g) => (
+                        <View className='badgeTxt'>
+                          <View className='imgsrc'>
+                            <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${g+1}.png`} />
+                          </View>
+                          <View className='tits'>科学小助手</View>
+                        </View>
+                      ))}
+                  </View>
                 </AtTabsPane>
                 : 
                 <AtTabsPane current={current} index={index} className='tabs'>
