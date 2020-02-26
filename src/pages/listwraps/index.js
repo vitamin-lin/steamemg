@@ -1,6 +1,6 @@
 // 首页
 import Taro, { Component, navigateTo } from "@tarojs/taro"
-import { View, Audio, Button } from "@tarojs/components"
+import { View, Audio, Button, RichText } from "@tarojs/components"
 import PropTypes from "prop-types"
 import { connect } from "@tarojs/redux"
 import Datas from "../../constants/datas"
@@ -59,7 +59,8 @@ class Link extends Component {
     let _this = this
     API.get('api/v1/samll/iteminfo/data', {
       leveId: leveId,
-      cid: cid
+      cid: 1
+      // cid: cid
     }).then(res => {
       
       let arr = []
@@ -272,7 +273,8 @@ class Link extends Component {
     if(datas.length === 0) return false;
     console.warn(datas, '3')
     let txts = datas[current].content ? datas[current].content : '';
-    
+    let contentDetail = txts
+
     return (
       <View className='wrap'> 
         <View className={fc ? 'fc' : 'dn'}>
@@ -287,7 +289,9 @@ class Link extends Component {
               src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voiceb.png'
               onClick={this.getVoice.bind(this, txts)}
             />
-            <View>{current + 1}.{datas[current].content ? datas[current].content : ''}</View>
+            <View>
+              <RichText className='text' nodes={contentDetail} />
+            </View>
           </View>
         </View>
 
@@ -296,7 +300,9 @@ class Link extends Component {
             datas[current].list.map((e, index) => (
               <View className={e.className} key={index}>
                 <View className='box'>
-                  <View onClick={this.tapItem.bind(this, e, index)}>{e.mian}</View>
+                  <View onClick={this.tapItem.bind(this, e, index)}>
+                    <RichText className='text' nodes={e.mian} />
+                  </View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.mian)}>
                     <Image
                       src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voicea.png'
