@@ -59,7 +59,7 @@ class Link extends Component {
     let _this = this
     API.get('api/v1/samll/iteminfo/data', {
       leveId: leveId,
-      cid: 1
+      cid: cid
     }).then(res => {
       
       let arr = []
