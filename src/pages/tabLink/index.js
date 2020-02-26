@@ -10,7 +10,7 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class Coupons extends Component {
   config = {
-    navigationBarTitleText: '基础'
+    navigationBarTitleText: ''
     // disableScroll: true
   }
 
@@ -27,41 +27,40 @@ class Coupons extends Component {
   componentDidMount() {
     const { leveId } = this.$router.params
     let _this = this
+    Taro.setNavigationBarTitle({
+      title: leveId === '1' ? '基础' : '高级'
+    });
     console.warn(leveId)
-    API.get('api/v1/samll/iteminfo/data', {
+    API.get('api/v1/samll/itemcata/data', {
       leveId: leveId,
       userId: Taro.getStorageSync('userid')
     }).then(res => {
-      // console.warn(res)
-      // let arr = []
-      // for(let k in res) {
-      //   let data = res[k].childs;
-      //   data = data.map(e => {
-      //     return {
-      //       ...e
-      //     }
-      //   })
-      //   arr.push({ 
-      //     title: res[k].name,
-      //     tags: data,
-      //     ...res[k]
-      //   })
-      // }
-      // // console.warn(arr)
-      // // _this.getListData(arr[0].id)
-      // this.setState({
-      //   tabsBars: arr
-      // })
-      // // console.warn(a)
+      console.warn(res)
+      let arr = []
+      for(let k in res) {
+        let data = res[k].childs;
+        data = data.map(e => {
+          return {
+            ...e
+          }
+        })
+        arr.push({ 
+          title: res[k].name,
+          tags: data,
+          ...res[k]
+        })
+      }
       // console.warn(arr)
+      // _this.getListData(arr[0].id)
+      this.setState({
+        tabsBars: arr
+      })
+      // console.warn(a)
+      console.warn(arr)
     })
   }
 
   componentDidShow() {
-    const { leveId } = this.$router.params;
-    Taro.setNavigationBarTitle({
-      title: leveId == 1 ? '基础' : '高级'
-    });
   }
 
   handleClick (value) {
@@ -104,7 +103,7 @@ class Coupons extends Component {
                             k%2 === 0 ? <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linka.png' /> :
                             <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linkb.png' />
                           }
-                          <View className={k%2 === 0 ? 'overs' : 'oversa' }>已完成</View>
+                          <View className={k%2 === 0 ? 'overs' : 'oversa' }>{e.compile ? '已完成' : '未完成'}</View>
                         </View>
                      ))
                    }

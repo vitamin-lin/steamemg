@@ -25,7 +25,7 @@ class Link extends Component {
   };
 
   state = {
-    datas:Datas.question,
+    datas: [],
     Icons:[{},{},{},{},{}],
     current: 0, // 当前试题的下标
     audioSrc:'',
@@ -46,12 +46,6 @@ class Link extends Component {
 
   componentDidMount() {
     this.initData();
-    var res = Taro.getSystemInfoSync()
-    this.setState({
-      platform:res.platform,
-      nowData:Datas.question[0],
-      current:0
-    })
   }
 
   // 页面退出
@@ -61,12 +55,47 @@ class Link extends Component {
 
   initData() {
     const { leveId, cid } = this.$router.params;
+    var resData = Taro.getSystemInfoSync()
+    let _this = this
     API.get('api/v1/samll/iteminfo/data', {
-      leveId: 1,
-      cid: '1,2'
+      leveId: leveId,
+      cid: 1
     }).then(res => {
-
+      
+      let arr = []
+      res.map((e, index) => { 
+        let list = e.itemsKeyList
+        let resultData = _this.resultData(list, e.resultKey)
+        arr.push({
+          list: resultData,
+          ...e
+        })
+      })
+      console.warn(arr, 'zui')
+      _this.setState({
+        platform:resData.platform,
+        datas: arr,
+        current:0
+      })
     })
+  }
+
+  resultData(list, result) {
+    let brr = []
+    list.map((k, v) => {
+      // console.warn(k)
+      let resultData = '';
+      if(result === k.itemKey) {
+        resultData = k.itemKey
+      }
+      brr.push({
+        className:'sea',
+        mian: k.itemValue,
+        result: resultData,
+        ...k
+      })
+    })
+    return brr
   }
 
 
@@ -97,8 +126,8 @@ class Link extends Component {
   // 提交答案
   submitAwser() {
     let { datas, current, staus } = this.state
-    let newDatas = Datas;
-    let lists = newDatas.question[current].list // 当前题目
+    let newDatas = datas;
+    let lists = datas[current].list // 当前题目
     let _this = this
     // 处理其他选项的结果 1 选中的是错误的 2 选中的是正确的
     lists.map((v, k) => {
@@ -141,7 +170,7 @@ class Link extends Component {
       } else {}
     })
     this.setState({
-      datas: newDatas.question,
+      datas: datas,
     })
   }
 
@@ -157,10 +186,10 @@ class Link extends Component {
   // 选题目是第几题
   tapItem(e, index) {
     let { datas, current, staus } = this.state
-    let newDatas = Datas;
+    let newDatas = datas;
     // 判断是否可以点击
     // if(staus) return false;
-    let lists = newDatas.question[current].list // 当前题目
+    let lists = datas[current].list // 当前题目
     // 选对
     // if(lists[index].result) {
       // lists[index].className = 'seaActive'
@@ -180,7 +209,7 @@ class Link extends Component {
     // 使其不可点击，且出现浮层，接着跳转到下一题
     // console.warn(newDatas.question, 'www')
     this.setState({
-      datas: newDatas.question,
+      datas: newDatas,
       submit: true
     })
   }
@@ -240,7 +269,10 @@ class Link extends Component {
 
   render() {
     const { current, datas, fc, submit } = this.state;
-    let txts = datas[current].tit ? datas[current].tit : '';
+    if(datas.length === 0) return false;
+    console.warn(datas, '3')
+    let txts = datas[current].content ? datas[current].content : '';
+    
     return (
       <View className='wrap'> 
         <View className={fc ? 'fc' : 'dn'}>
@@ -255,7 +287,7 @@ class Link extends Component {
               src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voiceb.png'
               onClick={this.getVoice.bind(this, txts)}
             />
-            <View>{current + 1}.{datas[current].tit ? datas[current].tit : ''}</View>
+            <View>{current + 1}.{datas[current].content ? datas[current].content : ''}</View>
           </View>
         </View>
 
