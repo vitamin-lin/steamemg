@@ -60,7 +60,7 @@ class detail extends Component {
     const { colect } = this.state
     let { cid } = this.$router.params
     let _this = this
-    API.get('api/v1/samll/collectinfo/collect', {
+    API.post('api/v1/samll/collectinfo/collect', {
       userId: Taro.getStorageSync('userid'),
       taskId: cid
     }).then(res => {
@@ -103,7 +103,7 @@ class detail extends Component {
         </View>
         <View className='detail'>实验详情：</View>
         <View className='main'>
-        {main.content}
+          <RichText className='text' nodes={main.content} />
         </View>
       </View>
     )

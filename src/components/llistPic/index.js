@@ -32,9 +32,7 @@ class listPic extends Component {
     let _this = this
     if(type && type == 1) {
       API.get('api/v1/samll/collectinfo/data', {
-        userId: Taro.getStorageSync('userid'),
-        pageNo:1,
-        pageSize: 1
+        userId: Taro.getStorageSync('userid')
       }).then(res => {
         if (res.code == 0) {
           let list = res.list

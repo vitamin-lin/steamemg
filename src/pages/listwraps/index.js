@@ -59,8 +59,7 @@ class Link extends Component {
     let _this = this
     API.get('api/v1/samll/iteminfo/data', {
       leveId: leveId,
-      cid: 1
-      // cid: cid
+      cid: cid
     }).then(res => {
       
       let arr = []
@@ -72,7 +71,7 @@ class Link extends Component {
           ...e
         })
       })
-      console.warn(arr, 'zui')
+      // console.warn(arr, 'zui')
       _this.setState({
         platform:resData.platform,
         datas: arr,
@@ -126,7 +125,8 @@ class Link extends Component {
 
   // 提交答案
   submitAwser() {
-    let { datas, current, staus } = this.state
+    const { leveId, cid } = this.$router.params;
+    let { datas, current, staus, Icons } = this.state
     let newDatas = datas;
     let lists = datas[current].list // 当前题目
     let _this = this
@@ -150,13 +150,19 @@ class Link extends Component {
           dib: true
         })
         setTimeout(function() {
-          if(current == 4) {
-            _this.setState({
-              fc: false,
-              dib: false
-            })
-            Taro.navigateTo({
-              url:'/pages/results/index'
+          console.warn(current, Icons)
+          if(current == (datas.length-1)) {
+            API.post('api/v1/samll/itemcompileinfo/data', {
+              userId: Taro.getStorageSync('userid'),
+              cid: cid
+            }).then(res => {
+              _this.setState({
+                fc: false,
+                dib: false
+              })
+              Taro.navigateTo({
+                url:'/pages/results/index'
+              })
             })
           } else {
             innerAudioContext.stop()
@@ -167,7 +173,7 @@ class Link extends Component {
               submit: false
             })
           }
-        }, 800)
+        }, 500)
       } else {}
     })
     this.setState({

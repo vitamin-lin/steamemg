@@ -4,7 +4,6 @@ import { AtTabs, AtTabsPane, AtTag } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
-import llistPic from '../../components/llistPic/index'
 
 @withShare()
 // @pageInit()
@@ -19,8 +18,8 @@ class courseLists extends Component {
     this.state = {
       listAll: [],
       tabsBars:[
-        { title: '科学', tags:[{type:''}] },
-        { title: '物理', tags:[{type:''},{type:''}] },
+        // { title: '科学', tags:[{type:''}] },
+        // { title: '物理', tags:[{type:''},{type:''}] },
       ], // tabs标题
       current: 0, //  tabs下标
       tags:[] // tags标签多选
@@ -49,8 +48,9 @@ class courseLists extends Component {
           ...res[k]
         })
       }
-      // console.warn(arr)
-      _this.getListData(arr[0].id)
+      // console.warn(arr[0], '初始数据')
+      let datas = arr[0].childs
+      _this.getListData(datas)
       this.setState({
         tabsBars: arr
       })
@@ -63,19 +63,28 @@ class courseLists extends Component {
   }
 
   // 获取列表数据
-  getListData (e) {
-    let arr = []
-    arr.push(e)
-    let { current, tabsBars } = this.state
-    let tages = tabsBars[current].tags// tabs下的标签
-    for(let k in tages) {
-      if(tages[k].type == 'primary') {
-        arr.push(tages[k].id)
+  getListData (e, tags) {
+    console.warn(e)
+    let brr = []
+    if(tags) {
+      for(let k in e) {
+        if(e[k].type == "primary") {
+          brr.push(
+            e[k].id
+          )
+        }
+      }
+    } else {
+      for(let k in e) {
+        brr.push(
+          e[k].id
+        )
       }
     }
+
     let _this = this
     API.get('api/v1/samll/courseinfo/data',{
-      cid: arr.length == 1 ? arr[0]: arr.join(',')
+      cid: brr.length == 1 ? brr[0]: brr.join(',')
     }).then(res => {
       _this.setState({
         listAll: res
@@ -88,15 +97,16 @@ class courseLists extends Component {
 
   handleClick (value) {
     let _this = this
+    const { tabsBars } = this.state
     this.setState({
       current: value
     },()=> {
-      const { tabsBars } = this.state
-      this.getListData(tabsBars[value].id)
+      _this.getListData(tabsBars[value].childs)
     })
   }
 
-  onTagClick (e) {
+  onTagClick (k, e) {
+    console.warn(k, e)
     const { list, tabsBars, current, tags } = this.state
     let _this = this
     let lists = tabsBars;
@@ -107,16 +117,33 @@ class courseLists extends Component {
     } else {
       tabBox[e].type = ''
     }
+    console.warn(tabsBars[current])
     this.setState({
       tabsBars: lists
     }, k => {
-      _this.getListData(tabsBars[current].id)
+      _this.getListData(tabsBars[current].tags, 'tags')
+    })
+  }
+  // 跳转详情
+  goToDetail(e) {
+    Taro.navigateTo({
+      url:`/pages/detail/index?cid=${e.id}`
     })
   }
 
+
   render() {
     const { listAll, tabsBars, current, tags } = this.state
-    console.warn(listAll, '你说呢')
+    // console.warn(listAll, '你说呢')
+    let arr = []
+    let brr = []
+    for (let k in listAll) {
+      if( k%2 == 1 ){
+        brr.push(listAll[k])  
+      }else{
+        arr.push(listAll[k])
+      }
+    }
     return (
       <View className='wrap'>
           <AtTabs
@@ -138,7 +165,7 @@ class courseLists extends Component {
                             type={k.type} 
                             circle 
                             active={true}
-                            onClick={this.onTagClick.bind(this, index)}
+                            onClick={this.onTagClick.bind(this, k, index)}
                             index={index}
                             className='icons'
                           >
@@ -149,7 +176,44 @@ class courseLists extends Component {
                     }
                   </View>      
                   <View style='font-size:18px;text-align:center;height:100px;'>
-                    <llistPic list={listAll} />
+                    {
+                      arr.length === 0 && (
+                        <View className='none'>---暂无数据---</View>
+                      )
+                    }
+                    {(
+                        <View className='listBox'>
+                          <View className='Boxs'>
+                            {
+                              arr.map((e, index) => (
+                                <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)} key={index}>
+                                  <View
+                                    style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                                    className='box_pic'
+                                  ></View>
+                                  <View className='txta'>{e.title}</View>
+                                  <View className='txtb'>{e.summary}</View>
+                                </View>
+                              ))
+                            }
+                          </View>
+                          <View className='Boxs'>
+                            {
+                              brr.map((e, index) => (
+                                <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)} key={index}>
+                                  <View
+                                    style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                                    className='box_pic'
+                                  ></View>
+                                  <View className='txta'>{e.title}</View>
+                                  <View className='txtb'>{e.summary}</View>
+                                </View>
+                              ))
+                            }
+                          </View>
+                        </View>
+                      )
+                    }
                   </View>
                 </AtTabsPane>
               ))

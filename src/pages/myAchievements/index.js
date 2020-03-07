@@ -32,34 +32,20 @@ class myAchievements extends Component {
   componentDidMount() {
     let {tabsBars} = this.state
     let data = tabsBars[0].listBox;
-    // var result = [];
-    // for(var i=0,len=data.length;i<len;i+=3){
-    //   result.push(data.slice(i,i+3));
-    // }
-    // console.warn(result, '最终结果')
+    API.get('api/v1/samll/levelinfo/data',{
+      userId: Taro.getStorageSync('userid'),
+    }).then(res => {
+      // this.setState({
+      //   list: res.data.items
+      // })
+    })
     this.setState({
       result: data
     })
   }
 
   componentDidShow() {
-    // API.get('api/group_list').then(res => {
-    //   this.setState({
-    //     list: res.data.items
-    //   })
-    // })
-    // var _this = this;
-    // // 允许从相机和相册扫码
-    // wx.scanCode({
-    //   success: (res) => {
-    //     var result = res.result;
 
-    //     _this.setData({
-    //       result: result,
-
-    //     })
-    //   }
-    // })
   }
 
   handleClick (value) {

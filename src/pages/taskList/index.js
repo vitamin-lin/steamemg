@@ -5,6 +5,7 @@ import './index.scss'
 import API from '../../service/api'
 import withShare from '../../utils/withSare'
 import Logins from '../../components/login/index'
+import datas from '../../constants/datas'
 
 @withShare()
 // @pageInit()
@@ -22,11 +23,14 @@ class taskList extends Component {
   }
 
   componentDidMount() {
+    let _this = this
     API.get('api/v1/samll/taskinfo/data',{
-      pid: 1
+      userId: Taro.getStorageSync('userid'),
+      // taskIds:'3'
     }).then(res => {
-      this.setState({
-        list: res
+      let data = res
+      _this.setState({
+        list: data
       })
     })
   }
@@ -41,7 +45,7 @@ class taskList extends Component {
   }
 
   render() {
-    const { list } = this.state
+    let { list } = this.state
     return (
       <View className='wrap'>
         {
@@ -51,6 +55,10 @@ class taskList extends Component {
               <View className='tits'>{e.title}</View>
             </View>
           ))
+        }
+        {
+          list.length === 0 && 
+          <View className='tishi'>请返回首页扫码后再来查看喔</View>
         }
       </View>
     )

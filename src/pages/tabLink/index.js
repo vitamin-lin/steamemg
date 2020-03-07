@@ -61,6 +61,7 @@ class Coupons extends Component {
   }
 
   componentDidShow() {
+    
   }
 
   handleClick (value) {
