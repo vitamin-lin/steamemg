@@ -73,9 +73,9 @@ class taskList extends Component {
     })
   }
 
-  detailTo() {
+  detailTo(e) {
     Taro.navigateTo({
-      url:'/pages/detail/index'
+      url: `/pages/detail/index?cid=${e.courseInfo.id}`
     })
   }
 

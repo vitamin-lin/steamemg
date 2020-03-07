@@ -296,6 +296,10 @@ class Link extends Component {
     let txts = datas[current].content ? datas[current].content : '';
     let voice = datas[current].voiceValue ? datas[current].voiceValue : '';
     let contentDetail = txts
+    contentDetail = contentDetail.replace(
+      /\<img/gi,
+      '<img style="display:block; max-width:100%; margin:0 auto" '
+    );
 
     return (
       <View className='wrap'> 
@@ -311,7 +315,7 @@ class Link extends Component {
               src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voiceb.png'
               onClick={this.getVoice.bind(this, voice)}
             />
-            <View>
+            <View className='TextMain'>
               <RichText className='text' nodes={contentDetail} />
             </View>
           </View>

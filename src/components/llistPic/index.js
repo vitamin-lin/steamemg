@@ -96,11 +96,11 @@ class listPic extends Component {
   render() {
     const { arr, brr } = this.state
     return (
-      <View className='listBox'>
+      <View>
         {
           arr.length !== 0 ?
           (
-            <View>
+            <View className='listBox'>
               <View className='Boxs'>
                 {
                   arr.map((e, index) => (

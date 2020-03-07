@@ -89,7 +89,7 @@ class record extends Component {
             earlier.map(e => (
               <View className='mains' onClick={this.linkTo}>
                 <View
-                  style={`background:url('https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png') no-repeat;background-size: 100% auto;`}
+                  style={`background:url(${e.courseInfo.imgUrls}) no-repeat;background-size: 100% auto;`}
                   className='pics'></View>
                 <View className='tits'>
                   <View className='txts'>
