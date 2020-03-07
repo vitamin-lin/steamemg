@@ -34,8 +34,8 @@ class listPic extends Component {
       API.get('api/v1/samll/collectinfo/data', {
         userId: Taro.getStorageSync('userid')
       }).then(res => {
-        if (res.code == 0) {
-          let list = res.list
+        // if (res.code == 0) {
+          let list = res
           let arr = []
           let brr = []
           for (let k in list) {
@@ -45,11 +45,12 @@ class listPic extends Component {
              arr.push(list[k])
             }
           }
+          console.warn(res,res.courseInfo, arr, brr)
           _this.setState({
             arr: arr, 
             brr: brr
           })
-        }
+        // }
       })  
     } else {
       let arr = []
@@ -86,7 +87,7 @@ class listPic extends Component {
 
   goToDetail(e) {
     Taro.navigateTo({
-      url:`/pages/detail/index?cid=${e.cid}`
+      url:`/pages/detail/index?cid=${e.id}`
     })
   }
 
@@ -105,11 +106,11 @@ class listPic extends Component {
                   arr.map((e, index) => (
                     <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
                       <View
-                        style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                        style={`background:url(${e.courseInfo.imgUrls});background-size: 100% auto;`}
                         className='box_pic'
                       ></View>
-                      <View className='txta'>{e.title}</View>
-                      <View className='txtb'>{e.summary}</View>
+                      <View className='txta'>{e.courseInfo.title}</View>
+                      <View className='txtb'>{e.courseInfo.summary}</View>
                     </View>
                   ))
                 }
@@ -119,11 +120,11 @@ class listPic extends Component {
                   brr.map((e, index) => (
                     <View className='wrapBoxs' onClick={this.goToDetail.bind(this, e)}>
                       <View
-                        style={`background:url(${e.imgUrls});background-size: 100% auto;`}
+                        style={`background:url(${e.courseInfo.imgUrls});background-size: 100% auto;`}
                         className='box_pic'
                       ></View>
-                      <View className='txta'>{e.title}</View>
-                      <View className='txtb'>{e.summary}</View>
+                      <View className='txta'>{e.courseInfo.title}</View>
+                      <View className='txtb'>{e.courseInfo.summary}</View>
                     </View>
                   ))
                 }

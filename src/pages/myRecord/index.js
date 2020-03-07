@@ -19,7 +19,9 @@ class record extends Component {
     this.state = {
       list: [],
       current: 0, //  tabs下标
-      tags:[{},{},{}] // tags标签多选
+      tags:[{},{},{}], // tags标签多选
+      today:[],
+      earlier: []
     }
   }
 
@@ -27,10 +29,14 @@ class record extends Component {
     var _this = this;
     API.get('api/v1/samll/recordinfo/data', {
       userId: Taro.getStorageSync('userid'),
-      pageNo:1,
-      pageSize: 1
+      // pageNo:1,
+      // pageSize: 1
     }).then(res => {
-      console.warn(res)
+      _this.setState({
+        today: res.today,
+        earlier: res.earlier
+      })
+      // console.warn(res)
     })
 
   }
@@ -55,35 +61,47 @@ class record extends Component {
   }
 
   render() {
-    const { list, tabsBars, current, tags } = this.state
+    const { today, earlier } = this.state
+    console.warn(this.state)
     return (
       <View className='wrap'>
         <View className='days'>
           <View className='days'>今天</View>
-          <View className='mains' onClick={this.linkTo}>
-            <View 
-              className='pics'
-              // style={`background:url('https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png') no-repeat;background-size: 100% auto;`}
-            ></View>
-            <View className='tits'>
-              <View className='txts'>
-                相对论是关于时空和引力的理论，主
-                要由爱因斯坦创立要由爱因斯坦创立
+          {
+            today.map(e => (
+              <View className='mains' onClick={this.linkTo}>
+                <View 
+                  className='pics'
+                  style={`background:url(${e.courseInfo.imgUrls}) no-repeat;background-size: 100% auto;`}
+                ></View>
+                <View className='tits'>
+                  <View className='txts'>
+                    {e.courseInfo.title}
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
+            ))
+          }
         </View>
         <View className='lastDays'>
           <View className='days'>更早</View>
-          <View className='mains' onClick={this.linkTo}>
-            <View className='pics'></View>
-            <View className='tits'>
-              <View className='txts'>
-                相对论是关于时空和引力的理论，主
-                要由爱因斯坦创立要由爱因斯坦创立
+          {
+            earlier.map(e => (
+              <View className='mains' onClick={this.linkTo}>
+                <View
+                  style={`background:url('https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/awer.png') no-repeat;background-size: 100% auto;`}
+                  className='pics'></View>
+                <View className='tits'>
+                  <View className='txts'>
+                    {e.courseInfo.title}
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
+            ))
+          }
+          {
+            earlier.length === 0 &&<View className='none'>--暂无数据--</View>
+          }
         </View>
       </View>
     )

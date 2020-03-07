@@ -150,7 +150,22 @@ class Link extends Component {
           dib: true
         })
         setTimeout(function() {
-          console.warn(current, Icons)
+          if((current+1) % 5 == 0 && current > 0) {
+            let dat = datas.slice(current-4, current)
+            let arrs = [] 
+            for(let k in dat) {
+              // console.warn(dat[k])
+              arrs.push(dat[k].id)
+            }
+            // console.warn(arrs, arrs.join(','), '1212')
+
+            API.post('api/v1/samll/levelinfo/data', {
+              userId: Taro.getStorageSync('userid'),
+              cid: arrs.join(',')
+            }).then(res => {
+            })
+
+          }
           if(current == (datas.length-1)) {
             API.post('api/v1/samll/itemcompileinfo/data', {
               userId: Taro.getStorageSync('userid'),
@@ -279,6 +294,7 @@ class Link extends Component {
     if(datas.length === 0) return false;
     console.warn(datas, '3')
     let txts = datas[current].content ? datas[current].content : '';
+    let voice = datas[current].voiceValue ? datas[current].voiceValue : '';
     let contentDetail = txts
 
     return (
@@ -293,7 +309,7 @@ class Link extends Component {
             <Image
               className='voice'
               src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voiceb.png'
-              onClick={this.getVoice.bind(this, txts)}
+              onClick={this.getVoice.bind(this, voice)}
             />
             <View>
               <RichText className='text' nodes={contentDetail} />
@@ -309,7 +325,7 @@ class Link extends Component {
                   <View onClick={this.tapItem.bind(this, e, index)}>
                     <RichText className='text' nodes={e.mian} />
                   </View>
-                  <View className='voice' onClick={this.getVoice.bind(this, e.mian)}>
+                  <View className='voice' onClick={this.getVoice.bind(this, e.voiceValue)}>
                     <Image
                       src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/voicea.png'
                     />

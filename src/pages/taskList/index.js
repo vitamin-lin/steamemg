@@ -23,19 +23,54 @@ class taskList extends Component {
   }
 
   componentDidMount() {
+    const { type } = this.$router.params
+    if(type == 1) {
+      this.ajaxData()
+    } else {
+      this.ajaxDataScan()
+    }
+    // this.ajaxDataScan()
+  }
+
+  componentDidShow() {
+  }
+
+  // 扫描 (多个的情况就是任务列表)
+  ajaxDataScan() {
+    let _this = this
+    let dataStr = 'L3'
+    let length = dataStr.length
+    let first = dataStr.substr(0, length)
+    // if(first == 'L') {}
+    dataStr = dataStr.substr(1)
+    API.get('api/v1/samll/taskinfo/data',{
+      userId: Taro.getStorageSync('userid'),
+      taskIds: dataStr
+    }).then(res => {
+      if(first == 'L') {
+        Taro.navigateTo({
+          url:`/pages/detail/index?cid=${dataStr}`
+        })
+      } else {
+        Taro.navigateTo({
+          url:`/pages/detail/index?cid=${dataStr}`
+        })
+      }
+    })
+  }
+
+  // 非扫描
+  ajaxData() {
     let _this = this
     API.get('api/v1/samll/taskinfo/data',{
       userId: Taro.getStorageSync('userid'),
-      // taskIds:'3'
+      // taskIds:
     }).then(res => {
       let data = res
       _this.setState({
         list: data
       })
     })
-  }
-
-  componentDidShow() {
   }
 
   detailTo() {
@@ -51,8 +86,8 @@ class taskList extends Component {
         {
           list.map((e, index) => (
             <View className='main' onClick={this.detailTo.bind(this, e)} key={index}>
-              <Image src={e.imgUrls} />
-              <View className='tits'>{e.title}</View>
+              <Image src={e.courseInfo.imgUrls} />
+              <View className='tits'>{e.courseInfo.title}</View>
             </View>
           ))
         }

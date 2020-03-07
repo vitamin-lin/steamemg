@@ -17,7 +17,7 @@ class detail extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      colect:true,
+      collect:true,
       main:'',
       current: 0, //  tabs下标
       tags:[{},{},{}] // tags标签多选
@@ -27,11 +27,13 @@ class detail extends Component {
   componentDidMount() {
     let { cid } = this.$router.params
     API.get('api/v1/samll/courseinfo/detail', {
+      userId: Taro.getStorageSync('userid'),
       id: cid
     }).then(res => {
+      console.warn(res)
       this.setState({
         main: res,
-        colect: res.opAt
+        collect: res.collect
       })
     })
   }
@@ -57,23 +59,24 @@ class detail extends Component {
   }
 
   colect(index) {
-    const { colect } = this.state
+    const { collect } = this.state
     let { cid } = this.$router.params
     let _this = this
-    API.post('api/v1/samll/collectinfo/collect', {
+    API.get('api/v1/samll/collectinfo/collect', {
       userId: Taro.getStorageSync('userid'),
       taskId: cid
     }).then(res => {
-      if (res.code == 0) {
+      console.warn(res)
+      if (res) {
         _this.setState({
-          colect: colect ? false : true
+          collect: collect ? false : true
         })
       }
     })  
   }
 
   render() {
-    const { colect, main } = this.state
+    const { collect, main } = this.state
     return (
       <View className='wrap'>
         <Video
@@ -92,7 +95,7 @@ class detail extends Component {
           </View>
           <View className='incona' onClick={this.colect}>
             {/** cloected.png **/}
-            <Image src={colect ? 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloect.png' : 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloected.png'} />
+            <Image src={!collect ? 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloect.png' : 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/cloected.png'} />
             <View>收藏</View>      
           </View>
           <View className='inconb'>

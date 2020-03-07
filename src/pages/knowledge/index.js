@@ -50,7 +50,7 @@ class Coupons extends Component {
     console.warn(link)
     if(link == 0) {
       Taro.navigateTo({
-        url:'/pages/taskList/index'
+        url:'/pages/taskList/index?type=1'
       })
     } else if(link == 1) {
       Taro.navigateTo({

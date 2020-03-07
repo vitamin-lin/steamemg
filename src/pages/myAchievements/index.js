@@ -20,27 +20,32 @@ class myAchievements extends Component {
     this.state = {
       list: [],
       tabsBars:[
-        { title: '我的徽章', listBox:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]},
+        { title: '我的徽章'},
         { title: '我的级别', listBox:[{},{}] },
       ], // tabs标题
+      listBox:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
       current: 0, //  tabs下标
       tags:[{},{},{}], // tags标签多选
-      result:[]
+      result:[],
+      listWrap: []
     }
   }
 
   componentDidMount() {
     let {tabsBars} = this.state
     let data = tabsBars[0].listBox;
+    let _this = this
     API.get('api/v1/samll/levelinfo/data',{
       userId: Taro.getStorageSync('userid'),
     }).then(res => {
-      // this.setState({
-      //   list: res.data.items
-      // })
-    })
-    this.setState({
-      result: data
+      let arr = []
+      let val = res.value
+      for(let i = 1;i <= val;i++){
+        arr.push({})
+      }
+      _this.setState({
+        listWrap: arr
+      })
     })
   }
 
@@ -72,8 +77,8 @@ class myAchievements extends Component {
 
 
   render() {
-    const { tabsBars, current, result } = this.state
-    console.warn(result)
+    const { tabsBars, current, result, listWrap } = this.state
+    console.warn(listWrap)
     return (
       <View className='wrap'>
           <AtTabs
@@ -98,7 +103,7 @@ class myAchievements extends Component {
                       </View>
                     </View>
                     {
-                      result.map((k, g) => (
+                      listBox.map((k, g) => (
                         <View className='badgeTxt'>
                           <View className='imgsrc'>
                             <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${g+1}.png`} />
@@ -111,7 +116,7 @@ class myAchievements extends Component {
                 : 
                 <AtTabsPane current={current} index={index} className='tabs'>
                   {
-                    e.listBox.map((v, k) => (
+                    listWrap.map((v, k) => (
                       <View className='las'>
                         <Image class='icons' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/lv.png' />
                         <View className='nums'>{k+1}</View>
@@ -122,6 +127,9 @@ class myAchievements extends Component {
                         <View className='numbers'>1 / 5</View>
                       </View>
                     ))
+                  }
+                  {
+                    listWrap.length === 0 && <View className='dengji'>--暂无等级--</View>
                   }
                 </AtTabsPane>
               ))
