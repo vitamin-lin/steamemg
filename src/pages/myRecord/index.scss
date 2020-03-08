@@ -40,6 +40,9 @@
     }
   }
 }
+.days:last-child {
+  margin-bottom: 0;
+}
 .none {
   color: #ccc;
   font-size: 30px;
@@ -49,4 +52,6 @@
   text-align: center;
   color: #ccc;
   font-size: 30px;
+  position: relative;
+  bottom: 30px;
 }
