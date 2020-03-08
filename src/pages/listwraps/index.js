@@ -151,7 +151,7 @@ class Link extends Component {
         })
         setTimeout(function() {
           if((current+1) % 5 == 0 && current > 0) {
-            let dat = datas.slice(current-4, current)
+            let dat = datas.slice(current-4, current+1)
             let arrs = [] 
             for(let k in dat) {
               // console.warn(dat[k])
@@ -159,15 +159,15 @@ class Link extends Component {
             }
             // console.warn(arrs, arrs.join(','), '1212')
 
-            API.post('api/v1/samll/levelinfo/data', {
+            API.get('api/v1/samll/levelinfo/addleve', {
               userId: Taro.getStorageSync('userid'),
-              cid: arrs.join(',')
+              itemids: arrs.join(',')
             }).then(res => {
             })
 
           }
           if(current == (datas.length-1)) {
-            API.post('api/v1/samll/itemcompileinfo/data', {
+            API.get('api/v1/samll/itemcompileinfo/data', {
               userId: Taro.getStorageSync('userid'),
               cid: cid
             }).then(res => {
@@ -344,7 +344,7 @@ class Link extends Component {
             {
               datas.map((e, index) => (
                 <View className='icons' key={index}>
-                  <View className={current == index ? 'numActive' : 'num'}>{index + 1}</View>
+                  <View className={current == index || current > index ? 'numActive' : 'num'}>{index + 1}</View>
                 </View>
               ))
             }

@@ -16,7 +16,7 @@ class contact extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      nums:'14552885'
+      nums:'MarsMaker2019'
     }
   }
 
@@ -48,7 +48,7 @@ class contact extends Component {
       <View className='wrap'>
         <View className='nums'>{nums}</View>
         <Image className='bgs' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/we.jpg' />
-        <Image className='ewms' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/ewms.png' />
+        <Image className='ewms' src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/we.jpeg' />
         <View className='copyNums' onClick={this.copys}></View>
       </View>
     )

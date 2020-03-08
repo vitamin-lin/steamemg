@@ -38,24 +38,20 @@ class taskList extends Component {
   // 扫描 (多个的情况就是任务列表)
   ajaxDataScan() {
     let _this = this
-    let dataStr = 'L3'
-    let length = dataStr.length
-    let first = dataStr.substr(0, length)
+    const { dataVal } = this.$router.params
+    // let dataStr = 'L3'
+    // let length = dataStr.length
+    // let first = dataStr.substr(0, length)
     // if(first == 'L') {}
     dataStr = dataStr.substr(1)
     API.get('api/v1/samll/taskinfo/data',{
       userId: Taro.getStorageSync('userid'),
-      taskIds: dataStr
+      taskIds: dataVal
     }).then(res => {
-      if(first == 'L') {
-        Taro.navigateTo({
-          url:`/pages/detail/index?cid=${dataStr}`
-        })
-      } else {
-        Taro.navigateTo({
-          url:`/pages/detail/index?cid=${dataStr}`
-        })
-      }
+      let data = res
+      _this.setState({
+        list: data
+      })
     })
   }
 

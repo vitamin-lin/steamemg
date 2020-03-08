@@ -14,7 +14,7 @@ import Knowledge from '../knowledge/index'
 class HOME extends Component {
   config = {
     navigationBarTitleText: 'MARS MAKER',
-    // disableScroll: true
+    // disableScroll: true,
     navigationStyle: "custom" 
   }
 
@@ -45,7 +45,24 @@ class HOME extends Component {
     // 允许从相机和相册扫码
     wx.scanCode({
       success: (res) => {
-        console.warn(res)
+        if(res.errMsg === 'scanCode:ok') {
+          let dataStr = res.result
+          let length = dataStr.length
+          let first = dataStr.substr(0, length)
+          let data = dataStr.substr(1)
+          console.warn(res)
+          if(first == 'L') {
+            // 去任务列表
+            Taro.navigateTo({
+              url: `/pages/taskList/index?dataVal=${data}`
+            })
+          } else {
+            // 去详情页
+            Taro.navigateTo({
+              url: `/pages/detail/index?cid=${data}`
+            })
+          }
+        }
       }
     })
   }
@@ -77,16 +94,17 @@ class HOME extends Component {
     const style = {
       paddingTop: Taro.$navBarMarginTop + 'px'
      }
+     
     return (
       <View className='wrap'>
         <View className="nav-box">
           <View className='nav' style={style}></View>
-          <View className='nav-title'>
+          <View className='nav-title' style={style}>
             <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/tit.png' />
           </View>
         </View>
         {
-          !stau ? <User/> : <Knowledge/>
+          !stau ? <View style={style}><User /></View> : <View style={style}><Knowledge /></View>
         }
         <View className='botms'>
           <View className='left' onClick={this.leftTabs.bind(this, staus)}>

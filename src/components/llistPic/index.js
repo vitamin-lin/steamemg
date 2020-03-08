@@ -87,7 +87,7 @@ class listPic extends Component {
 
   goToDetail(e) {
     Taro.navigateTo({
-      url:`/pages/detail/index?cid=${e.id}`
+      url:`/pages/detail/index?cid=${e.taskId}`
     })
   }
 

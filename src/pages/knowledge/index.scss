@@ -5,7 +5,7 @@
   // display: flex;
   // align-items: center;
   // justify-content: center; 
-  padding-top: 68px;
+  padding-bottom: 188px;
   position: relative;
 }
 .listWrap {
@@ -29,6 +29,10 @@
     opacity: 0;
   }
 }
+.listWrap:nth-child(1) {
+  margin-top: 128px;
+}
+
 .rightTxt {
   width: 47px;
   height: 561px;

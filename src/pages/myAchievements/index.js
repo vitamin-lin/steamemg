@@ -124,7 +124,7 @@ class myAchievements extends Component {
                           <View className='lines'></View>
                         </View>
                         <View className='txts'>{`已顺利升级到LV${k+1}`}</View>
-                        <View className='numbers'>1 / 5</View>
+                        <View className='numbers'>5 / 5</View>
                       </View>
                     ))
                   }

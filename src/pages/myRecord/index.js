@@ -21,28 +21,56 @@ class record extends Component {
       current: 0, //  tabs下标
       tags:[{},{},{}], // tags标签多选
       today:[],
-      earlier: []
+      earlier: [],
+      more: '查看更多',
+      pageNum: 1,
     }
   }
 
   componentDidMount() {
+    this.ajaxData()
+    this.ajaxEarlierData()
+  }
+
+  componentDidShow() {
+  }
+
+  // 获取今天记录
+  ajaxData() {
     var _this = this;
-    API.get('api/v1/samll/recordinfo/data', {
+    API.get('api/v1/samll/recordinfo/today', {
       userId: Taro.getStorageSync('userid'),
       // pageNo:1,
       // pageSize: 1
     }).then(res => {
       _this.setState({
-        today: res.today,
-        earlier: res.earlier
+        today: res.today
       })
       // console.warn(res)
     })
-
   }
 
-  componentDidShow() {
-  }
+    // 获取更早记录
+    ajaxEarlierData(pageNum) {
+      var _this = this;
+      API.get('api/v1/samll/recordinfo/earlier', {
+        userId: Taro.getStorageSync('userid'),
+        pageNum: pageNum ? pageNum : this.state.pageNum,
+        pageSize: 15
+      }).then(res => {
+        let arr = _this.state.earlier
+        let brr = arr.concat(res.earlier)
+        _this.setState({
+          earlier: brr
+        })
+        if(res.earlier.length === 0) {
+          _this.setState({
+            more: '这里是底线了'
+          })
+        }
+        // console.warn(res)
+      })
+    }
 
   handleClick (value) {
     this.setState({
@@ -55,21 +83,30 @@ class record extends Component {
   }
 
   linkTo (e, index) {
+    // console.warn(e, '12312')
     Taro.navigateTo({
-      url:'/pages/detail/index'
+      url:`/pages/detail/index?cid=${e.taskId}`
+    })
+  }
+  // 获取更多
+  getMore() {
+    const { pageNum } = this.state
+    this.ajaxEarlierData(pageNum + 1)
+    this.setState({
+      pageNum: pageNum + 1
     })
   }
 
   render() {
     const { today, earlier } = this.state
-    console.warn(this.state)
+    // console.warn(this.state)
     return (
       <View className='wrap'>
         <View className='days'>
           <View className='days'>今天</View>
           {
             today.map(e => (
-              <View className='mains' onClick={this.linkTo}>
+              <View className='mains' onClick={this.linkTo.bind(this, e)}>
                 <View 
                   className='pics'
                   style={`background:url(${e.courseInfo.imgUrls}) no-repeat;background-size: 100% auto;`}
@@ -100,8 +137,9 @@ class record extends Component {
             ))
           }
           {
-            earlier.length === 0 &&<View className='none'>--暂无数据--</View>
+            <View className='more' onClick={this.getMore}>---{this.state.more}---</View>
           }
+
         </View>
       </View>
     )
@@ -109,3 +147,6 @@ class record extends Component {
 }
 
 export default record
+// {
+//   earlier.length === 0 &&<View className='none'>--暂无数据--</View>
+// }

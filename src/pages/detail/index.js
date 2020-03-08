@@ -10,7 +10,7 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class detail extends Component {
   config = {
-    navigationBarTitleText: 'XXXX实验'
+    navigationBarTitleText: '实验'
     // disableScroll: true
   }
 

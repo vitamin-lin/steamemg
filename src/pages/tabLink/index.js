@@ -104,7 +104,7 @@ class Coupons extends Component {
                             k%2 === 0 ? <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linka.png' /> :
                             <Image src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/linkb.png' />
                           }
-                          <View className={k%2 === 0 ? 'overs' : 'oversa' }>{e.compile ? '已完成' : '未完成'}</View>
+                          <View className={k%2 === 0 ? 'overs' : 'oversa' }>{v.compile ? '已完成' : '未完成'}</View>
                         </View>
                      ))
                    }

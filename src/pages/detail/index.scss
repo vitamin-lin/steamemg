@@ -21,6 +21,8 @@
       font-size: 31px;
       color: #000;
       font-weight: 600;
+      // background: orange;
+      word-wrap:break-word;
     }
     .incona {
       width: 41px;
@@ -71,5 +73,6 @@
     line-height: 38px;
     color: #999999;
     font-size: 21px;
+    word-break:break-all; 
   }
 }
