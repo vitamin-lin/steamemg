@@ -1,7 +1,10 @@
 .wrap {
-  margin: 20px;
+  width: 100%;
+  overflow: hidden;
+  // margin: 20px;
   font-size: 33px;
   color: #393939;
+  // position: fixed;
   .tit {
     width: 690px;
     // min-height: 100px;
