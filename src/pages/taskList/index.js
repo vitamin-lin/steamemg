@@ -81,9 +81,15 @@ class taskList extends Component {
   }
 
   detailTo(e) {
-    Taro.navigateTo({
-      url: `/pages/detail/index?cid=${e.courseInfo.id}`
-    })
+    if(e.courseInfo) {
+      Taro.navigateTo({
+        url: `/pages/detail/index?cid=${e.courseInfo.id}`
+      })
+    } else {
+      Taro.navigateTo({
+        url: `/pages/detail/index?cid=${e.id}`
+      })
+    }
   }
 
   render() {
@@ -93,8 +99,8 @@ class taskList extends Component {
         {
           list.map((e, index) => (
             <View className='main' onClick={this.detailTo.bind(this, e)} key={index}>
-              <Image src={e.courseInfo.imgUrls} />
-              <View className='tits'>{e.courseInfo.title}</View>
+              <Image src={e.courseInfo ? e.courseInfo.imgUrls : e.imgUrls} />
+              <View className='tits'>{e.courseInfo ? e.courseInfo.title : e.title}</View>
             </View>
           ))
         }
