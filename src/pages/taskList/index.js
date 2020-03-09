@@ -18,7 +18,8 @@ class taskList extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      list: []
+      list: [],
+      staus: false
     }
   }
 
@@ -43,15 +44,20 @@ class taskList extends Component {
     // let length = dataStr.length
     // let first = dataStr.substr(0, length)
     // if(first == 'L') {}
-    dataStr = dataStr.substr(1)
-    API.get('api/v1/samll/taskinfo/data',{
+    // dataStr = dataStr.substr(1)
+    API.get('api/v1/samll/taskinfo/scan',{
       userId: Taro.getStorageSync('userid'),
-      taskIds: dataVal
+      qrid: dataVal
     }).then(res => {
       let data = res
       _this.setState({
         list: data
       })
+      if(data.length === 0) {
+        _this.setState({
+          staus: true
+        })
+      }
     })
   }
 
@@ -66,6 +72,11 @@ class taskList extends Component {
       _this.setState({
         list: data
       })
+      if(data.length === 0) {
+        _this.setState({
+          staus: true
+        })
+      }
     })
   }
 
@@ -76,7 +87,7 @@ class taskList extends Component {
   }
 
   render() {
-    let { list } = this.state
+    let { list, staus } = this.state
     return (
       <View className='wrap'>
         {
@@ -88,7 +99,7 @@ class taskList extends Component {
           ))
         }
         {
-          list.length === 0 && 
+          staus && 
           <View className='tishi'>请返回首页扫码后再来查看喔</View>
         }
       </View>

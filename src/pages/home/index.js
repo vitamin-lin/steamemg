@@ -46,11 +46,10 @@ class HOME extends Component {
     wx.scanCode({
       success: (res) => {
         if(res.errMsg === 'scanCode:ok') {
-          let dataStr = res.result
-          let length = dataStr.length
-          let first = dataStr.substr(0, length)
-          let data = dataStr.substr(1)
-          console.warn(res)
+          // let dataStr = res.result
+          let first = res.result.slice(0, 1)
+          let data = res.result.substr(1)
+          console.warn(data, first)
           if(first == 'L') {
             // 去任务列表
             Taro.navigateTo({
