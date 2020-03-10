@@ -27,11 +27,55 @@ class myAchievements extends Component {
       current: 0, //  tabs下标
       tags:[{},{},{}], // tags标签多选
       result:[],
-      listWrap: []
+      listWrap: [],
+      gc: [],
+      hx: [],
+      kx: [],
+      sw: [],
+      wl: []
     }
   }
 
   componentDidMount() {
+    // 获取级别
+    this.getItems()
+    // 获取等级
+    this.getData()
+
+  }
+
+  componentDidShow() {
+
+  }
+
+  // 获取级别
+  getItems() {
+    let _this = this
+    const { gc, hx, kx, sx, wl } = this.state
+    API.get('api/v1/samll/badeginfo/data',{
+      userId: Taro.getStorageSync('userid'),
+    }).then(res => {
+      // console.warn(res)
+      let gcs = res.gongcheng
+      let hxs = res.huaxue
+      let kxs = res.kexue
+      let sws = res.shengwu
+      let wls = res.wuli
+      let a1 = _this.ajaxData(gcs, 'gc')
+      let a2 = _this.ajaxData(hxs, 'hx')
+      let a3 = _this.ajaxData(kxs, 'kx')
+      let a4 = _this.ajaxData(sws, 'sw')
+      let a5 = _this.ajaxData(wls, 'wl')
+      let resultData = a1.concat(a2).concat(a3).concat(a4).concat(a5)
+      // console.warn(a1, a2, a3, a4, a5, resultData, '1231')
+      _this.setState({
+        listBox: resultData
+      })
+    })
+  }
+
+  // 获取等级
+  getData() {
     let {tabsBars} = this.state
     let data = tabsBars[0].listBox;
     let _this = this
@@ -49,8 +93,64 @@ class myAchievements extends Component {
     })
   }
 
-  componentDidShow() {
-
+  // 获取徽章列表
+  ajaxData(key, type) {
+    // console.warn(typeof(key), 'key')
+    let _this = this
+    if(key == 0) {
+      return []
+    } else if(key == 1) {
+      if(type === 'gc') {
+        let arr = [{type: 'gc', title: '工程小助手', pic: 1}]
+        return arr
+      } else if(type === 'hx') {
+        let brr = [{type: 'hx', title: '化学小助手', pic: 4}]
+        return brr
+      } else if(type === 'kx') {
+        let crr = [{type: 'kx', title: '科学小助手', pic: 7}]
+        return crr
+      } else if(type === 'sw') {
+        let drr = [{type: 'sw', title: '生物小助手', pic: 10}]
+        return drr
+      } else if(type === 'wl') {
+        let err = [{type: 'wl', title: '物理小助手', pic: 13}]
+        return err
+      } else {}
+    } else if(key == 2) {
+      if(type === 'gc') {
+        let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 2}]
+        return arr
+      } else if(type === 'hx') {
+        let brr = [{type: 'hx', title: '化学小助手', pic: 4}, {type: 'hx', title: '化学小研究员', pic: 5}]
+        return brr
+      } else if(type === 'kx') {
+        let crr = [{type: 'kx', title: '科学小助手', pic: 7}, {type: 'kx', title: '科学小研究员', pic: 8}]
+        return crr
+      } else if(type === 'sw') {
+        let drr = [{type: 'sw', title: '生物小助手', pic: 10}, {type: 'sw', title: '生物小研究员', pic: 11}]
+        return drr
+      } else if(type === 'wl') {
+        let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 14}]
+        return err
+      } else {}
+    } else if(key >= 3){
+        if(type === 'gc') {
+          let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 2}, {type: 'gc', title: '小工程学家', pic: 3}]
+          return arr
+        } else if(type === 'hx') {
+          let brr = [{type: 'hx', title: '化学小助手', pic: 4}, {type: 'hx', title: '化学小研究员', pic: 5}, {type: 'hx', title: '小化学家', pic: 6}]
+          return brr
+        } else if(type === 'kx') {
+          let crr = [{type: 'kx', title: '科学小助手', pic: 7}, {type: 'kx', title: '科学小研究员', pic: 8}, {type: 'kx', title: '小科学家', pic: 9}]
+          return crr
+        } else if(type === 'sw') {
+          let drr = [{type: 'sw', title: '生物小助手', pic: 10}, {type: 'sw', title: '生物小研究员', pic: 11}, {type: 'sw', title: '小生物学家', pic: 12}]
+          return drr
+        } else if(type === 'wl') {
+          let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 14}, {type: 'wl', title: '小物理学家', pic: 15}]
+          return err
+        } else {}
+    }
   }
 
   handleClick (value) {
@@ -78,7 +178,7 @@ class myAchievements extends Component {
 
   render() {
     const { tabsBars, current, result, listWrap } = this.state
-    console.warn(listWrap)
+    // console.warn(listWrap)
     return (
       <View className='wrap'>
           <AtTabs
@@ -95,7 +195,7 @@ class myAchievements extends Component {
                   <View className='badge'>
                     <View className='heads'>
                       <View className='lefts'>
-                        获得徽章<Text>15</Text>/15
+                        获得徽章<Text>{listBox.length}</Text>/15
                       </View>
                       <View className='rights' onClick={this.linkToRules}>
                         <Text>徽章规则</Text>
@@ -104,11 +204,11 @@ class myAchievements extends Component {
                     </View>
                     {
                       listBox.map((k, g) => (
-                        <View className='badgeTxt'>
+                        <View className='badgeTxt' key={g}>
                           <View className='imgsrc'>
-                            <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${g+1}.png`} />
+                            <Image src={`https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/${k.pic}.png`} />
                           </View>
-                          <View className='tits'>科学小助手</View>
+                          <View className='tits'>{k.title}</View>
                         </View>
                       ))}
                   </View>
