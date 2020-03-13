@@ -4,7 +4,7 @@ Taro + Taro UI + Redux + Webpack + ES6 + Mock
 
 ## 注意
 
-1. 版本问题 taro-cli v 1.2.17
+1. 版本问题 taro-cli v 1.2.17 node 10.0.0+ 微信开发者工具也需要为最新版本
 
 `npm install -g @tarojs/cli@1.2.17`
 
@@ -12,7 +12,7 @@ Taro + Taro UI + Redux + Webpack + ES6 + Mock
 
 2. 后端 API 域名的切换
 
-添加 script:  `npm run dev:weapp-prod`  watch 模式下运行正式生产环境的域名 `https://mpmall.huggiesapp.cn/`
+添加 script:  `npm run dev:weapp-prod`  watch 模式下运行正式生产环境的域名 `暂无`
 
 ## 目录
 
