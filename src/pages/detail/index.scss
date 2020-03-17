@@ -68,11 +68,39 @@
     font-size: 25px;
   }
   .main {
-    padding-left: 30px;
-    padding-right: 30px;
+    // padding-left: 30px;
+    // padding-right: 30px;
     line-height: 38px;
     color: #999999;
     font-size: 21px;
     word-break:break-all; 
+  }
+}
+
+.main {
+  width: 590px;
+  min-height: 100px;
+  padding-left: 80px;
+  margin: 0 auto;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  box-shadow:0px 0px 10px 10px #fff2ed;
+  padding-top: 30px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  .play {
+    width: 100px;
+    height: 90px;
+    // background: orange;
+    position: absolute;
+    left: 0;
+    .voice {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 20px;
+      top: 0;
+    }
   }
 }

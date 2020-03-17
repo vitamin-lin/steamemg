@@ -282,9 +282,9 @@ class Link extends Component {
         }
       })
     }
-    wx.showToast({
-      title: '点击完毕'
-    })
+    // wx.showToast({
+    //   title: '点击完毕'
+    // })
   }
 
 
