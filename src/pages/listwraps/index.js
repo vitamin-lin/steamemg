@@ -48,9 +48,15 @@ class Link extends Component {
     this.initData();
   }
 
+  componentDidHide() {
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
+  }
+
   // 页面退出
   componentWillUnmount() {
     innerAudioContext.stop()
+    innerAudioContext.destroy();
   }
 
   initData() {

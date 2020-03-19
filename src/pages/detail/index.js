@@ -42,9 +42,15 @@ class detail extends Component {
     })
   }
 
+  componentDidHide() {
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
+  }
+
   // 页面退出
   componentWillUnmount() {
     innerAudioContext.stop()
+    innerAudioContext.destroy();
   }
 
   componentDidShow() {
@@ -52,6 +58,9 @@ class detail extends Component {
   }
 
   getVoice(txts) {
+    Taro.showLoading({
+      title: '加载中',
+    })
     let _this = this;
     plugin.textToSpeech({
       lang: "zh_CN",
@@ -63,6 +72,7 @@ class detail extends Component {
           audioSrc: res.filename
         })
         _this.yuyinPlay(res)
+        Taro.hideLoading()
       },
       fail: function(res) {
           console.log("fail tts", res)
@@ -75,7 +85,6 @@ class detail extends Component {
     let _this = this
     let platform = this.state.platform
     if(platform !== 'android') {
-      console.warn('我执行了')
       innerAudioContext.autoplay = true
       innerAudioContext.src = res.filename 
       innerAudioContext.play()
@@ -143,7 +152,6 @@ class detail extends Component {
           src={main.videoUrls}
           controls={true}
           autoplay={false}
-          poster={main.imgUrls}
           initialTime='0'
           id='video'
           loop={false}
