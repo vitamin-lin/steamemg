@@ -75,7 +75,8 @@ class detail extends Component {
         Taro.hideLoading()
       },
       fail: function(res) {
-          console.log("fail tts", res)
+        console.log("fail tts", res)
+        Taro.hideLoading()
       }
     })
   }

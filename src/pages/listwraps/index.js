@@ -243,6 +243,9 @@ class Link extends Component {
   }
 
   getVoice(txts) {
+    Taro.showLoading({
+      title: '加载中',
+    })
     let _this = this;
     plugin.textToSpeech({
       lang: "zh_CN",
@@ -254,9 +257,11 @@ class Link extends Component {
           audioSrc: res.filename
         })
         _this.yuyinPlay(res)
+        Taro.hideLoading()
       },
       fail: function(res) {
-          console.log("fail tts", res)
+        console.log("fail tts", res)
+        Taro.hideLoading()
       }
     })
   }
@@ -306,6 +311,12 @@ class Link extends Component {
       /\<img/gi,
       '<img style="display:block; max-width:100%; margin:0 auto" '
     );
+    let brr = 0
+    
+    if(datas.length > 0) {
+      brr = parseInt(8 - datas.length%8)
+    }
+    console.warn(brr)
 
     return (
       <View className='wrap'> 
@@ -332,8 +343,8 @@ class Link extends Component {
             datas[current].list.map((e, index) => (
               <View className={e.className} key={index}>
                 <View className='box'>
-                  <View onClick={this.tapItem.bind(this, e, index)}>
-                    <RichText className='text' nodes={e.mian} />
+                  <View onClick={this.tapItem.bind(this, e, index)} className='text'>
+                    <RichText nodes={e.mian} />
                   </View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.voiceValue)}>
                     <Image
@@ -353,6 +364,11 @@ class Link extends Component {
                   <View className={current == index || current > index ? 'numActive' : 'num'}>{index + 1}</View>
                 </View>
               ))
+            }
+            {
+              brr.map(() => {
+                return <View className='icons brr'><View className='num'>0</View></View>
+              })
             }
           </View>
         </View>

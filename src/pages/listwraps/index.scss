@@ -98,6 +98,10 @@
       word-wrap:break-word;
       border-left: 2px solid #f2f2f2;
       padding-left: 78px;
+      .text {
+        width: 450px;
+        // background: orange;
+      }
       .voice {
         position: absolute;
         left: -103px;
@@ -203,21 +207,34 @@
 }
 
 .botomIcon {
-  width: auto;
   margin: 0 auto;
-  height: 62px;
+  min-height: 62px;
   padding-bottom: 200px;
   padding-top: 30px;
   // background: orange;
   .box {
-    width: 525px;
-    margin: 0 auto;
     // background: pink;
+    width: 700px;
+    min-height: 62px;
+    margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    align-content:flex-start;
     .icons {
+      // width: 100px;
+      height: 62px;
+      margin-top: 0;
+      // margin-left: 20px;
+      // margin-bottom: 30px;
+      margin: 10px;
+      margin-bottom: 20px;
+      // background: pink;
+      // float: left;
       flex: 1;
-      height: 112px;
-      // background: orange;
+      // display: flex;
+      // flex-direction: column;
+      // flex: 1;
       .num {
         width: 62px;
         height: 62px;
@@ -228,9 +245,6 @@
         text-align: center;
         margin: 0 auto;
         color: #ff4800;
-        // float: left;
-        // display: inline-block;
-        // margin: 0 20px;
       }
       .numActive {
         width: 62px;
@@ -304,4 +318,8 @@
   bottom: 0;
   left: 0;
   padding-top: 10px;
+}
+
+.brr {
+  opacity: 0;
 }
