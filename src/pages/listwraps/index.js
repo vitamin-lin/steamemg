@@ -1,6 +1,6 @@
 // 首页
 import Taro, { Component, navigateTo } from "@tarojs/taro"
-import { View, Audio, Button, RichText } from "@tarojs/components"
+import { View, Audio, Button, RichText, Text } from "@tarojs/components"
 import PropTypes from "prop-types"
 import { connect } from "@tarojs/redux"
 import Datas from "../../constants/datas"
@@ -344,6 +344,7 @@ class Link extends Component {
               <View className={e.className} key={index}>
                 <View className='box'>
                   <View onClick={this.tapItem.bind(this, e, index)} className='text'>
+                    <Text className='keysP'>{e.itemKey}:</Text>
                     <RichText nodes={e.mian} />
                   </View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.voiceValue)}>

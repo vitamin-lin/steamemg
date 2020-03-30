@@ -95,12 +95,19 @@
       // background: orange;
       position: relative;
       left: 112px;
-      word-wrap:break-word;
+      // word-wrap:break-word;
       border-left: 2px solid #f2f2f2;
       padding-left: 78px;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      word-wrap: break-word;
       .text {
         width: 450px;
         // background: orange;
+      }
+      .keysP {
+        position: absolute;
+        left: 30px;
       }
       .voice {
         position: absolute;
@@ -140,9 +147,15 @@
       // background: orange;
       position: relative;
       left: 112px;
-      word-wrap:break-word;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      word-wrap: break-word;
       border-left: 2px solid #ff4800;
       padding-left: 78px;
+      .keysP {
+        position: absolute;
+        left: 30px;
+      }
       .voice {
         position: absolute;
         left: -103px;

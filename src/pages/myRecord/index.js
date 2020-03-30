@@ -124,6 +124,7 @@ class record extends Component {
           <View className='days'>更早</View>
           {
             earlier.map(e => (
+              e.courseInfo.title &&
               <View className='mains' onClick={this.linkTo}>
                 <View
                   style={`background:url(${e.courseInfo.imgUrls}) no-repeat;background-size: 100% auto;`}
@@ -133,7 +134,7 @@ class record extends Component {
                     {e.courseInfo.title}
                   </View>
                 </View>
-              </View>
+              </View>  
             ))
           }
           {
