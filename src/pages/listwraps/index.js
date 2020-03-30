@@ -298,6 +298,14 @@ class Link extends Component {
     // })
   }
 
+  returnRich(key) {
+    let contentDetail = key
+    contentDetail = contentDetail.replace(
+      /\<img/gi,
+      '<img style="display:block; max-width:100%; margin:0 auto" '
+    );
+    return contentDetail
+  }
 
 
   render() {
@@ -345,7 +353,7 @@ class Link extends Component {
                 <View className='box'>
                   <View onClick={this.tapItem.bind(this, e, index)} className='text'>
                     <Text className='keysP'>{e.itemKey}:</Text>
-                    <RichText nodes={e.mian} />
+                    <RichText nodes={this.returnRich(e.mian)} />
                   </View>
                   <View className='voice' onClick={this.getVoice.bind(this, e.voiceValue)}>
                     <Image
