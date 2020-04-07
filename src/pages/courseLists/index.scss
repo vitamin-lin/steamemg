@@ -7,13 +7,16 @@
   // justify-content: center; 
   .at-tabs__header {
     position: fixed;
-    background: #fff;
-    padding-bottom: 20px;
+    background: linear-gradient(#f7f7f7,#fff);
+    // background: ora;
+    padding-bottom: 0;
     border-bottom: 1px solid #f1f1f1;
+    // border-top: 1px solid #f1f1f1;
     z-index: 100;
   }
   .at-tabs__body {
-    margin-top: 100px;
+    margin-top: 80px;
+    // overflow-y: scroll;
   }
   .at-tabs__item--active {
     color: #ff4800;
@@ -146,4 +149,7 @@
   text-align: center;
   margin: 30px auto;
   font-size: 25px;
+}
+.scrollview {
+  height: 90vh;
 }

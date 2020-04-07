@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, ScrollView } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtTag } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
@@ -9,8 +9,9 @@ import withShare from '../../utils/withSare'
 // @pageInit()
 class courseLists extends Component {
   config = {
-    navigationBarTitleText: '课程列表'
-    // disableScroll: true
+    navigationBarTitleText: '课程列表',
+    // enablePullDownRefresh: false
+    disableScroll: true
   }
 
   constructor() {
@@ -144,6 +145,7 @@ class courseLists extends Component {
         arr.push(listAll[k])
       }
     }
+
     return (
       <View className='wrap'>
           <AtTabs
@@ -156,6 +158,10 @@ class courseLists extends Component {
             {
               tabsBars.map((e, index) => (
                 <AtTabsPane current={current} index={index}>   
+                  <ScrollView
+                    className='scrollview'
+                    scrollY
+                  >
                   <View className='tags'>
                     { 
                       e.tags.map((k, index) => {
@@ -216,6 +222,7 @@ class courseLists extends Component {
                       )
                     }
                   </View>
+                  </ScrollView>
                 </AtTabsPane>
               ))
             }

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, ScrollView } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtTag } from 'taro-ui'
 import './index.scss'
 import API from '../../service/api'
@@ -10,8 +10,8 @@ import Logins from '../../components/login/index'
 // @pageInit()
 class Coupons extends Component {
   config = {
-    navigationBarTitleText: ''
-    // disableScroll: true
+    navigationBarTitleText: '',
+    disableScroll: true
   }
 
   constructor() {
@@ -91,11 +91,16 @@ class Coupons extends Component {
             scroll
             animated={false}
             tabList={tabsBars}
+            swipeable={false}
             className='tabsBox'
             onClick={this.handleClick.bind(this)}>
             {
               tabsBars.map((e, index) => (
-                <AtTabsPane current={current} index={index} className='tabs'>     
+                <AtTabsPane current={current} index={index} className='tabs'>    
+                  <ScrollView
+                    className='scrollview'
+                    scrollY
+                  >
                    {
                      e.childs.map((v, k) => (
                         <View className='links' onClick={this.linkTo.bind(this, v)}> 
@@ -108,6 +113,7 @@ class Coupons extends Component {
                         </View>
                      ))
                    }
+                  </ScrollView>
                 </AtTabsPane>
               ))
             }
