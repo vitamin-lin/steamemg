@@ -5,6 +5,16 @@
   // display: flex;
   // align-items: center;
   // justify-content: center; 
+  .at-tabs__header {
+    position: fixed;
+    background: #fff;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f1f1;
+    z-index: 100;
+  }
+  .at-tabs__body {
+    margin-top: 100px;
+  }
   .at-tabs__item--active {
     color: #ff4800;
     .at-tabs__item-underline {
