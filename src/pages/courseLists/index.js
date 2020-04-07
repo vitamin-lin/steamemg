@@ -150,6 +150,7 @@ class courseLists extends Component {
             current={this.state.current}
             scroll
             animated={false}
+            swipeable={false}
             tabList={tabsBars}
             onClick={this.handleClick.bind(this)}>
             {
