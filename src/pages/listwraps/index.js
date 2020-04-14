@@ -4,7 +4,7 @@ import { View, Audio, Button, RichText, Text } from "@tarojs/components"
 import PropTypes from "prop-types"
 import { connect } from "@tarojs/redux"
 import Datas from "../../constants/datas"
-import { AtCurtain } from 'taro-ui'
+import { AtCurtain, AtMessage, AtButton } from 'taro-ui'
 // import {  AtModalAction } from 'taro-ui'
 import API from '../../service/api'
 import "./index.scss"
@@ -12,7 +12,15 @@ import withShare from '../../utils/withSare'
 
 var plugin = requirePlugin("WechatSI")
 let manager = plugin.getRecordRecognitionManager()
-const innerAudioContext = wx.createInnerAudioContext();
+// const innerAudioContext = wx.createInnerAudioContext();
+
+var innerAudioContext = null  //播发器
+if (wx.createInnerAudioContext) {
+  innerAudioContext = wx.createInnerAudioContext()  //微信内部的audio
+  innerAudioContext.obeyMuteSwitch = false //不遵循静音开关,即静音下也能播放
+} else {
+  this.innerAudioContext = wx.createAudioContext('playerWord') //页面中的audio组件
+}
 
 
 @withShare()
@@ -46,6 +54,7 @@ class Link extends Component {
 
   componentDidMount() {
     this.initData();
+    this.getSystem();
   }
 
   componentDidHide() {
@@ -306,7 +315,19 @@ class Link extends Component {
     );
     return contentDetail
   }
-
+  getSystem (type) {
+      var that = this;
+      wx.getSystemInfo({
+        success:function(res){
+          if(res.platform == "ios"){
+            Taro.atMessage({
+              'message': '播放语音请关闭静音模式',
+              'type': type,
+            })
+          }
+        }
+      })
+    }
 
   render() {
     const { current, datas, fc, submit } = this.state;
@@ -317,7 +338,7 @@ class Link extends Component {
     let contentDetail = txts
     contentDetail = contentDetail.replace(
       /\<img/gi,
-      '<img style="display:block; max-width:100%; margin:0 auto" '
+      '<img style="display:block; max-width:100%!important;margin:0 auto" '
     );
     let brr = 0
     
@@ -328,6 +349,7 @@ class Link extends Component {
 
     return (
       <View className='wrap'> 
+        <AtMessage />
         <View className={fc ? 'fc' : 'dn'}>
           <View className='mia'></View>
           <Image className={dia ? 'seas' : 'dn'} src='https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppResource/dia.png' />

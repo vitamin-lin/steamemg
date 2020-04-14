@@ -40,6 +40,7 @@ class detail extends Component {
         collect: res.collect
       })
     })
+    this.getSystem();
   }
 
   componentDidHide() {
@@ -77,6 +78,19 @@ class detail extends Component {
       fail: function(res) {
         console.log("fail tts", res)
         Taro.hideLoading()
+      }
+    })
+  }
+  getSystem (type) {
+    var that = this;
+    wx.getSystemInfo({
+      success:function(res){
+        if(res.platform == "ios"){
+          Taro.atMessage({
+            'message': '播放语音请关闭静音模式',
+            'type': type,
+          })
+        }
       }
     })
   }
