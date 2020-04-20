@@ -61,6 +61,7 @@ class myAchievements extends Component {
       let kxs = res.kexue
       let sws = res.shengwu
       let wls = res.wuli
+
       let a1 = _this.ajaxData(gcs, 'gc')
       let a2 = _this.ajaxData(hxs, 'hx')
       let a3 = _this.ajaxData(kxs, 'kx')
@@ -68,8 +69,10 @@ class myAchievements extends Component {
       let a5 = _this.ajaxData(wls, 'wl')
       let resultData = a1.concat(a2).concat(a3).concat(a4).concat(a5)
       // console.warn(a1, a2, a3, a4, a5, resultData, '1231')
+      let nums = gcs + hxs + kxs + sws + wls
       _this.setState({
-        listBox: resultData
+        listBox: resultData,
+        nums: nums
       })
     })
   }
@@ -85,7 +88,7 @@ class myAchievements extends Component {
       let arr = []
       let val = res.value
       for(let i = 1;i <= val;i++){
-        arr.push({})
+        arr.push({})  
       }
       _this.setState({
         listWrap: arr
@@ -97,44 +100,42 @@ class myAchievements extends Component {
   ajaxData(key, type) {
     // console.warn(typeof(key), 'key')
     let _this = this
-    if(key == 0) {
-      return []
-    } else if(key == 1) {
+    if(key == 1) {
       if(type === 'gc') {
-        let arr = [{type: 'gc', title: '工程小助手', pic: 1}]
+        let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 'b'}, {type: 'gc', title: '小工程学家', pic: 'c'}]
         return arr
       } else if(type === 'hx') {
-        let brr = [{type: 'hx', title: '化学小助手', pic: 4}]
+        let brr = [{type: 'hx', title: '化学小助手', pic: 4}, {type: 'hx', title: '化学小研究员', pic: 'e'}, {type: 'hx', title: '小化学家', pic: 'f'}]
         return brr
       } else if(type === 'kx') {
-        let crr = [{type: 'kx', title: '科学小助手', pic: 7}]
+        let crr = [{type: 'kx', title: '科学小助手', pic: 7}, {type: 'kx', title: '科学小研究员', pic: 'h'}, {type: 'kx', title: '小科学家', pic: 'i'}] 
         return crr
       } else if(type === 'sw') {
-        let drr = [{type: 'sw', title: '生物小助手', pic: 10}]
+        let drr = [{type: 'sw', title: '生物小助手', pic: 10},{type: 'sw', title: '生物小研究员', pic: 'k'},{type: 'sw', title: '小生物学家', pic: 'l'}]
         return drr
       } else if(type === 'wl') {
-        let err = [{type: 'wl', title: '物理小助手', pic: 13}]
+        let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 'n'}, {type: 'wl', title: '小物理学家', pic: 'o'}]
         return err
       } else {}
     } else if(key == 2) {
       if(type === 'gc') {
-        let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 2}]
+        let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 2}, {type: 'gc', title: '小工程学家', pic: 'c'}]
         return arr
       } else if(type === 'hx') {
-        let brr = [{type: 'hx', title: '化学小助手', pic: 4}, {type: 'hx', title: '化学小研究员', pic: 5}]
+        let brr = [{type: 'hx', title: '化学小助手', pic: 4}, {type: 'hx', title: '化学小研究员', pic: 5}, {type: 'hx', title: '小化学家', pic: 'f'}]
         return brr
       } else if(type === 'kx') {
-        let crr = [{type: 'kx', title: '科学小助手', pic: 7}, {type: 'kx', title: '科学小研究员', pic: 8}]
+        let crr = [{type: 'kx', title: '科学小助手', pic: 7}, {type: 'kx', title: '科学小研究员', pic: 8}, {type: 'kx', title: '小科学家', pic: 'i'}]
         return crr
       } else if(type === 'sw') {
-        let drr = [{type: 'sw', title: '生物小助手', pic: 10}, {type: 'sw', title: '生物小研究员', pic: 11}]
+        let drr = [{type: 'sw', title: '生物小助手', pic: 10}, {type: 'sw', title: '生物小研究员', pic: 11},{type: 'sw', title: '小生物学家', pic: 'l'}]
         return drr
       } else if(type === 'wl') {
-        let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 14}]
+        let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 14}, {type: 'wl', title: '小物理学家', pic: 'o'}]
         return err
       } else {}
     } else if(key >= 3){
-        if(type === 'gc') {
+        if(type === 'gc') {   
           let arr = [{type: 'gc', title: '工程小助手', pic: 1}, {type: 'gc', title: '工程小研究员', pic: 2}, {type: 'gc', title: '小工程学家', pic: 3}]
           return arr
         } else if(type === 'hx') {
@@ -150,6 +151,23 @@ class myAchievements extends Component {
           let err = [{type: 'wl', title: '物理小助手', pic: 13}, {type: 'wl', title: '物理小研究员', pic: 14}, {type: 'wl', title: '小物理学家', pic: 15}]
           return err
         } else {}
+    } else if(key == 0){
+      if(type === 'gc') {
+        let arr = [{type: 'gc', title: '工程小助手', pic: 'a'}, {type: 'gc', title: '工程小研究员', pic: 'b'}, {type: 'gc', title: '小工程学家', pic: 'c'}]
+        return arr
+      } else if(type === 'hx') {
+        let brr = [{type: 'hx', title: '化学小助手', pic: 'd'}, {type: 'hx', title: '化学小研究员', pic: 'e'}, {type: 'hx', title: '小化学家', pic: 'f'}]
+        return brr
+      } else if(type === 'kx') {
+        let crr = [{type: 'kx', title: '科学小助手', pic: 'g'}, {type: 'kx', title: '科学小研究员', pic: 'h'}, {type: 'kx', title: '小科学家', pic: 'i'}]
+        return crr
+      } else if(type === 'sw') {
+        let drr = [{type: 'sw', title: '生物小助手', pic: 'j'}, {type: 'sw', title: '生物小研究员', pic: 'k'}, {type: 'sw', title: '小生物学家', pic: 'l'}]
+        return drr
+      } else if(type === 'wl') {
+        let err = [{type: 'wl', title: '物理小助手', pic: 'm'}, {type: 'wl', title: '物理小研究员', pic: 'n'}, {type: 'wl', title: '小物理学家', pic: 'o'}]
+        return err
+      } else {}
     }
   }
 
@@ -195,7 +213,7 @@ class myAchievements extends Component {
                   <View className='badge'>
                     <View className='heads'>
                       <View className='lefts'>
-                        获得徽章<Text>{listBox.length}</Text>/15
+                        获得徽章<Text>{this.state.nums}</Text>/15
                       </View>
                       <View className='rights' onClick={this.linkToRules}>
                         <Text>徽章规则</Text>
@@ -229,7 +247,7 @@ class myAchievements extends Component {
                     ))
                   }
                   {
-                    listWrap.length === 0 && <View className='dengji'>--暂无等级--</View>
+                    (!listWrap || listWrap.length === 0) && <View className='dengji'>--你还没有答题，通过答题可以获得等级哦--</View>
                   }
                 </AtTabsPane>
               ))

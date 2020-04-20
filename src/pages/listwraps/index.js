@@ -15,11 +15,15 @@ let manager = plugin.getRecordRecognitionManager()
 // const innerAudioContext = wx.createInnerAudioContext();
 
 var innerAudioContext = null  //播发器
+var innerAudioPlay = null  //播发器
 if (wx.createInnerAudioContext) {
   innerAudioContext = wx.createInnerAudioContext()  //微信内部的audio
   innerAudioContext.obeyMuteSwitch = false //不遵循静音开关,即静音下也能播放
+  innerAudioPlay = wx.createInnerAudioContext()  //微信内部的audio
+  innerAudioPlay.obeyMuteSwitch = false //不遵循静音开关,即静音下也能播放
 } else {
   this.innerAudioContext = wx.createAudioContext('playerWord') //页面中的audio组件
+  this.innerAudioPlay = wx.createAudioContext('playerWord') //页面中的audio组件
 }
 
 
@@ -154,9 +158,13 @@ class Link extends Component {
             fc: true,
             dia: true
           })
+          innerAudioContext.stop()
+          innerAudioPlay.autoplay = true
+          innerAudioPlay.src = 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppAssets/wrongAudio.mp3'
+          innerAudioPlay.play()
           setTimeout(function() {
             _this.close()
-          }, 800)
+          }, 1000)
       } else if((v.className !== 'sea' || v.className === 'seaActive') && v.result) {
         // 正确答案
         // v.className='seaActive'
@@ -164,6 +172,10 @@ class Link extends Component {
           fc: true,
           dib: true
         })
+        innerAudioContext.stop()
+        innerAudioPlay.autoplay = true
+        innerAudioPlay.src = 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppAssets/correctAudio.mp3'
+        innerAudioPlay.play()
         setTimeout(function() {
           if((current+1) % 5 == 0 && current > 0) {
             let dat = datas.slice(current-4, current+1)
@@ -181,6 +193,7 @@ class Link extends Component {
             })
 
           }
+          // 答完最后一道题
           if(current == (datas.length-1)) {
             API.get('api/v1/samll/itemcompileinfo/data', {
               userId: Taro.getStorageSync('userid'),
@@ -190,9 +203,14 @@ class Link extends Component {
                 fc: false,
                 dib: false
               })
-              Taro.navigateTo({
-                url:'/pages/results/index'
-              })
+              setTimeout(function() {
+                Taro.navigateTo({
+                  url:'/pages/results/index'
+                })
+                innerAudioPlay.autoplay = true
+                innerAudioPlay.src = 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppAssets/finishAudio.mp3'
+                innerAudioPlay.play()
+              }, 800)
             })
           } else {
             innerAudioContext.stop()
@@ -202,8 +220,12 @@ class Link extends Component {
               dib: false,
               submit: false
             })
+            // innerAudioPlay.autoplay = true
+            // innerAudioPlay.src = 'https://mm-resource.oss-cn-beijing.aliyuncs.com/miniAppAssets/finishAudio.mp3'
+            // innerAudioPlay.play()
           }
-        }, 500)
+
+        }, 3000)
       } else {}
     })
     this.setState({
